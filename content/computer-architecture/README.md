@@ -15,3 +15,4 @@ Archived supporting knowledge covering how software executes on processors, memo
 ## Modules
 
 - [How Computers Execute Programs](./ca-101/README.md) — paused
+- [Processor Architecture](./ca-201/README.md) — paused
