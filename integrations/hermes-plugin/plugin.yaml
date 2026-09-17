@@ -2,3 +2,14 @@ name: study-system
 version: "1.0.0"
 description: "Study System bridge: next/start/end lessons, ratings, Q&A, flashcard review, explicit canonical content updates, and course-level Habit Tracker time links via the Study System HTTP integration API."
 author: "John Driscoll"
+provides_tools:
+  - list_courses
+  - next_lesson
+  - start_lesson
+  - end_lesson
+  - rate_lesson
+  - record_qa
+  - due_flashcards
+  - review_flashcard
+  - update_lesson_content
+  - link_study_time
