@@ -18,3 +18,4 @@ The causes, mechanisms, consequences, and historical debates of industrialisatio
 - [First Industrial Revolution](./hist-m201/README.md) — queued
 - [Society Transformed](./hist-m301/README.md) — queued
 - [Ideas and Institutions](./hist-m401/README.md) — queued
+- [The Second Industrial Revolution and Globalisation](./hist-m501/README.md) — queued
