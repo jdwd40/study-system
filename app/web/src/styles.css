@@ -266,12 +266,23 @@ h2 { font-size: 1.2rem; margin: 2rem 0 0.75rem; line-height: 1.35; text-wrap: ba
   margin: 1.25rem 0;
 }
 .concept-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.6rem; padding: 0; list-style: none; }
-.concept-grid li {
+.concept-grid li { margin: 0; }
+.concept-btn {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 0.15rem;
+  width: 100%; min-height: 44px;
   background: var(--surface-soft);
+  border: 1px solid var(--line);
   border-radius: 10px;
   padding: 0.6rem 0.8rem;
-  font-size: 0.92rem;
+  font-family: var(--font); font-size: 0.92rem; color: var(--ink);
+  text-align: left; cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
 }
+.concept-btn:hover { border-color: var(--accent); box-shadow: var(--shadow); }
+.concept-btn:active { transform: translateY(1px); }
+.concept-term { font-weight: 600; overflow-wrap: anywhere; }
+.concept-hint { font-size: 0.74rem; color: var(--accent-strong); }
+.concept-btn-plain .concept-hint { color: var(--ink-faint); }
 .prose p { margin: 0.85rem 0; }
 .prose ul { padding-left: 1.3rem; }
 
@@ -307,6 +318,40 @@ h2 { font-size: 1.2rem; margin: 2rem 0 0.75rem; line-height: 1.35; text-wrap: ba
   width: 100%;
   box-shadow: var(--shadow);
 }
+
+/* Tutor-style key-concept explainer */
+.concept-modal { padding: 0; overflow: hidden; max-width: 480px; }
+.concept-modal-head {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
+  color: #fff;
+  padding: 1.1rem 1.25rem;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
+}
+.concept-eyebrow {
+  margin: 0 0 0.25rem;
+  font-size: 0.72rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  opacity: 0.85;
+}
+.concept-modal-title { margin: 0; font-size: 1.3rem; line-height: 1.3; overflow-wrap: anywhere; }
+.concept-close {
+  flex: none;
+  width: 44px; height: 44px; margin: -0.5rem -0.6rem 0 0;
+  border: none; border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16); color: #fff;
+  font-size: 1.5rem; line-height: 1; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.concept-close:hover { background: rgba(255, 255, 255, 0.3); }
+.concept-modal-body { padding: 1.25rem; }
+.concept-explainer { margin: 0; font-size: 1.02rem; line-height: 1.6; overflow-wrap: anywhere; }
+.concept-fallback { color: var(--ink-soft); }
+.concept-modal-note { margin: 1rem 0 0; font-size: 0.78rem; color: var(--ink-faint); }
+@media (max-width: 480px) {
+  .concept-modal { max-width: 100%; }
+  .concept-modal-head { padding: 1rem; }
+  .concept-modal-body { padding: 1rem; }
+}
 .rating-row { display: flex; gap: 0.4rem; margin: 0.5rem 0 1rem; }
 .rating-btn {
   width: 44px; height: 44px;
@@ -331,10 +376,11 @@ h2 { font-size: 1.2rem; margin: 2rem 0 0.75rem; line-height: 1.35; text-wrap: ba
   color: var(--ink);
   min-height: 44px;
 }
-.input:focus-visible, .btn:focus-visible, .accordion-trigger:focus-visible, a:focus-visible, .grade-btn:focus-visible, .rating-btn:focus-visible {
+.input:focus-visible, .btn:focus-visible, .accordion-trigger:focus-visible, a:focus-visible, .grade-btn:focus-visible, .rating-btn:focus-visible, .concept-btn:focus-visible, .concept-close:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
+.concept-close:focus-visible { outline-color: #fff; }
 
 .list-plain { list-style: none; padding: 0; margin: 0; }
 .list-plain li { padding: 0.45rem 0; border-bottom: 1px solid var(--line); }

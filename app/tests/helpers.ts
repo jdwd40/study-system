@@ -33,7 +33,7 @@ export function makeLesson(overrides: Partial<LessonDoc> = {}): LessonDoc {
     order: 1,
     objective: 'Learn the first thing.',
     content: 'Some content.',
-    keyConcepts: ['Concept A'],
+    keyConcepts: [{ term: 'Concept A' }],
     examples: ['Example A'],
     takeaways: ['Takeaway A'],
     sources: ['Source A'],

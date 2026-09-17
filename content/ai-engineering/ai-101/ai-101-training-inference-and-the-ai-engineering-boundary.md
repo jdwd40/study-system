@@ -23,11 +23,11 @@ The boundary matters because the disciplines differ. Training-side questions (ar
 
 ## Key Concepts
 
-- Training
-- Inference
-- Weights
-- Context versus fine-tuning
-- AI engineering boundary
+- Training :: Adjusting a model's weights using data and a loss signal; slow, expensive and done rarely.
+- Inference :: Running the frozen model to produce outputs; fast, repeated and what users touch.
+- Weights :: The model's learned parameters — changed by training or fine-tuning, never by context.
+- Context versus fine-tuning :: Context changes behaviour per request without touching weights; fine-tuning changes weights. Choose context first — it is cheaper, reversible and usually sufficient.
+- AI engineering boundary :: AI engineering is overwhelmingly inference-side work: context design, latency, cost, evaluation and failure modes around models others trained.
 
 ## Examples
 

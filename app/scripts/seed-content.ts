@@ -8,7 +8,7 @@
  */
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
-import { serializeCourse, serializeLesson, serializeModule } from '../src/shared/content.js';
+import { normalizeKeyConcepts, serializeCourse, serializeLesson, serializeModule } from '../src/shared/content.js';
 import type { CourseDoc, LessonDoc, ModuleDoc } from '../src/shared/types.js';
 import { moduleDirName } from '../src/shared/slug.js';
 
@@ -74,7 +74,7 @@ function lesson(courseId: string, moduleId: string, order: number, s: LessonSeed
   return {
     schemaVersion: 1, type: 'lesson', id: s.id, title: s.title, courseId, moduleId, order,
     estimatedMinutes: s.minutes, objective: s.objective, content: s.content,
-    keyConcepts: s.concepts, examples: s.examples, takeaways: s.takeaways, sources: s.sources,
+    keyConcepts: normalizeKeyConcepts(s.concepts), examples: s.examples, takeaways: s.takeaways, sources: s.sources,
     flashcards: s.cards.map(([q, a]) => ({ q, a })), revisionQuestions: s.questions,
   };
 }

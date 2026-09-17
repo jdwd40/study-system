@@ -23,11 +23,11 @@ Dependency direction is a design choice, not an accident. High-level policy shou
 
 ## Key Concepts
 
-- Module boundary
-- Interface/contract
-- Dependency direction
-- Dependency inversion
-- Stability
+- Module boundary :: A unit with one responsibility and a boundary that hides how it fulfils it.
+- Interface/contract :: What callers may rely on at a boundary — and nothing more.
+- Dependency direction :: A design choice, not an accident: high-level policy should not depend on low-level detail.
+- Dependency inversion :: The policy defines the interface and the detail implements it, reversing the dependency.
+- Stability :: Point dependencies toward stable policy, away from volatile detail.
 
 ## Examples
 

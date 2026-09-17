@@ -23,11 +23,11 @@ Requirements drive architecture. Functional requirements say what the system mus
 
 ## Key Concepts
 
-- Software architecture
-- Implementation detail
-- Functional requirements
-- Non-functional requirements
-- Constraints
+- Software architecture :: The decisions that are expensive to change: structure, boundaries, constraints and the reasoning behind them.
+- Implementation detail :: What can change inside the boundaries without altering the system's essential shape.
+- Functional requirements :: What the system must do — its behaviour.
+- Non-functional requirements :: Qualities constraining how the system may do it — performance, reliability, security, operability.
+- Constraints :: The limits that shape design; non-functional requirements usually decide between candidate architectures.
 
 ## Examples
 

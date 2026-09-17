@@ -23,11 +23,11 @@ Separation of concerns assigns each responsibility to exactly one place. Abstrac
 
 ## Key Concepts
 
-- Coupling
-- Cohesion
-- Separation of concerns
-- Abstraction
-- Encapsulation
+- Coupling :: How much one part of a system must know about another part's details.
+- Cohesion :: How strongly the contents of one module belong to the same responsibility.
+- Separation of concerns :: Assigning each responsibility to exactly one place.
+- Abstraction :: Hiding detail behind a stable contract.
+- Encapsulation :: Stopping outside code from depending on what is hidden.
 
 ## Examples
 

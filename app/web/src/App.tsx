@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, NavLink, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
 import { api, ApiError } from './api';
+import type { KeyConcept } from '../../src/shared/types.js';
 
 /* ---------- shared bits ---------- */
 
@@ -289,6 +290,74 @@ function CoursePage() {
   );
 }
 
+/**
+ * Tutor-style key-concept explainer. Colourful and friendly, not an admin
+ * dialog: labelled heading, close button, Escape/backdrop close, a light focus
+ * trap, and initial focus on the close button. The opener restores focus.
+ */
+function ConceptModal({ concept, lessonTitle, onClose }: { concept: KeyConcept; lessonTitle: string; onClose: () => void }) {
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
+
+  useEffect(() => {
+    closeRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onCloseRef.current();
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, []);
+
+  const trapTab = (e: React.KeyboardEvent) => {
+    if (e.key !== 'Tab' || !modalRef.current) return;
+    const focusables = modalRef.current.querySelectorAll<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+    );
+    if (focusables.length === 0) return;
+    const first = focusables[0]!;
+    const last = focusables[focusables.length - 1]!;
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  };
+
+  return (
+    <div
+      className="modal-backdrop"
+      onClick={(e) => { if (e.target === e.currentTarget) onCloseRef.current(); }}
+      onKeyDown={trapTab}
+    >
+      <div className="modal concept-modal" role="dialog" aria-modal="true" aria-labelledby="concept-modal-title" ref={modalRef}>
+        <div className="concept-modal-head">
+          <div>
+            <p className="concept-eyebrow">Key concept · {lessonTitle}</p>
+            <h2 className="concept-modal-title" id="concept-modal-title">{concept.term}</h2>
+          </div>
+          <button type="button" className="concept-close" onClick={() => onCloseRef.current()} aria-label="Close explainer" ref={closeRef}>
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div className="concept-modal-body">
+          {concept.explanation ? (
+            <p className="concept-explainer">{concept.explanation}</p>
+          ) : (
+            <p className="concept-explainer concept-fallback">
+              No quick explainer for this one yet — the lesson content, examples and flashcards are the best place to pin it down.
+            </p>
+          )}
+          <p className="concept-modal-note">Explainers come straight from the lesson's own notes.</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function LessonPage() {
   const { lessonId } = useParams();
   const { data, error, loading, reload } = useData<any>(`/lessons/${lessonId}`);
@@ -298,10 +367,26 @@ function LessonPage() {
   const [userRating, setUserRating] = useState<number | null>(null);
   const [busy, setBusy] = useState(false);
   const [actionError, setActionError] = useState<unknown>(null);
+  const [openConcept, setOpenConcept] = useState<KeyConcept | null>(null);
+  /**
+   * Opener element captured at click time. Focus is restored post-commit via
+   * the effect below — deliberately not requestAnimationFrame, which may never
+   * fire in occluded/backgrounded tabs, silently dropping focus restoration.
+   */
+  const returnFocusRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    if (openConcept) return;
+    const opener = returnFocusRef.current;
+    returnFocusRef.current = null;
+    if (opener && opener.isConnected) opener.focus();
+  }, [openConcept]);
 
   if (loading) return <Spinner />;
   if (error) return <Err error={error} />;
   const { lesson, state, activeAttempt, qa } = data!;
+
+  const closeConcept = () => setOpenConcept(null);
 
   const act = async (fn: () => Promise<unknown>) => {
     setBusy(true); setActionError(null);
@@ -331,7 +416,22 @@ function LessonPage() {
       <div className="callout"><strong>Objective.</strong> {lesson.objective}</div>
       <div className="prose" dangerouslySetInnerHTML={{ __html: md(lesson.content) }} />
       <h2>Key concepts</h2>
-      <ul className="concept-grid">{lesson.keyConcepts.map((k: string) => <li key={k}>{k}</li>)}</ul>
+      <p className="meta">Tap any concept for a quick, plain-language explainer.</p>
+      <ul className="concept-grid">
+        {lesson.keyConcepts.map((k: KeyConcept) => (
+          <li key={k.term}>
+            <button
+              type="button"
+              className={`concept-btn${k.explanation ? '' : ' concept-btn-plain'}`}
+              aria-haspopup="dialog"
+              onClick={(e) => { returnFocusRef.current = e.currentTarget; setOpenConcept(k); }}
+            >
+              <span className="concept-term">{k.term}</span>
+              <span className="concept-hint">{k.explanation ? 'Quick explainer →' : 'No explainer yet'}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
       <h2>Examples</h2>
       <ul>{lesson.examples.map((e: string) => <li key={e}>{e}</li>)}</ul>
       <h2>Takeaways</h2>
@@ -364,6 +464,7 @@ function LessonPage() {
           </ul>
         </>
       )}
+      {openConcept && <ConceptModal concept={openConcept} lessonTitle={lesson.title} onClose={closeConcept} />}
       {ending && (
         <div className="modal-backdrop" role="dialog" aria-modal="true" aria-label="End lesson">
           <div className="modal">
@@ -446,6 +547,9 @@ function ReviewPage() {
 
 const lines = (s: string) => s.split('\n').map((l) => l.trim()).filter(Boolean);
 const unlines = (a: string[]) => a.join('\n');
+/** Concepts edit as "Term" or "Term :: explanation" lines (canonical form). */
+const conceptsToText = (cs: KeyConcept[]) =>
+  cs.map((c) => (c.explanation ? `${c.term} :: ${c.explanation}` : c.term)).join('\n');
 const cardsToText = (cards: { q: string; a: string }[]) => cards.map((c) => `Q: ${c.q} | A: ${c.a}`).join('\n');
 const textToCards = (s: string) =>
   lines(s).map((l) => {
@@ -560,7 +664,7 @@ function LessonForm({ courseId, moduleId, modules, initial, onDone, onClose }: {
     courseId: initial?.courseId ?? courseId, moduleId: initial?.moduleId ?? moduleId,
     order: initial?.order ?? 1, estimatedMinutes: initial?.estimatedMinutes ?? '',
     objective: initial?.objective ?? '', content: initial?.content ?? '',
-    keyConcepts: unlines(initial?.keyConcepts ?? []), examples: unlines(initial?.examples ?? []),
+    keyConcepts: conceptsToText(initial?.keyConcepts ?? []), examples: unlines(initial?.examples ?? []),
     takeaways: unlines(initial?.takeaways ?? []), sources: unlines(initial?.sources ?? []),
     flashcards: cardsToText(initial?.flashcards ?? []), revisionQuestions: unlines(initial?.revisionQuestions ?? []),
   });
@@ -603,7 +707,7 @@ function LessonForm({ courseId, moduleId, modules, initial, onDone, onClose }: {
         </div>
         <Field label="Objective"><textarea className="input" value={form.objective} onChange={(e) => setForm({ ...form, objective: e.target.value })} required /></Field>
         <Field label="Content (Markdown)"><textarea className="input input-tall" value={form.content} onChange={(e) => setForm({ ...form, content: e.target.value })} required /></Field>
-        <Field label="Key concepts (one per line)"><textarea className="input" value={form.keyConcepts} onChange={(e) => setForm({ ...form, keyConcepts: e.target.value })} /></Field>
+        <Field label="Key concepts (one per line, optional 'Term :: short explanation')"><textarea className="input" value={form.keyConcepts} onChange={(e) => setForm({ ...form, keyConcepts: e.target.value })} placeholder={'Software architecture\nCoupling :: How much one part must know about another.'} /></Field>
         <Field label="Examples (one per line)"><textarea className="input" value={form.examples} onChange={(e) => setForm({ ...form, examples: e.target.value })} /></Field>
         <Field label="Takeaways (one per line)"><textarea className="input" value={form.takeaways} onChange={(e) => setForm({ ...form, takeaways: e.target.value })} /></Field>
         <Field label="Sources and further reading (one per line)"><textarea className="input" value={form.sources} onChange={(e) => setForm({ ...form, sources: e.target.value })} /></Field>

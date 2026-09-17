@@ -23,12 +23,12 @@ The system's defining dependency was bronze: copper largely from Cyprus, tin fro
 
 ## Key Concepts
 
-- Palace economy
-- Great powers' club
-- Amarna letters
-- Bronze supply chain (copper/tin)
-- Interdependence
-- Evidence grading
+- Palace economy :: A palace-centred state concentrating redistribution, craft and long-distance trade.
+- Great powers' club :: The major powers trading gifts, grain and marriage alliances, shown by the Amarna correspondence.
+- Amarna letters :: Primary-source diplomatic letters between Egypt and other great powers, c. 1360–1330 BCE.
+- Bronze supply chain (copper/tin) :: Bronze needs copper (largely from Cyprus) and tin (from distant eastern sources), making long-distance trade strategically vital.
+- Interdependence :: The powers relied on each other, so disruption to trade or one major node could propagate through the whole network.
+- Evidence grading :: Separating what sources attest from what historians infer — primary evidence, consensus, interpretation and speculation.
 
 ## Examples
 

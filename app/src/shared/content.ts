@@ -11,6 +11,7 @@ import {
   SCHEMA_VERSION,
   type CourseDoc,
   type Flashcard,
+  type KeyConcept,
   type LessonDoc,
   type ModuleDoc,
   type ValidationIssue,
@@ -175,6 +176,55 @@ export function parseBullets(section: string): string[] {
     .filter((s) => s.length > 0);
 }
 
+/**
+ * Parse one key-concept line in the canonical form:
+ *   "Term"                      -> { term }
+ *   "Term :: short explanation" -> { term, explanation }
+ * Only the first "::" splits term from explanation, so explanations may
+ * contain colons. A trailing separator with empty text counts as no
+ * explanation. Plain legacy bullets parse unchanged.
+ */
+export function parseConceptLine(line: string): KeyConcept {
+  const text = line.trim();
+  const idx = text.indexOf('::');
+  if (idx === -1) return { term: text };
+  const term = text.slice(0, idx).trim();
+  const explanation = text.slice(idx + 2).trim();
+  return explanation ? { term, explanation } : { term };
+}
+
+/** Serialise one concept to its canonical bullet text (no leading "- "). */
+export function conceptToBullet(concept: KeyConcept): string {
+  const explanation = concept.explanation?.trim();
+  return explanation ? `${concept.term} :: ${explanation}` : concept.term;
+}
+
+/**
+ * Normalise arbitrary API input into KeyConcept[].
+ * Accepts legacy string arrays (parsed with parseConceptLine) and structured
+ * { term, explanation } objects; entries without a usable term are dropped.
+ */
+export function normalizeKeyConcepts(input: unknown): KeyConcept[] {
+  if (!Array.isArray(input)) return [];
+  const out: KeyConcept[] = [];
+  for (const item of input) {
+    if (typeof item === 'string') {
+      const concept = parseConceptLine(item);
+      if (concept.term) out.push(concept);
+      continue;
+    }
+    if (item !== null && typeof item === 'object' && !Array.isArray(item)) {
+      const raw = item as Record<string, unknown>;
+      const term = typeof raw['term'] === 'string' ? raw['term'].trim() : '';
+      if (!term) continue;
+      const explanation =
+        typeof raw['explanation'] === 'string' ? raw['explanation'].trim() : '';
+      out.push(explanation ? { term, explanation } : { term });
+    }
+  }
+  return out;
+}
+
 /** Parse flashcards: "- Q: question" followed by an indented "A: answer" line. */
 export function parseFlashcards(section: string, path: string, issues: ValidationIssue[]): Flashcard[] {
   const cards: Flashcard[] = [];
@@ -251,7 +301,7 @@ export function parseLesson(raw: string, path = '<memory>'): LessonDoc {
       typeof fm['estimated_minutes'] === 'number' ? (fm['estimated_minutes'] as number) : undefined,
     objective: sections.get('Objective') ?? '',
     content: sections.get('Content') ?? '',
-    keyConcepts: parseBullets(sections.get('Key Concepts') ?? ''),
+    keyConcepts: parseBullets(sections.get('Key Concepts') ?? '').map(parseConceptLine),
     examples: parseBullets(sections.get('Examples') ?? ''),
     takeaways: parseBullets(sections.get('Takeaways') ?? ''),
     sources: parseBullets(sections.get('Sources and Further Reading') ?? ''),
@@ -344,11 +394,12 @@ export function serializeLesson(doc: LessonDoc): string {
   };
   if (doc.estimatedMinutes !== undefined) fm['estimated_minutes'] = doc.estimatedMinutes;
   const bullets = (items: string[]) => items.map((i) => `- ${i}`).join('\n');
+  const conceptBullets = (items: KeyConcept[]) => items.map((i) => `- ${conceptToBullet(i)}`).join('\n');
   const cards = doc.flashcards.map((c) => `- Q: ${c.q}\n  A: ${c.a}`).join('\n');
   return (
     fmBlock(fm) +
     `\n# ${doc.title}\n\n## Objective\n\n${doc.objective}\n\n## Content\n\n${doc.content}\n\n` +
-    `## Key Concepts\n\n${bullets(doc.keyConcepts)}\n\n## Examples\n\n${bullets(doc.examples)}\n\n` +
+    `## Key Concepts\n\n${conceptBullets(doc.keyConcepts)}\n\n## Examples\n\n${bullets(doc.examples)}\n\n` +
     `## Takeaways\n\n${bullets(doc.takeaways)}\n\n## Sources and Further Reading\n\n${bullets(doc.sources)}\n\n` +
     `## Flashcards\n\n${cards}\n\n## Revision Questions\n\n${bullets(doc.revisionQuestions)}\n`
   );

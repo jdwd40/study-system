@@ -2,7 +2,7 @@ import express, { type Express, type Request, type Response } from 'express';
 import type { AppConfig } from './config.js';
 import type { StudyRepo } from './repo.js';
 import type { ContentStore } from './contentStore.js';
-import { ContentError } from '../shared/content.js';
+import { ContentError, normalizeKeyConcepts } from '../shared/content.js';
 import { GitSync, SyncError } from './gitSync.js';
 import { LessonService, ServiceError, londonToday } from './lessonService.js';
 import { StructureService } from './structureService.js';
@@ -176,7 +176,7 @@ export function buildApp(deps: AppDeps): Express {
       : {}),
     ...(body.objective !== undefined ? { objective: String(body.objective) } : {}),
     ...(body.content !== undefined ? { content: String(body.content) } : {}),
-    ...(body.keyConcepts !== undefined ? { keyConcepts: body.keyConcepts as string[] } : {}),
+    ...(body.keyConcepts !== undefined ? { keyConcepts: normalizeKeyConcepts(body.keyConcepts) } : {}),
     ...(body.examples !== undefined ? { examples: body.examples as string[] } : {}),
     ...(body.takeaways !== undefined ? { takeaways: body.takeaways as string[] } : {}),
     ...(body.sources !== undefined ? { sources: body.sources as string[] } : {}),
@@ -214,7 +214,7 @@ export function buildApp(deps: AppDeps): Express {
       estimatedMinutes: body.estimatedMinutes ?? undefined,
       objective: String(body.objective ?? ''),
       content: String(body.content ?? ''),
-      keyConcepts: body.keyConcepts ?? [],
+      keyConcepts: normalizeKeyConcepts(body.keyConcepts),
       examples: body.examples ?? [],
       takeaways: body.takeaways ?? [],
       sources: body.sources ?? [],

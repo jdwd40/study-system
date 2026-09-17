@@ -23,11 +23,11 @@ Notably, the rivalry ended in system-maintenance: the Egyptian–Hittite peace t
 
 ## Key Concepts
 
-- Levantine corridor
-- Battle of Kadesh
-- Propaganda versus evidence
-- Egyptian–Hittite peace treaty
-- Client states
+- Levantine corridor :: Canaan and coastal Syria — the contested buffer between Egyptian and Hittite spheres, holding trade routes, tribute and military depth.
+- Battle of Kadesh :: The rivalry's peak (c. 1274 BCE); Egyptian records present it as triumph, but the evidence supports a costly stalemate.
+- Propaganda versus evidence :: Victory monuments are primary evidence for what a power claimed, not for what happened — read them as claims, not facts.
+- Egyptian–Hittite peace treaty :: The treaty of c. 1259 BCE, surviving in both Egyptian and Hittite versions — rare paired primary evidence of great powers managing rivalry diplomatically.
+- Client states :: The small Levantine states whose loyalty shifted with great-power pressure.
 
 ## Examples
 

@@ -23,11 +23,11 @@ Embeddings power retrieval: embed documents once, embed the query at runtime, fi
 
 ## Key Concepts
 
-- Embedding
-- Vector space
-- Cosine similarity
-- Semantic search
-- Retrieval-augmented generation
+- Embedding :: A vector that encodes a text's meaning, so similar meanings sit close together.
+- Vector space :: The high-dimensional space embeddings live in, where semantic similarity becomes geometric proximity.
+- Cosine similarity :: The measure used to find the nearest neighbours to a query embedding.
+- Semantic search :: Search by meaning: finding texts about the same thing even with no shared words.
+- Retrieval-augmented generation :: Embed documents, retrieve the nearest neighbours to the query, and place them in the model's context — grounding answers without fine-tuning.
 
 ## Examples
 

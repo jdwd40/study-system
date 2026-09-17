@@ -11,6 +11,17 @@ export interface Flashcard {
   a: string;
 }
 
+/**
+ * A key concept with an optional short, high-level explanation shown in the
+ * lesson reading page popup. Canonical Markdown form:
+ *   - Term :: short explanation
+ * Plain "- Term" bullets remain valid and simply have no explanation.
+ */
+export interface KeyConcept {
+  term: string;
+  explanation?: string;
+}
+
 export interface LessonDoc {
   schemaVersion: number;
   type: 'lesson';
@@ -22,7 +33,7 @@ export interface LessonDoc {
   estimatedMinutes?: number;
   objective: string;
   content: string;
-  keyConcepts: string[];
+  keyConcepts: KeyConcept[];
   examples: string[];
   takeaways: string[];
   sources: string[];

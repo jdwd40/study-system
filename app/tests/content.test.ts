@@ -71,7 +71,7 @@ describe('parseLesson', () => {
       a: 'The important structural decisions of a system.',
     });
     expect(doc.revisionQuestions).toEqual(['How does architecture differ from implementation?']);
-    expect(doc.keyConcepts).toContain('Software architecture');
+    expect(doc.keyConcepts).toContainEqual({ term: 'Software architecture' });
   });
 
   it('rejects private/runtime front matter fields', () => {
