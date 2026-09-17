@@ -16,3 +16,4 @@ The causes, mechanisms, consequences, and historical debates of industrialisatio
 
 - [Britain Before Industrialisation](./hist-m101/README.md) — queued
 - [First Industrial Revolution](./hist-m201/README.md) — queued
+- [Society Transformed](./hist-m301/README.md) — queued
