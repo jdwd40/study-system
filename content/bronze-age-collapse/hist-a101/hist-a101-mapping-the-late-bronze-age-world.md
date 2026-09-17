@@ -23,12 +23,12 @@ The system's defining dependency was bronze: copper largely from Cyprus, tin fro
 
 ## Key Concepts
 
-- Palace economy :: A palace-centred state concentrating redistribution, craft and long-distance trade.
-- Great powers' club :: The major powers trading gifts, grain and marriage alliances, shown by the Amarna correspondence.
-- Amarna letters :: Primary-source diplomatic letters between Egypt and other great powers, c. 1360–1330 BCE.
-- Bronze supply chain (copper/tin) :: Bronze needs copper (largely from Cyprus) and tin (from distant eastern sources), making long-distance trade strategically vital.
-- Interdependence :: The powers relied on each other, so disruption to trade or one major node could propagate through the whole network.
-- Evidence grading :: Separating what sources attest from what historians infer — primary evidence, consensus, interpretation and speculation.
+- Palace economy :: A palace-centred state concentrating redistribution, craft and long-distance trade. That concentration made each state rich, but tightly dependent on the trade network.
+- Great powers' club :: The major powers trading gifts, grain and marriage alliances, shown by the Amarna correspondence. Their mutual reliance brought prosperity — and a shared vulnerability if one node failed.
+- Amarna letters :: Primary-source diplomatic letters between Egypt and other great powers, c. 1360–1330 BCE. They are the clearest direct evidence of how the system actually worked.
+- Bronze supply chain (copper/tin) :: Bronze needs copper (largely from Cyprus) and tin (from distant eastern sources), making long-distance trade strategically vital. No single region had both metals, so every palace economy depended on the same far-flung routes.
+- Interdependence :: The powers relied on each other, so disruption to trade or one major node could propagate through the whole network. This is why later lessons treat the collapse as a system failure, not a series of isolated ones.
+- Evidence grading :: Separating what sources attest from what historians infer — primary evidence, consensus, interpretation and speculation. It keeps strong claims anchored to sources and marks weaker ones honestly.
 
 ## Examples
 

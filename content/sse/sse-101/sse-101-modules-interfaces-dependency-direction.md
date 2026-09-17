@@ -23,11 +23,11 @@ Dependency direction is a design choice, not an accident. High-level policy shou
 
 ## Key Concepts
 
-- Module boundary :: A unit with one responsibility and a boundary that hides how it fulfils it.
-- Interface/contract :: What callers may rely on at a boundary — and nothing more.
-- Dependency direction :: A design choice, not an accident: high-level policy should not depend on low-level detail.
-- Dependency inversion :: The policy defines the interface and the detail implements it, reversing the dependency.
-- Stability :: Point dependencies toward stable policy, away from volatile detail.
+- Module boundary :: A unit with one responsibility and a boundary that hides how it fulfils it. Hiding the "how" lets the inside change without breaking callers.
+- Interface/contract :: What callers may rely on at a boundary — and nothing more. Anything not in the contract is free to change.
+- Dependency direction :: A design choice, not an accident: high-level policy should not depend on low-level detail. Otherwise a change in detail ripples into the policy that should stay stable.
+- Dependency inversion :: The policy defines the interface and the detail implements it, reversing the dependency. The policy stays in charge, and details like Stripe can be swapped behind it.
+- Stability :: Point dependencies toward stable policy, away from volatile detail. Then changes in volatile detail never force changes in stable policy.
 
 ## Examples
 

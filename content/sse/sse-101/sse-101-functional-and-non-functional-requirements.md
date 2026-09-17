@@ -23,10 +23,10 @@ Vague qualities are not requirements. "Fast" is not testable; "p95 read latency 
 
 ## Key Concepts
 
-- Functional requirement :: Describes behaviour: "the user can reset their password".
-- Non-functional requirement :: Describes a quality the behaviour must have: "password reset completes within two seconds under normal load".
-- Measurability :: A quality only guides design when it is testable — "p95 read latency under 300 ms at 100 rps", not "fast".
-- Quality trade-offs :: Every boundary and technology choice trades one quality against another.
+- Functional requirement :: Describes behaviour: "the user can reset their password". It says what the system must do, not how well.
+- Non-functional requirement :: Describes a quality the behaviour must have: "password reset completes within two seconds under normal load". These qualities usually decide between candidate architectures.
+- Measurability :: A quality only guides design when it is testable — "p95 read latency under 300 ms at 100 rps", not "fast". A vague quality can't be checked, so it can't shape real decisions.
+- Quality trade-offs :: Every boundary and technology choice trades one quality against another. Making the trade explicit is what turns a guess into an engineering decision.
 
 ## Examples
 

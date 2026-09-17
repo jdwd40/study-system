@@ -351,7 +351,6 @@ function ConceptModal({ concept, lessonTitle, onClose }: { concept: KeyConcept; 
               No quick explainer for this one yet — the lesson content, examples and flashcards are the best place to pin it down.
             </p>
           )}
-          <p className="concept-modal-note">Explainers come straight from the lesson's own notes.</p>
         </div>
       </div>
     </div>

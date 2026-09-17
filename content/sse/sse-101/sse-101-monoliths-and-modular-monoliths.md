@@ -23,11 +23,11 @@ Design for likely change, not imaginable change. Identify which parts change tog
 
 ## Key Concepts
 
-- Monolith :: A system that deploys as one unit.
-- Modular monolith :: A monolith that also enforces internal boundaries — separate modules with explicit interfaces and controlled dependencies.
-- Change isolation :: Enforced internal boundaries let parts change independently while keeping monolith simplicity and one deploy.
-- Premature distribution :: Paying the services tax — network failure, operational cost and consistency pain — before scaling or team boundaries demand it.
-- Module extraction path :: A module with a clean interface can be extracted into a service later; the boundary is the real investment.
+- Monolith :: A system that deploys as one unit. Simple to run and refactor, but internal structure can rot without enforced boundaries.
+- Modular monolith :: A monolith that also enforces internal boundaries — separate modules with explicit interfaces and controlled dependencies. It keeps one deploy while buying most of the change-isolation services promise.
+- Change isolation :: Enforced internal boundaries let parts change independently while keeping monolith simplicity and one deploy. One requirement then touches one module instead of the whole codebase.
+- Premature distribution :: Paying the services tax — network failure, operational cost and consistency pain — before scaling or team boundaries demand it. Pay that tax only when scaling or team boundaries actually require it.
+- Module extraction path :: A module with a clean interface can be extracted into a service later; the boundary is the real investment. Good boundaries keep that option open without paying for distribution today.
 
 ## Examples
 

@@ -23,11 +23,11 @@ There are no best architectures, only trade-offs fit to context. Every decision 
 
 ## Key Concepts
 
-- Technical debt :: A deliberate or accidental shortcut whose cost is paid later as slower change.
-- Interest :: The ongoing cost of debt, paid as slower change until the debt is serviced.
-- Explicit trade-off :: Stating in the open what a decision gains, what it gives up, and what would make you revisit it.
-- Reversibility :: How easily a decision can be revisited; a stated revisit trigger keeps a trade-off honest.
-- Architecture decision record :: A short record of the decision, context, options, the trade-off accepted, and what would trigger revisiting.
+- Technical debt :: A deliberate or accidental shortcut whose cost is paid later as slower change. Like financial debt it can be rational — the danger is taking it invisibly.
+- Interest :: The ongoing cost of debt, paid as slower change until the debt is serviced. Every new feature pays it until the debt is repaid.
+- Explicit trade-off :: Stating in the open what a decision gains, what it gives up, and what would make you revisit it. There are no best architectures, only trade-offs fit to context.
+- Reversibility :: How easily a decision can be revisited; a stated revisit trigger keeps a trade-off honest. Easy-to-reverse decisions need less ceremony than expensive ones.
+- Architecture decision record :: A short record of the decision, context, options, the trade-off accepted, and what would trigger revisiting. It turns a trade-off from a vibe into something the team can check later.
 
 ## Examples
 

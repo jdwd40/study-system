@@ -23,12 +23,12 @@ At heart an LLM does one thing: given a sequence of tokens, output a probability
 
 ## Key Concepts
 
-- Token :: A chunk of text (word piece, punctuation, space) from a fixed vocabulary — the model's actual input and output unit.
-- Tokenisation :: Splitting text into tokens with a tokeniser; code, other languages and unusual formatting tokenise very differently.
-- Vocabulary :: The fixed set of tokens a tokeniser can produce and a model can read.
-- Next-token prediction :: Given a sequence of tokens, outputting a probability distribution over the next token — the one thing an LLM does.
-- Sampling (temperature, top-p) :: How the next token is picked from the distribution; lower temperature means a more predictable pick.
-- Context window :: The hard bound on how many tokens the model can see at once; everything it knows about your problem must fit inside.
+- Token :: A chunk of text (word piece, punctuation, space) from a fixed vocabulary — the model's actual input and output unit. Token counts, not characters, define cost and context limits.
+- Tokenisation :: Splitting text into tokens with a tokeniser; code, other languages and unusual formatting tokenise very differently. So the same amount of text can cost very different token counts depending on what it contains.
+- Vocabulary :: The fixed set of tokens a tokeniser can produce and a model can read. Rare or unusual text gets broken into smaller pieces, often at extra token cost.
+- Next-token prediction :: Given a sequence of tokens, outputting a probability distribution over the next token — the one thing an LLM does. Dialogue, code and reasoning all emerge from iterating that single step and feeding the result back in.
+- Sampling (temperature, top-p) :: How the next token is picked from the distribution; lower temperature means a more predictable pick. Higher values make output more adventurous; lower values make it steadier.
+- Context window :: The hard bound on how many tokens the model can see at once; everything it knows about your problem must fit inside. Whatever doesn't fit simply isn't there for the model.
 
 ## Examples
 
