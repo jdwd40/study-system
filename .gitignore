@@ -1,0 +1,26 @@
+# Runtime/private data — never committed
+app/data/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Build output
+app/web/dist/
+app/dist-server/
+
+# Logs
+*.log
+
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+
+# OS/editor
+.DS_Store
