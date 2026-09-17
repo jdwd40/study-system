@@ -292,12 +292,31 @@ export class StudyRepo {
     return rows.map(toHabitLink);
   }
 
-  /** Study minutes per course for the last `days` days, from linked Habit Tracker entries. */
-  studyMinutesByCourse(sinceDate: string): { courseId: string; minutes: number }[] {
+  /**
+   * Study minutes per course from linked Habit Tracker entries.
+   * With `sinceDate`, only entries on/after that date count; without it,
+   * totals are all-time. Unmatched course ids are returned as-is — the
+   * service layer decides how to label them.
+   */
+  studyMinutesByCourse(sinceDate?: string): { courseId: string; minutes: number }[] {
+    if (sinceDate) {
+      const rows = this.db
+        .prepare('SELECT course_id AS courseId, SUM(minutes) AS minutes FROM habit_links WHERE entry_date >= ? GROUP BY course_id')
+        .all(sinceDate) as { courseId: string; minutes: number }[];
+      return rows;
+    }
     const rows = this.db
-      .prepare('SELECT course_id AS courseId, SUM(minutes) AS minutes FROM habit_links WHERE entry_date >= ? GROUP BY course_id')
-      .all(sinceDate) as { courseId: string; minutes: number }[];
+      .prepare('SELECT course_id AS courseId, SUM(minutes) AS minutes FROM habit_links GROUP BY course_id')
+      .all() as { courseId: string; minutes: number }[];
     return rows;
+  }
+
+  /** All-time study minutes for a single course, from linked Habit Tracker entries. */
+  studyMinutesForCourse(courseId: string): number {
+    const row = this.db
+      .prepare('SELECT COALESCE(SUM(minutes), 0) AS minutes FROM habit_links WHERE course_id = ?')
+      .get(courseId) as { minutes: number };
+    return row.minutes;
   }
 
   // ---- sync events ----------------------------------------------------------

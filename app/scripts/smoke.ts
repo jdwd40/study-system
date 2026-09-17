@@ -75,7 +75,16 @@ async function main(): Promise<void> {
     console.assert(health.ok, 'health');
 
     const courses = await (await req('/courses')).json();
-    if (courses.courses.length !== 3) throw new Error(`expected 3 courses, got ${courses.courses.length}`);
+    const courseIds = courses.courses.map((c: { id: string }) => c.id).sort();
+    const expected = ['ai-engineering', 'bronze-age-collapse', 'computer-architecture', 'industrial-revolution', 'sse'];
+    if (courses.courses.length !== expected.length || JSON.stringify(courseIds) !== JSON.stringify(expected)) {
+      throw new Error(`expected courses ${expected.join(',')}, got ${courseIds.join(',')}`);
+    }
+    // Status semantics: Industrial Revolution stays queued/paused, Computer Architecture archived —
+    // recorded time never makes a course active.
+    const byId = Object.fromEntries(courses.courses.map((c: { id: string; status: string }) => [c.id, c.status]));
+    if (byId['industrial-revolution'] !== 'paused') throw new Error(`industrial-revolution should be paused, got ${byId['industrial-revolution']}`);
+    if (byId['computer-architecture'] !== 'archived') throw new Error(`computer-architecture should be archived, got ${byId['computer-architecture']}`);
 
     const next = await (await req('/next-lesson')).json();
     if (!next.lesson) throw new Error('next-lesson returned null');
@@ -113,8 +122,14 @@ async function main(): Promise<void> {
 
     const dash = await (await req('/dashboard')).json();
     if (dash.studyTime.length !== 1) throw new Error('dashboard missing linked study time');
+    if (dash.studyTime[0].courseTitle !== 'Software Systems Engineering') {
+      throw new Error(`dashboard should map course id to title, got ${dash.studyTime[0].courseTitle}`);
+    }
+    if (dash.studyTimeTotalMinutes !== 25) throw new Error(`expected total 25 tracked minutes, got ${dash.studyTimeTotalMinutes}`);
+    const sseCard = dash.courses.find((c: { id: string }) => c.id === 'sse');
+    if (sseCard?.studyMinutes !== 25) throw new Error(`course card should carry 25 tracked minutes, got ${sseCard?.studyMinutes}`);
 
-    console.log('SMOKE OK: health, courses(3), lifecycle(start/end), habit-link(201), COURSE_REQUIRED(400), integration courses+due, dashboard study time');
+    console.log('SMOKE OK: health, courses(5 incl. industrial-revolution paused, computer-architecture archived), lifecycle(start/end), habit-link(201), COURSE_REQUIRED(400), integration courses+due, dashboard study time (title + total + course card)');
   } finally {
     proc.kill('SIGKILL');
     rmSync(dataDir, { recursive: true, force: true });

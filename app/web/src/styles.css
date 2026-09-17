@@ -140,6 +140,30 @@ h2 { font-size: 1.2rem; margin: 2rem 0 0.75rem; line-height: 1.35; text-wrap: ba
 .pill-active { background: var(--accent-soft); color: var(--accent-strong); }
 .pill-queued { background: var(--surface-soft); color: var(--ink-faint); }
 .pill-paused { background: var(--surface-soft); color: var(--ink-faint); }
+/* Archived: deliberately muted but still a pill — solid grey fill, inset ring,
+   text at 6.1:1 contrast on the fill (WCAG AA). */
+.pill-archived {
+  background: var(--line);
+  color: #49515d;
+  box-shadow: inset 0 0 0 1px rgba(35, 39, 46, 0.1);
+}
+
+/* Course card header: title wraps freely, status pill holds its shape and
+   top-right position instead of being pushed to a ragged line. */
+.course-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.2rem;
+}
+.course-card-head .card-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: break-word;
+}
+.course-card-head .pill { flex-shrink: 0; margin-top: 0.15rem; }
 
 .btn {
   display: inline-flex;
@@ -318,6 +342,62 @@ h2 { font-size: 1.2rem; margin: 2rem 0 0.75rem; line-height: 1.35; text-wrap: ba
 
 .meta { color: var(--ink-soft); font-size: 0.82rem; }
 .section-gap { margin-top: 2rem; }
+
+/* Tracker-backed study time */
+.course-card { border-left: 3px solid var(--accent); }
+.studytime-line { margin-top: 0.4rem; color: var(--accent-strong); font-weight: 600; }
+
+.studytime-card { max-width: 560px; }
+.studytime-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+.compass-motif { color: var(--accent); flex-shrink: 0; }
+
+.segbar {
+  display: flex;
+  height: 12px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--surface-soft);
+  margin-bottom: 0.75rem;
+}
+.segbar-seg { display: block; height: 100%; min-width: 0; }
+.seg-0 { background: #2f6f5e; }
+.seg-1 { background: #3a6ea6; }
+.seg-2 { background: #d9a441; }
+.seg-3 { background: #8a6fae; }
+.seg-4 { background: #b3541e; }
+
+.segbar-legend li { display: flex; align-items: center; gap: 0.55rem; padding: 0.35rem 0; }
+.segbar-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.segbar-label { flex: 1; min-width: 0; font-size: 0.92rem; }
+.segbar-val { font-weight: 600; font-size: 0.9rem; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+/* Course page metadata strip */
+.course-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 0.7rem 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+/* Lesson at-a-glance strip: breaks up the reading page with existing metadata */
+.lesson-glance {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0.75rem 0 0;
+}
+.lesson-glance span {
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
 
 .filter-row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
 .filter-row .input { width: auto; flex: 1; min-width: 140px; }

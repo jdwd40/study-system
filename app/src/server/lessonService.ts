@@ -11,6 +11,7 @@ import type {
   LessonState,
   ModuleDoc,
   QaEntry,
+  StudyTimeEntry,
 } from '../shared/types.js';
 
 export class ServiceError extends Error {
@@ -28,6 +29,8 @@ export interface CourseView extends CourseDoc {
   modules: (ModuleDoc & { lessons: (LessonDoc & { state: LessonState })[] })[];
   progress: CourseProgress;
   averageUserRating: number | null;
+  /** All-time tracker-backed study minutes for this course (from habit_links). Never hardcoded. */
+  studyMinutes: number;
 }
 
 export class LessonService {
@@ -79,6 +82,7 @@ export class LessonService {
       modules,
       progress,
       averageUserRating: ratings.length > 0 ? ratings.reduce((a, b) => a + b, 0) / ratings.length : null,
+      studyMinutes: this.repo.studyMinutesForCourse(course.id),
     };
   }
 
@@ -269,8 +273,17 @@ export class LessonService {
         userRating: s.userRating,
       }));
 
-    const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
-    const studyTime = this.repo.studyMinutesByCourse(since);
+    // Tracker-backed study time (all time, from habit_links). Course titles are
+    // resolved from canonical content; unmatched course ids keep courseTitle
+    // null rather than being fabricated or dropped.
+    const studyTime: StudyTimeEntry[] = this.repo
+      .studyMinutesByCourse()
+      .map((s) => ({
+        ...s,
+        courseTitle: tree.courses.find((c) => c.id === s.courseId)?.title ?? null,
+      }))
+      .sort((a, b) => b.minutes - a.minutes);
+    const studyTimeTotalMinutes = studyTime.reduce((sum, s) => sum + s.minutes, 0);
     const trend = this.repo
       .allLessonStates()
       .filter((s) => s.userRating !== null)
@@ -294,9 +307,11 @@ export class LessonService {
         status: c.status,
         progress: c.progress,
         averageUserRating: c.averageUserRating,
+        studyMinutes: c.studyMinutes,
       })),
       weakAreas,
       studyTime,
+      studyTimeTotalMinutes,
       understandingTrend: trend,
       recentActivity,
       dueFlashcards: this.dueFlashcards().length,

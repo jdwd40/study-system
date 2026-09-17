@@ -103,3 +103,15 @@ export interface CourseProgress {
   completedLessons: number;
   percent: number;
 }
+
+/**
+ * Tracker-backed study time for one course, aggregated from habit_links.
+ * courseTitle is resolved from canonical content; it is null when the linked
+ * course id no longer exists in the tree (the record is kept, never
+ * fabricated or forced into a lesson).
+ */
+export interface StudyTimeEntry {
+  courseId: string;
+  courseTitle: string | null;
+  minutes: number;
+}

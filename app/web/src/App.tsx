@@ -33,7 +33,7 @@ function Bar({ percent }: { percent: number }) {
   return (
     <div>
       <div className="progress-track"><div className="progress-fill" style={{ width: `${percent}%` }} /></div>
-      <div className="progress-label">{percent}% complete</div>
+      <div className="progress-label">{percent}% of lessons complete</div>
     </div>
   );
 }
@@ -53,6 +53,68 @@ function useData<T>(path: string, deps: unknown[] = []) {
 
 function md(text: string): string {
   return DOMPurify.sanitize(marked.parse(text, { async: false }));
+}
+
+/** Human-readable duration: 90 -> "1h 30m", 45 -> "45m". */
+function fmtMinutes(minutes: number): string {
+  if (minutes < 60) return `${minutes}m`;
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60;
+  return m === 0 ? `${h}h` : `${h}h ${m}m`;
+}
+
+/** Small decorative compass motif. Purely visual — hidden from assistive tech. */
+function CompassMotif({ size = 56 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 64 64" aria-hidden="true" focusable="false" className="compass-motif">
+      <circle cx="32" cy="32" r="28" fill="none" stroke="currentColor" strokeWidth="2" opacity="0.35" />
+      <circle cx="32" cy="32" r="3" fill="currentColor" opacity="0.6" />
+      <path d="M32 10 L36 32 L32 54 L28 32 Z" fill="currentColor" opacity="0.5" />
+      <path d="M10 32 L32 28 L54 32 L32 36 Z" fill="currentColor" opacity="0.25" />
+      <path d="M32 14 L34.5 32 L32 50 L29.5 32 Z" fill="currentColor" opacity="0.85" />
+      <circle cx="32" cy="6" r="1.6" fill="currentColor" opacity="0.6" />
+      <circle cx="58" cy="32" r="1.2" fill="currentColor" opacity="0.45" />
+      <circle cx="6" cy="32" r="1.2" fill="currentColor" opacity="0.45" />
+      <circle cx="32" cy="58" r="1.2" fill="currentColor" opacity="0.45" />
+    </svg>
+  );
+}
+
+/** Compact proportional breakdown of tracker-backed study time by course. */
+function StudyTimeBreakdown({ entries, totalMinutes }: { entries: any[]; totalMinutes: number }) {
+  return (
+    <div className="card studytime-card">
+      <div className="studytime-head">
+        <CompassMotif />
+        <div>
+          <p className="card-title">{fmtMinutes(totalMinutes)} tracked</p>
+          <p className="card-sub">Recorded in the Habit Tracker and linked to courses — never counted here twice.</p>
+        </div>
+      </div>
+      <div className="segbar" role="img" aria-label={`Study time by course: ${entries.map((s) => `${s.courseTitle ?? s.courseId} ${fmtMinutes(s.minutes)}`).join(', ')}`}>
+        {entries.map((s: any, i: number) => (
+          <span
+            key={s.courseId}
+            className={`segbar-seg seg-${i % 5}`}
+            style={{ width: `${totalMinutes > 0 ? (s.minutes / totalMinutes) * 100 : 0}%` }}
+            aria-hidden="true"
+          />
+        ))}
+      </div>
+      <ul className="segbar-legend list-plain">
+        {entries.map((s: any, i: number) => (
+          <li key={s.courseId}>
+            <span className={`segbar-dot seg-${i % 5}`} aria-hidden="true" />
+            <span className="segbar-label">
+              {s.courseTitle ?? s.courseId}
+              {s.courseTitle === null && <span className="meta"> (id only — no matching course)</span>}
+            </span>
+            <span className="segbar-val">{fmtMinutes(s.minutes)}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
 /* ---------- pages ---------- */
@@ -116,23 +178,25 @@ function Dashboard() {
           </ul>
         </div>
       )}
+      <h2>Study time <span className="meta">(via Habit Tracker — separate from lesson completion)</span></h2>
+      {d.studyTime.length === 0 ? <div className="empty">No linked study time yet.</div> : (
+        <StudyTimeBreakdown entries={d.studyTime} totalMinutes={d.studyTimeTotalMinutes} />
+      )}
       <h2>Courses</h2>
       <div className="grid grid-cards">
         {d.courses.map((c: any) => (
-          <Link to={`/course/${c.id}`} key={c.id} className="card" style={{ color: 'inherit' }}>
-            <p className="card-title">{c.title} <Pill status={c.status} /></p>
+          <Link to={`/course/${c.id}`} key={c.id} className="card course-card" style={{ color: 'inherit' }}>
+            <div className="course-card-head">
+              <p className="card-title">{c.title}</p>
+              <Pill status={c.status} />
+            </div>
             <Bar percent={c.progress.percent} />
-            <p className="card-sub">{c.progress.completedLessons}/{c.progress.plannedLessons} lessons
+            <p className="card-sub">{c.progress.completedLessons}/{c.progress.plannedLessons} lessons complete
               {c.averageUserRating !== null && <> · avg understanding {c.averageUserRating.toFixed(1)}/5</>}</p>
+            {c.studyMinutes > 0 && <p className="card-sub studytime-line">{fmtMinutes(c.studyMinutes)} tracked via Habit Tracker</p>}
           </Link>
         ))}
       </div>
-      <h2>Study time (last 30 days, via Habit Tracker)</h2>
-      {d.studyTime.length === 0 ? <div className="empty">No linked study time yet.</div> : (
-        <div className="grid grid-cards">
-          {d.studyTime.map((s: any) => <div className="card" key={s.courseId}><p className="card-title">{s.courseId}</p><p className="card-sub">{s.minutes} min</p></div>)}
-        </div>
-      )}
       <h2>Weak areas <span className="meta">(based only on your own ratings)</span></h2>
       {d.weakAreas.length === 0 ? <div className="empty">No weak areas — nothing rated 2 or below.</div> : (
         <ul className="list-plain card">
@@ -163,11 +227,12 @@ function Library() {
       <p className="page-sub">All courses, active and paused.</p>
       <div className="grid grid-cards">
         {data!.courses.map((c: any) => (
-          <Link to={`/course/${c.id}`} key={c.id} className="card" style={{ color: 'inherit' }}>
+          <Link to={`/course/${c.id}`} key={c.id} className="card course-card" style={{ color: 'inherit' }}>
             <p className="card-title">{c.title}</p>
             <p className="card-sub">{c.description}</p>
             <Bar percent={c.progress.percent} />
             <p className="card-sub"><Pill status={c.status} /> {c.modules.length} modules
+              {c.studyMinutes > 0 && <> · {fmtMinutes(c.studyMinutes)} tracked</>}
               {c.averageUserRating !== null && <> · <Stars value={Math.round(c.averageUserRating)} /></>}</p>
           </Link>
         ))}
@@ -187,6 +252,11 @@ function CoursePage() {
     <main className="page">
       <h1>{c.title}</h1>
       <p className="page-sub">{c.description}</p>
+      <div className="course-meta card">
+        <span><Pill status={c.status} /></span>
+        <span>{c.progress.completedLessons}/{c.progress.plannedLessons} lessons complete</span>
+        {c.studyMinutes > 0 && <span>{fmtMinutes(c.studyMinutes)} tracked via Habit Tracker</span>}
+      </div>
       <Bar percent={c.progress.percent} />
       <div className="section-gap">
         {c.modules.map((m: any) => {
@@ -243,6 +313,12 @@ function LessonPage() {
       <p className="meta">{lesson.courseId} · {lesson.moduleId}</p>
       <h1>{lesson.title}</h1>
       <p><Pill status={state.status} /> <Stars value={state.userRating} /> {state.hermesRating !== null && <span className="meta">Hermes estimate: {state.hermesRating}/5</span>}</p>
+      <div className="lesson-glance">
+        {lesson.estimatedMinutes != null && <span>~{lesson.estimatedMinutes} min read</span>}
+        <span>{lesson.keyConcepts.length} key concept{lesson.keyConcepts.length === 1 ? '' : 's'}</span>
+        <span>{lesson.flashcards.length} flashcard{lesson.flashcards.length === 1 ? '' : 's'}</span>
+        <span>{lesson.revisionQuestions.length} revision question{lesson.revisionQuestions.length === 1 ? '' : 's'}</span>
+      </div>
       {actionError != null && <Err error={actionError} />}
       <div className="btn-row" style={{ margin: '1rem 0' }}>
         {!activeAttempt && <button className="btn btn-primary" disabled={busy} onClick={() => act(() => api.post(`/lessons/${lesson.id}/start`))}>{state.status === 'complete' ? 'Retake lesson' : 'Start lesson'}</button>}

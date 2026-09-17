@@ -125,6 +125,41 @@ describe('responsive stylesheet guards', () => {
   });
 });
 
+describe('visual polish guards', () => {
+  it('archived status has a deliberate muted pill with AA contrast on its fill', () => {
+    const body = ruleBody(css, '.pill-archived');
+    expect(body).not.toBe('');
+    expect(body).toContain('background: var(--line)');
+    const color = body.match(/color:\s*(#[0-9a-fA-F]{6})/)?.[1];
+    expect(color).toBeDefined();
+    expect(contrast(color!, cssVar('line'))).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it('course card headers are a flex row: title wraps, pill keeps its shape', () => {
+    const head = ruleBody(css, '.course-card-head');
+    expect(head).toContain('display: flex');
+    expect(head).toContain('align-items: flex-start');
+    const title = ruleBody(css, '.course-card-head .card-title');
+    expect(title).toContain('min-width: 0');
+    expect(title).toContain('overflow-wrap: break-word');
+    expect(ruleBody(css, '.course-card-head .pill')).toContain('flex-shrink: 0');
+    expect(appTsx).toContain('className="course-card-head"');
+  });
+
+  it('lesson completion and tracker time are labelled as distinct metrics', () => {
+    expect(appTsx).toContain('% of lessons complete');
+    expect(appTsx).toContain('tracked via Habit Tracker');
+  });
+
+  it('tracker-backed study time renders above the fold, before the course grid', () => {
+    const studyIdx = appTsx.indexOf('<h2>Study time');
+    const coursesIdx = appTsx.indexOf('<h2>Courses</h2>');
+    expect(studyIdx).toBeGreaterThan(-1);
+    expect(coursesIdx).toBeGreaterThan(-1);
+    expect(studyIdx).toBeLessThan(coursesIdx);
+  });
+});
+
 describe('app shell responsive markup', () => {
   it('keeps full nav labels including "Library"', () => {
     expect(appTsx).toContain('<NavLink to="/library">Library</NavLink>');
