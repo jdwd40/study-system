@@ -14,4 +14,4 @@ The causes, mechanisms, consequences, and historical debates of industrialisatio
 
 ## Modules
 
-
+- [Britain Before Industrialisation](./hist-m101/README.md) — queued
