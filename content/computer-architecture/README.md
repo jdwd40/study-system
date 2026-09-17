@@ -18,3 +18,4 @@ Archived supporting knowledge covering how software executes on processors, memo
 - [Processor Architecture](./ca-201/README.md) — paused
 - [Memory Systems](./ca-301/README.md) — paused
 - [Parallel and Modern Computer Architecture](./ca-401/README.md) — paused
+- [Architecture in Real Systems](./ca-501/README.md) — paused
