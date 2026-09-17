@@ -73,9 +73,11 @@ All tool responses are JSON strings: `{"success": true, "data": ...}` or
    user which course, using the returned options. Never guess.
 4. Calls are idempotent on `habit_entry_id` (201 created / 200 replay).
 
-Course mapping: "Software Systems Engineering" → `sse`; "AI Engineering" →
-`ai-engineering`; "History: Bronze Age Collapse" → `bronze-age-collapse`.
-Computer Architecture is paused — no active course; do not link new entries.
+Course mapping: "Software Systems Engineering" →
+`sse`; "AI Engineering" → `ai-engineering`; "History: Bronze Age Collapse" →
+`bronze-age-collapse`; "Industrial Revolution" → `industrial-revolution`.
+Computer Architecture maps to `computer-architecture` for historical time links,
+but remains archived supporting knowledge and is never selected as an active lesson.
 
 ## Tests
 

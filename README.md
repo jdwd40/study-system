@@ -131,10 +131,14 @@ Requires the content tree to be a Git checkout with push credentials configured
 
 ## Seeded content status
 
-Seeded from the Obsidian curriculum outlines: 3 active courses
-(Software Systems Engineering, AI Engineering, Bronze Age Collapse), 27 modules,
-11 fully written lessons (all of SSE-101, three AI-101 lessons, two HIST-A101
-lessons). Computer Architecture is intentionally absent (paused/archived).
+Seeded from the Obsidian curriculum outlines: 5 courses
+(Software Systems Engineering, AI Engineering, Bronze Age Collapse, Industrial Revolution,
+and archived Computer Architecture), 39 modules, and 11 fully written lessons (all
+of SSE-101, three AI-101 lessons, and two HIST-A101 lessons). Industrial Revolution
+is paused/queued; Computer Architecture is archived supporting knowledge rather than
+an active course. Recorded Habit Tracker time may still be linked to either course
+without making it active.
+
 Remaining work: module lesson lists for modules beyond the first of each course
 are planned in module READMEs but not yet expanded into lesson files — add via
-the UI or the Hermes `content-update`/structure endpoints.
+the UI or the Hermes structure endpoints.
