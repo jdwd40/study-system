@@ -4,6 +4,7 @@ Clean Markdown curriculum content. Course → module → lesson hierarchy. Schem
 
 - [AI Engineering](./ai-engineering/README.md)
 - [Bronze Age Collapse](./bronze-age-collapse/README.md)
+- [Computer Architecture](./computer-architecture/README.md)
 - [Industrial Revolution](./industrial-revolution/README.md)
 - [Software Systems Engineering](./sse/README.md)
 
