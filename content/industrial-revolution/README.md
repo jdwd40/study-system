@@ -5,16 +5,18 @@ id: industrial-revolution
 title: Industrial Revolution
 description: The causes, mechanisms, consequences, and historical debates of
   industrialisation in Britain and beyond.
-status: paused
+status: active
 ---
 
 # Industrial Revolution
 
 The causes, mechanisms, consequences, and historical debates of industrialisation in Britain and beyond.
 
+Central question: why did industrialisation begin where and when it did? Distinguishes established evidence, likely and contested interpretation, and speculation.
+
 ## Modules
 
-- [Britain Before Industrialisation](./hist-m101/README.md) — queued
+- [Britain Before Industrialisation](./hist-m101/README.md) — active
 - [First Industrial Revolution](./hist-m201/README.md) — queued
 - [Society Transformed](./hist-m301/README.md) — queued
 - [Ideas and Institutions](./hist-m401/README.md) — queued
