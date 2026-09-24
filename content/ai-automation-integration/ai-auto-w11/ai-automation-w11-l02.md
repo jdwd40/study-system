@@ -35,7 +35,7 @@ Transparent arithmetic; ranges; fixed scope; measured pilot.
 
 ## Key Concepts
 
-- Transparent arithmetic; ranges; fixed scope; measured pilot.
+- Transparent arithmetic; ranges; fixed scope; measured pilot. :: Shows arithmetic and assumptions, uses ranges, bounds scope, and validates benefits in a measured pilot before promising returns.
 
 ## Examples
 
