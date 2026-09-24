@@ -35,7 +35,7 @@ Demo normal, ambiguous and failure paths; record evidence.
 
 ## Key Concepts
 
-- Demo normal, ambiguous and failure paths; record evidence.
+- Demo normal, ambiguous and failure paths; record evidence. :: Evidence covers normal, ambiguous, duplicate, and failed cases, showing what the system did and where human control intervened.
 
 ## Examples
 
