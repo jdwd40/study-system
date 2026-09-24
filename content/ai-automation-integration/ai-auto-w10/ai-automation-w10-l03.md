@@ -35,7 +35,7 @@ Stateful reminders; cancellation; idempotent sends; real metrics.
 
 ## Key Concepts
 
-- Stateful reminders; cancellation; idempotent sends; real metrics.
+- Stateful reminders; cancellation; idempotent sends; real metrics. :: Reminders need durable state, cancellation, and idempotent sending; measure corrections, failures, response time, and outcomes rather than volume alone.
 
 ## Examples
 
