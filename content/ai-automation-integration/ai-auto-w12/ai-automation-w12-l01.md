@@ -17,19 +17,19 @@ Understand and apply turn projects into case studies in a reliable AI automation
 
 ## Content
 
-## Understand
+**Understand**
 
 A strong portfolio page tells the business story: previous process, user pain, proposed workflow, safeguards, observed result and limitations. Add a short demo and a system diagram. Show a before-and-after metric only when you measured it, and label fictional sample data. Explain why a human remains in control of important actions. Include links to code or architecture where possible, plus a brief note on deployment and recovery. Employers want evidence that you can design and maintain a system; clients want confidence that it solves their particular process.
 
-## Worked example
+**Worked example**
 
 A case study says, “In a 20-case fictional test, 18 categories matched our labels and two were routed for review.” It does not imply a live client result.
 
-## Try it
+**Try it**
 
 Write 250 words each for the two portfolio projects, using the supplied case-study template and evidence from your demos.
 
-## Key point
+**Key point**
 
 Business outcome, evidence, safeguards, limitations.
 
@@ -53,7 +53,7 @@ Business outcome, evidence, safeguards, limitations.
 ## Flashcards
 
 - Q: How should synthetic measurements be presented?
-  A: > Clearly labelled as results from fictional or test data, not as client outcomes.
+  A: Show answer Clearly labelled as results from fictional or test data, not as client outcomes.
 
 ## Revision Questions
 
