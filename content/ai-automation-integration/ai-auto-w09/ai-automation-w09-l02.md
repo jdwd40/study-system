@@ -53,7 +53,7 @@ HTTPS; scoped credentials; protected admin; redacted logs.
 ## Flashcards
 
 - Q: Why use separate service accounts?
-  A: Show answer A compromised component is then limited to its own authorised actions.
+  A: A compromised component is then limited to its own authorised actions.
 
 ## Revision Questions
 
