@@ -53,7 +53,7 @@ Citations must support claims; abstain when evidence is absent.
 ## Flashcards
 
 - Q: What should the assistant do when no retrieved passage supports an answer?
-  A: Show answer Abstain or ask for human review instead of inventing a policy.
+  A: Abstain or ask for human review instead of inventing a policy.
 
 ## Revision Questions
 
