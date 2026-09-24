@@ -17,19 +17,19 @@ Understand and apply business data, permissions and retention in a reliable AI a
 
 ## Content
 
-## Understand
+**Understand**
 
 Treat customer data and internal documents as information with owners, permissions and retention rules. Use fictional or consented sample data during study. Before sending real client content to any model provider, agree what may be processed, review provider terms and data handling, and apply the organisation’s privacy requirements. Collect only fields needed for the workflow; avoid logging full messages when IDs and error classes suffice. Document deletion and re-indexing so removed policies no longer appear in answers. For UK client work, read current ICO guidance and seek appropriate advice for the actual business.
 
-## Worked example
+**Worked example**
 
 An employee leaves. Their access is revoked in the app and document retrieval immediately respects it; the answer cache must also be considered.
 
-## Try it
+**Try it**
 
 Make a data inventory: source, purpose, who can read it, external processors, retention and deletion path.
 
-## Key point
+**Key point**
 
 Purpose, least data, permissions, retention, deletion.
 
@@ -53,7 +53,7 @@ Purpose, least data, permissions, retention, deletion.
 ## Flashcards
 
 - Q: What should happen when a source document is deleted?
-  A: > Its chunks and search representation should be removed or invalidated so it cannot keep appearing in answers.
+  A: Show answer Its chunks and search representation should be removed or invalidated so it cannot keep appearing in answers.
 
 ## Revision Questions
 
