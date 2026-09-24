@@ -35,7 +35,7 @@ Step, time, spend and side-effect limits.
 
 ## Key Concepts
 
-- Step, time, spend and side-effect limits.
+- Step, time, spend and side-effect limits. :: Caps calls, elapsed time, spend, and side effects so an agent cannot loop indefinitely or turn one request into uncontrolled activity.
 
 ## Examples
 
