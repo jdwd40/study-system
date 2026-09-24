@@ -17,19 +17,19 @@ Understand and apply n8n as an orchestrator in a reliable AI automation and syst
 
 ## Content
 
-## Understand
+**Understand**
 
 A visual workflow is useful for connecting triggers, simple transforms and services. Keep business rules that need thorough testing in your TypeScript service and call it from the workflow. Name each node by what it does, not by its default type. Record inputs and outputs and whether a node can create a side effect. Test first with a manual trigger and fictional data. An n8n workflow should be understandable from left to right and expose where a human approves a draft. Do not scatter the same validation across several nodes.
 
-## Worked example
+**Worked example**
 
 Form webhook → validate in Node API → classify → save record → create draft → notify owner. The classification adapter is shared by the API and tests.
 
-## Try it
+**Try it**
 
 Sketch this six-stage workflow. Label the system responsible for each stage and mark all write operations.
 
-## Key point
+**Key point**
 
 Orchestrate visibly; centralise reusable rules.
 
@@ -53,7 +53,7 @@ Orchestrate visibly; centralise reusable rules.
 ## Flashcards
 
 - Q: Which code belongs in the Node service?
-  A: > Reusable validation and business rules that should be tested and applied consistently.
+  A: Show answer Reusable validation and business rules that should be tested and applied consistently.
 
 ## Revision Questions
 
