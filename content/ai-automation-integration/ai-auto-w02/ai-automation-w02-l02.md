@@ -17,19 +17,19 @@ Understand and apply tool calling is a request for code to act in a reliable AI 
 
 ## Content
 
-## Understand
+**Understand**
 
 A model may propose a function name and arguments. Your application decides whether to run the function. Validate arguments, user identity, permissions and current state before every call. Allow-list the available tools and make side effects narrow. A read-only lookup is less consequential than creating a CRM record or sending a message. Treat model output as untrusted data even when it looks plausible. Preserve an audit entry showing which action was proposed, who approved it and whether it completed. The same distinction applies to “agents”: model reasoning may select actions, but code must enforce what is permitted.
 
-## Worked example
+**Worked example**
 
 The shop assistant may look up opening hours but cannot email a customer until the owner presses Approve. An unrecognised function name is rejected.
 
-## Try it
+**Try it**
 
 Design lookupOpeningHours and draftReply tools. For each, list input validation, permissions, allowed side effects and failure response.
 
-## Key point
+**Key point**
 
 Allow-list tools; validate arguments; separate reads from writes.
 
@@ -53,7 +53,7 @@ Allow-list tools; validate arguments; separate reads from writes.
 ## Flashcards
 
 - Q: Who is responsible for deciding whether a model-proposed tool runs?
-  A: > The application, after validation and authorisation; the model only proposes.
+  A: Show answer The application, after validation and authorisation; the model only proposes.
 
 ## Revision Questions
 
