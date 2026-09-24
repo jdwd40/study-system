@@ -26,4 +26,4 @@ Integrate enquiries, tasks, follow-ups, and a React dashboard. Weekly mission: S
 
 ## Lessons
 
-_No lessons yet. Lessons are added only by explicit manual or Hermes-requested structure changes._
+- [Design the operations workflow](./ai-automation-w10-l01.md)
