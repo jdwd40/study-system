@@ -53,7 +53,7 @@ Narrow offer; evidence-backed outreach; track conversion.
 ## Flashcards
 
 - Q: Why avoid claiming a business has a problem you have not verified?
-  A: Show answer It weakens credibility and leads to a proposal based on assumptions.
+  A: It weakens credibility and leads to a proposal based on assumptions.
 
 ## Revision Questions
 
