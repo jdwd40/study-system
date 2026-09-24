@@ -27,3 +27,4 @@ Interview a business owner and produce a bounded proposal. Weekly mission: Condu
 ## Lessons
 
 - [Interview for process pain](./ai-automation-w11-l01.md)
+- [Value and pricing without fantasy numbers](./ai-automation-w11-l02.md)
