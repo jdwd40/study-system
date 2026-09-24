@@ -35,7 +35,7 @@ Persist first; fake integrations; prove one complete path.
 
 ## Key Concepts
 
-- Persist first; fake integrations; prove one complete path.
+- Persist first; fake integrations; prove one complete path. :: Persists real state first, fakes external services, and proves one end-to-end path before adding integrations or polishing disconnected pieces.
 
 ## Examples
 
