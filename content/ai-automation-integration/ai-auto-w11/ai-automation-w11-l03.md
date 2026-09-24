@@ -35,7 +35,7 @@ Scope, roles, data, fallback, tests, support.
 
 ## Key Concepts
 
-- Scope, roles, data, fallback, tests, support.
+- Scope, roles, data, fallback, tests, support. :: Defines scope, roles, data handling, fallback behaviour, tests, and support so both sides can verify what success and failure mean.
 
 ## Examples
 
