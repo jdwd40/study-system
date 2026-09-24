@@ -35,7 +35,7 @@ Untrusted inputs stay data; tests cover attacks and ambiguity.
 
 ## Key Concepts
 
-- Untrusted inputs stay data; tests cover attacks and ambiguity.
+- Untrusted inputs stay data; tests cover attacks and ambiguity. :: Treats user text as data, not instructions; adversarial, ambiguous, and ordinary examples become regression tests for safe, repeatable behaviour.
 
 ## Examples
 
