@@ -27,3 +27,4 @@ Receive, authenticate, and process requests without losing work. Weekly mission:
 ## Lessons
 
 - [HTTP APIs and auth boundaries](./ai-automation-w03-l01.md)
+- [Webhooks, signatures and duplicates](./ai-automation-w03-l02.md)
