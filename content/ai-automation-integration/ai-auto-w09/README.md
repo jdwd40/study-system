@@ -26,4 +26,4 @@ Run the service on a VPS, recover it, and inspect failures. Weekly mission: Depl
 
 ## Lessons
 
-_No lessons yet. Lessons are added only by explicit manual or Hermes-requested structure changes._
+- [Deploy on a small VPS](./ai-automation-w09-l01.md)
