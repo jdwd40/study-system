@@ -26,4 +26,4 @@ Extract structured information and test failure cases. Weekly mission: Extract f
 
 ## Lessons
 
-_No lessons yet. Lessons are added only by explicit manual or Hermes-requested structure changes._
+- [Structured extraction](./ai-automation-w02-l01.md)
