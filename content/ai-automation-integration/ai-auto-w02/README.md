@@ -28,3 +28,4 @@ Extract structured information and test failure cases. Weekly mission: Extract f
 
 - [Structured extraction](./ai-automation-w02-l01.md)
 - [Tool calling is a request for code to act](./ai-automation-w02-l02.md)
+- [Prompts, attacks and regression tests](./ai-automation-w02-l03.md)
