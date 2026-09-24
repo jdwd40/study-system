@@ -35,7 +35,7 @@ Observe real cases; quantify volume; identify exceptions.
 
 ## Key Concepts
 
-- Observe real cases; quantify volume; identify exceptions.
+- Observe real cases; quantify volume; identify exceptions. :: Observes recent real cases, quantifies frequency and effort, and asks about exceptions; concrete evidence is more reliable than a requested technology.
 
 ## Examples
 
