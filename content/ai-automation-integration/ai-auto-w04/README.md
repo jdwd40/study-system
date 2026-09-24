@@ -28,3 +28,4 @@ Build the enquiry workflow with visible failure handling. Weekly mission: Build 
 
 - [n8n as an orchestrator](./ai-automation-w04-l01.md)
 - [Credentials, failures and execution history](./ai-automation-w04-l02.md)
+- [Complete the first enquiry pipeline](./ai-automation-w04-l03.md)
