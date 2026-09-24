@@ -26,4 +26,4 @@ Show evidence of value and run a responsible first pilot. Weekly mission: Publis
 
 ## Lessons
 
-_No lessons yet. Lessons are added only by explicit manual or Hermes-requested structure changes._
+- [Turn projects into case studies](./ai-automation-w12-l01.md)
