@@ -53,7 +53,7 @@ Trigger → classify → store → draft → approve; baseline first.
 ## Flashcards
 
 - Q: Why collect a baseline before building?
-  A: Show answer It allows a comparison of time, quality and errors after the workflow is running, so value is evidenced.
+  A: It allows a comparison of time, quality and errors after the workflow is running, so value is evidenced.
 
 ## Revision Questions
 
