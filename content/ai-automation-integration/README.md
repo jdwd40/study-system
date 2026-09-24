@@ -18,3 +18,4 @@ status: active
 ## Modules
 
 - [Week 1: AI applications and the business workflow](./ai-auto-w01/README.md) — active
+- [Week 2: Reliable model inputs and outputs](./ai-auto-w02/README.md) — queued
