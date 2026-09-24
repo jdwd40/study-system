@@ -27,3 +27,4 @@ Map a real process and build a small, measurable AI application. Weekly mission:
 ## Lessons
 
 - [Find the process before the model](./ai-automation-w01-l01.md)
+- [Call a model from TypeScript](./ai-automation-w01-l02.md)
