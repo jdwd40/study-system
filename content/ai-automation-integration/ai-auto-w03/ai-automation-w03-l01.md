@@ -35,7 +35,7 @@ Explicit contracts; correct credential scope; honest status.
 
 ## Key Concepts
 
-- Explicit contracts; correct credential scope; honest status.
+- Explicit contracts; correct credential scope; honest status. :: A clear request/response contract and narrowly scoped credentials define what each caller may do; status codes must describe actual completion.
 
 ## Examples
 
