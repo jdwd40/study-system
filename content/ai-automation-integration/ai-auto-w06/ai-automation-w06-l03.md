@@ -53,7 +53,7 @@ Purpose, least data, permissions, retention, deletion.
 ## Flashcards
 
 - Q: What should happen when a source document is deleted?
-  A: Show answer Its chunks and search representation should be removed or invalidated so it cannot keep appearing in answers.
+  A: Its chunks and search representation should be removed or invalidated so it cannot keep appearing in answers.
 
 ## Revision Questions
 
