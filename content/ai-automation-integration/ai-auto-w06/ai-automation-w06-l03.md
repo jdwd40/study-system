@@ -35,7 +35,7 @@ Purpose, least data, permissions, retention, deletion.
 
 ## Key Concepts
 
-- Purpose, least data, permissions, retention, deletion.
+- Purpose, least data, permissions, retention, deletion. :: Collects only data needed for the stated purpose, enforces access and deletion rules, and retains it only while justified.
 
 ## Examples
 
