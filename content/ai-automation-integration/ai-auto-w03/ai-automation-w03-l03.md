@@ -35,7 +35,7 @@ Bounded retries; idempotency; structured events; dead-letter state.
 
 ## Key Concepts
 
-- Bounded retries; idempotency; structured events; dead-letter state.
+- Bounded retries; idempotency; structured events; dead-letter state. :: Retries transient failures only within bounds, makes work idempotent, and emits structured events so stuck or permanently failed jobs are visible.
 
 ## Examples
 
