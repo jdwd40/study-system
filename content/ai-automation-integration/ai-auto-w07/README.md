@@ -28,3 +28,4 @@ Design a lead assistant that proposes actions safely. Weekly mission: Design an 
 
 - [Workflow versus agent](./ai-automation-w07-l01.md)
 - [Permissions and human approval](./ai-automation-w07-l02.md)
+- [Cost and loop controls](./ai-automation-w07-l03.md)
