@@ -17,19 +17,19 @@ Understand and apply webhooks, signatures and duplicates in a reliable AI automa
 
 ## Content
 
-## Understand
+**Understand**
 
 A webhook is an incoming event, not a guarantee of exactly-once processing. Verify the provider signature according to its documentation, often against the raw request body; reject old or invalid events. Store a unique event ID and process each accepted ID only once. Acknowledge quickly, then do slow work in a background job. Replays and out-of-order events are normal. Write the transition so a delayed “created” event cannot undo a later “closed” state. Test the system by delivering the same event twice and by changing the delivery order.
 
-## Worked example
+**Worked example**
 
 An enquiry platform retries event evt-42 after a network timeout. The second delivery finds the event ID already recorded; no second follow-up is created.
 
-## Try it
+**Try it**
 
 Draw the receive → verify → deduplicate → enqueue → acknowledge path. Describe what happens on a bad signature and on a duplicate.
 
-## Key point
+**Key point**
 
 Verify raw event; dedupe ID; queue slow work.
 
@@ -53,7 +53,7 @@ Verify raw event; dedupe ID; queue slow work.
 ## Flashcards
 
 - Q: What does a successful webhook acknowledgement prove?
-  A: > It proves receipt/acceptance as defined by the endpoint, not necessarily completion of downstream work.
+  A: Show answer It proves receipt/acceptance as defined by the endpoint, not necessarily completion of downstream work.
 
 ## Revision Questions
 
