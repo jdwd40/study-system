@@ -17,19 +17,19 @@ Understand and apply follow-ups and operating metrics in a reliable AI automatio
 
 ## Content
 
-## Understand
+**Understand**
 
 A reminder is a scheduled event tied to a specific customer and action. Store due time, timezone, owner, state and cancellation rule. Make the send operation idempotent and ensure editing or closing an enquiry cancels stale reminders. Measure queue age, missed follow-ups, human review time and user correction rate. Record cost per completed case rather than just model calls. A high automation percentage is not useful if important mistakes are hidden. Build an admin view for overdue items and a runbook for temporary provider outages.
 
-## Worked example
+**Worked example**
 
 A customer books a repair before a proposed callback time. The pending callback is cancelled; no awkward automated reminder is sent.
 
-## Try it
+**Try it**
 
 Test due, cancelled, duplicate and failed reminders. Update the project brief with actual measurements from the sample run.
 
-## Key point
+**Key point**
 
 Stateful reminders; cancellation; idempotent sends; real metrics.
 
@@ -53,7 +53,7 @@ Stateful reminders; cancellation; idempotent sends; real metrics.
 ## Flashcards
 
 - Q: Why track corrections as well as time saved?
-  A: > An apparently faster workflow may cost more time or trust when its mistakes are fixed.
+  A: Show answer An apparently faster workflow may cost more time or trust when its mistakes are fixed.
 
 ## Revision Questions
 
