@@ -35,7 +35,7 @@ Working pipeline + failure evidence + before/after measure.
 
 ## Key Concepts
 
-- Working pipeline + failure evidence + before/after measure.
+- Working pipeline + failure evidence + before/after measure. :: A useful first pipeline is complete end to end, demonstrates normal and failure paths, and compares results with a measured baseline.
 
 ## Examples
 
