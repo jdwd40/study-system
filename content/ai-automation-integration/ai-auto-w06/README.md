@@ -26,4 +26,4 @@ Measure answers and handle document permissions. Weekly mission: Evaluate 20 que
 
 ## Lessons
 
-_No lessons yet. Lessons are added only by explicit manual or Hermes-requested structure changes._
+- [Cited answers and abstention](./ai-automation-w06-l01.md)
