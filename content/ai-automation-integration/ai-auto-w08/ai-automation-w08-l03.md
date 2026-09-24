@@ -53,7 +53,7 @@ Demo normal, ambiguous and failure paths; record evidence.
 ## Flashcards
 
 - Q: What is stronger than a polished screenshot?
-  A: Show answer A reproducible user journey, failure demonstration and measured result.
+  A: A reproducible user journey, failure demonstration and measured result.
 
 ## Revision Questions
 
