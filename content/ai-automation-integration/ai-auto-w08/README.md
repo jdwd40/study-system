@@ -26,4 +26,4 @@ Deliver an end-to-end demonstrator with clear evidence. Weekly mission: Ship por
 
 ## Lessons
 
-_No lessons yet. Lessons are added only by explicit manual or Hermes-requested structure changes._
+- [Scope portfolio project 1](./ai-automation-w08-l01.md)
