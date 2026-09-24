@@ -17,19 +17,19 @@ Understand and apply call a model from typescript in a reliable AI automation an
 
 ## Content
 
-## Understand
+**Understand**
 
 Treat a model API as an unreliable external dependency: it has credentials, usage costs, latency, request limits and occasional errors. Keep API keys on the server. Wrap the provider call behind one small function so the rest of your app receives a stable shape. Limit input length, set a timeout, handle cancellation and record an opaque request ID. Never log an entire customer message merely to debug a failure. First build with hard-coded fictional data; then swap the stub for a real API call. Check current provider documentation for exact parameters and supported models rather than copying old examples.
 
-## Worked example
+**Worked example**
 
 For the shop, a function accepts a message and returns a short issue summary. A local fake implementation returns a fixed summary so the form and storage can be developed without API spend.
 
-## Try it
+**Try it**
 
 Sketch an interface for summariseEnquiry(input) and list success, timeout, invalid credentials and rate-limit outcomes. Implement a fake before attempting a paid call.
 
-## Key point
+**Key point**
 
 Server-side secret; typed adapter; timeout; small inputs; stub first.
 
@@ -53,7 +53,7 @@ Server-side secret; typed adapter; timeout; small inputs; stub first.
 ## Flashcards
 
 - Q: Why keep the provider call behind an adapter?
-  A: > It isolates changes in provider, model and error format from the business workflow.
+  A: Show answer It isolates changes in provider, model and error format from the business workflow.
 
 ## Revision Questions
 
