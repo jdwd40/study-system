@@ -53,7 +53,7 @@ Explicit contracts; correct credential scope; honest status.
 ## Flashcards
 
 - Q: Why should a browser not hold a private service API key?
-  A: Show answer Anyone who can inspect the bundle or requests can copy it and use the service identity.
+  A: Anyone who can inspect the bundle or requests can copy it and use the service identity.
 
 ## Revision Questions
 
