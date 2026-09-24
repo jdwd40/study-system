@@ -53,7 +53,7 @@ Approve exact version; revalidate before side effects.
 ## Flashcards
 
 - Q: Why revalidate after approval?
-  A: Show answer State and permissions may change between the review and the actual side effect.
+  A: State and permissions may change between the review and the actual side effect.
 
 ## Revision Questions
 
