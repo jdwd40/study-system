@@ -53,7 +53,7 @@ Allow-list tools; validate arguments; separate reads from writes.
 ## Flashcards
 
 - Q: Who is responsible for deciding whether a model-proposed tool runs?
-  A: Show answer The application, after validation and authorisation; the model only proposes.
+  A: The application, after validation and authorisation; the model only proposes.
 
 ## Revision Questions
 
