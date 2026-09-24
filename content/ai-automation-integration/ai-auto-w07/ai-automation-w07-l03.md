@@ -17,19 +17,19 @@ Understand and apply cost and loop controls in a reliable AI automation and syst
 
 ## Content
 
-## Understand
+**Understand**
 
 An agent that repeats a failed step can rack up cost and cause repeated side effects. Set maximum tool calls, duration and spend per enquiry. Mark a tool call with a stable operation ID so retries cannot duplicate a send or update. Distinguish a tool error from missing evidence, and stop with a visible reason when limits are reached. Keep a compact trace of each decision for debugging without leaking secrets. Compare the agent with a fixed-rule baseline: if it is slower and no more accurate, keep the simpler approach.
 
-## Worked example
+**Worked example**
 
 A tool times out after creating a task. The agent retries using the same operation ID; the executor returns the existing task rather than creating another.
 
-## Try it
+**Try it**
 
 Write budgets for one enquiry: maximum calls, runtime, estimated API cost and allowed write actions. Add a stop condition.
 
-## Key point
+**Key point**
 
 Step, time, spend and side-effect limits.
 
@@ -53,7 +53,7 @@ Step, time, spend and side-effect limits.
 ## Flashcards
 
 - Q: What prevents retrying a successful but timed-out side effect twice?
-  A: > An idempotency or operation ID checked by the executor before another write.
+  A: Show answer An idempotency or operation ID checked by the executor before another write.
 
 ## Revision Questions
 
