@@ -53,7 +53,7 @@ Entity model; status source; attention-first dashboard.
 ## Flashcards
 
 - Q: What should determine the first dashboard view?
-  A: Show answer The owner’s immediate decisions and exceptions, not the number of data visualisations possible.
+  A: The owner’s immediate decisions and exceptions, not the number of data visualisations possible.
 
 ## Revision Questions
 
