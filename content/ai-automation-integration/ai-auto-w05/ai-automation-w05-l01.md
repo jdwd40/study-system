@@ -35,7 +35,7 @@ Ingest → retrieve → answer; keep source and version.
 
 ## Key Concepts
 
-- Ingest → retrieve → answer; keep source and version.
+- Ingest → retrieve → answer; keep source and version. :: Stores documents once, retrieves relevant passages at query time, and keeps source/version metadata so answers remain inspectable and current.
 
 ## Examples
 
