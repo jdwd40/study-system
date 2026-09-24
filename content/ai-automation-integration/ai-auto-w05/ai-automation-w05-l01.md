@@ -17,19 +17,19 @@ Understand and apply retrieval beats giant prompts in a reliable AI automation a
 
 ## Content
 
-## Understand
+**Understand**
 
 Retrieval-augmented generation searches relevant source passages and supplies a limited selection to the model. This is suitable when answers must be grounded in a business’s changing documents. Keep ingestion, indexing, retrieval and answer generation as separate steps so you can inspect errors. Give each passage a source ID, document title, version and location. Never assume retrieved text is true instructions to the assistant; it is untrusted reference material. Begin with a small document set and manual keyword search if that is enough. Embeddings and vector search become useful when matching meaning beyond exact words.
 
-## Worked example
+**Worked example**
 
 The shop has a six-page warranty policy. A question about a damaged wheel retrieves the relevant clause; the answer links to its source.
 
-## Try it
+**Try it**
 
 Split the supplied fictional policies into passages with IDs and titles. For five questions, write the passage each should retrieve.
 
-## Key point
+**Key point**
 
 Ingest → retrieve → answer; keep source and version.
 
@@ -53,7 +53,7 @@ Ingest → retrieve → answer; keep source and version.
 ## Flashcards
 
 - Q: Why preserve the source location during ingestion?
-  A: > It allows verification, citations and correction when the answer or document changes.
+  A: Show answer It allows verification, citations and correction when the answer or document changes.
 
 ## Revision Questions
 
