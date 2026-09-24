@@ -17,19 +17,19 @@ Understand and apply measure useful outcomes in a reliable AI automation and sys
 
 ## Content
 
-## Understand
+**Understand**
 
 A working call is not a successful automation. Measure extraction accuracy, percentage requiring human correction, time from enquiry to draft, weekly operating cost, failures and duplicate actions. Choose a small dataset of representative examples, including awkward messages and missing details. A baseline and a target make the pilot falsifiable: for example, “at least 18 of 20 test enquiries receive the right category, and nobody is sent a reply without review.” Record the test cases in a file so prompt changes can be compared. Separate subjective writing quality from exact fields such as contact preference or appointment date.
 
-## Worked example
+**Worked example**
 
 On 20 fictional enquiries, the first version categorises 15 correctly. The shop prioritises avoiding missed urgent bike repairs, so the next iteration targets urgent-case recall rather than prettier wording.
 
-## Try it
+**Try it**
 
 Write three measurable acceptance criteria for the shop. Create five test cases: clear, vague, multi-issue, urgent and adversarial.
 
-## Key point
+**Key point**
 
 Quality, speed, cost, correction rate and missed cases.
 
@@ -53,7 +53,7 @@ Quality, speed, cost, correction rate and missed cases.
 ## Flashcards
 
 - Q: Is “the summary feels helpful” a sufficient metric?
-  A: > No. Define an observable rubric and compare performance on saved examples.
+  A: Show answer No. Define an observable rubric and compare performance on saved examples.
 
 ## Revision Questions
 
