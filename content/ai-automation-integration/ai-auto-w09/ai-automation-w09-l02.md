@@ -35,7 +35,7 @@ HTTPS; scoped credentials; protected admin; redacted logs.
 
 ## Key Concepts
 
-- HTTPS; scoped credentials; protected admin; redacted logs.
+- HTTPS; scoped credentials; protected admin; redacted logs. :: Encrypts traffic, scopes every credential to its job, protects administrative actions, and redacts secrets from logs and diagnostics.
 
 ## Examples
 
