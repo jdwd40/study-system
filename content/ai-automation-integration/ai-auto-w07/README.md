@@ -26,4 +26,4 @@ Design a lead assistant that proposes actions safely. Weekly mission: Design an 
 
 ## Lessons
 
-_No lessons yet. Lessons are added only by explicit manual or Hermes-requested structure changes._
+- [Workflow versus agent](./ai-automation-w07-l01.md)
