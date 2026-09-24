@@ -53,7 +53,7 @@ Step, time, spend and side-effect limits.
 ## Flashcards
 
 - Q: What prevents retrying a successful but timed-out side effect twice?
-  A: Show answer An idempotency or operation ID checked by the executor before another write.
+  A: An idempotency or operation ID checked by the executor before another write.
 
 ## Revision Questions
 
