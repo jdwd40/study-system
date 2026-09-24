@@ -17,19 +17,19 @@ Understand and apply pilot, handover and the next iteration in a reliable AI aut
 
 ## Content
 
-## Understand
+**Understand**
 
 A first pilot succeeds when the owner can operate it, understand failures and decide whether the numbers justify continuing. Run tests with agreed sample cases before using real records. Start with human approval, clear monitoring and a rollback route. Give the owner access and a one-page runbook covering login, reviewing drafts, retrying failed jobs, restoring service and who to contact. Agree on account ownership, maintenance, backups and exit or data export. At pilot end, compare measured time, correction rate, reliability and cost against the baseline; propose one focused improvement.
 
-## Worked example
+**Worked example**
 
 After two weeks, the shop finds classification helpful but the follow-up queue noisy. The next release changes reminder rules, backed by event counts.
 
-## Try it
+**Try it**
 
 Finish templates/handover-checklist.md, rehearse a failure and complete a pilot review using the rubric.
 
-## Key point
+**Key point**
 
 Runbook, account ownership, measured pilot, controlled iteration.
 
@@ -53,7 +53,7 @@ Runbook, account ownership, measured pilot, controlled iteration.
 ## Flashcards
 
 - Q: What makes a pilot ready for handover?
-  A: > The owner can use it, recover common failures and review measured results with clear responsibilities.
+  A: Show answer The owner can use it, recover common failures and review measured results with clear responsibilities.
 
 ## Revision Questions
 
