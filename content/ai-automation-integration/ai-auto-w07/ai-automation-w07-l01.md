@@ -53,7 +53,7 @@ Bounded tool set; explicit states; separate proposal and execution.
 ## Flashcards
 
 - Q: When is a deterministic workflow preferable?
-  A: Show answer When the steps and conditions are known and can be implemented and tested as rules.
+  A: When the steps and conditions are known and can be implemented and tested as rules.
 
 ## Revision Questions
 
