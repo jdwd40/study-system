@@ -35,7 +35,7 @@ One coherent lead journey; explicit demo and acceptance criteria.
 
 ## Key Concepts
 
-- One coherent lead journey; explicit demo and acceptance criteria.
+- One coherent lead journey; explicit demo and acceptance criteria. :: Chooses one complete lead journey with explicit boundaries, demo cases, and acceptance tests; a smaller trustworthy slice beats a broad unfinished system.
 
 ## Examples
 
