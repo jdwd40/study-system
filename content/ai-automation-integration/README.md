@@ -21,3 +21,4 @@ status: active
 - [Week 2: Reliable model inputs and outputs](./ai-auto-w02/README.md) — queued
 - [Week 3: APIs and event-driven integration](./ai-auto-w03/README.md) — queued
 - [Week 4: Workflow orchestration with n8n](./ai-auto-w04/README.md) — queued
+- [Week 5: Retrieval from business documents](./ai-auto-w05/README.md) — queued
