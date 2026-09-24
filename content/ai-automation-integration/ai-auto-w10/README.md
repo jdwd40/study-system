@@ -27,3 +27,4 @@ Integrate enquiries, tasks, follow-ups, and a React dashboard. Weekly mission: S
 ## Lessons
 
 - [Design the operations workflow](./ai-automation-w10-l01.md)
+- [React review interface](./ai-automation-w10-l02.md)
