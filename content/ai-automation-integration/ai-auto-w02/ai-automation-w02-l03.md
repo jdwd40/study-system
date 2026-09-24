@@ -53,7 +53,7 @@ Untrusted inputs stay data; tests cover attacks and ambiguity.
 ## Flashcards
 
 - Q: Can stronger prompt wording replace server-side permissions?
-  A: Show answer No. Prompts influence behaviour; the server must enforce authorisation regardless of model output.
+  A: No. Prompts influence behaviour; the server must enforce authorisation regardless of model output.
 
 ## Revision Questions
 
