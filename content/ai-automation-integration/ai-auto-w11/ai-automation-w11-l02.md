@@ -17,19 +17,19 @@ Understand and apply value and pricing without fantasy numbers in a reliable AI 
 
 ## Content
 
-## Understand
+**Understand**
 
 Estimate saved time as volume × minutes saved × an appropriate hourly value, then subtract review, maintenance and provider costs. Show assumptions and a range instead of a promised return. Account for less measurable benefits such as fewer missed leads without converting every benefit into fictitious sales. Price a bounded pilot for scope, build effort, integration uncertainty, support and margin; a monthly fee is suitable only if ongoing service and responsibilities are clear. Revisit the estimate after the pilot with observed data. For clients, state what is outside the proposal and what changes will require a new quote.
 
-## Worked example
+**Worked example**
 
 Thirty cases a week save an observed four minutes each: two hours weekly before support and review adjustments. The proposal reports that arithmetic and its assumptions.
 
-## Try it
+**Try it**
 
 Fill templates/value-calculator.csv for low, expected and high scenarios, including operating costs and human review time.
 
-## Key point
+**Key point**
 
 Transparent arithmetic; ranges; fixed scope; measured pilot.
 
@@ -53,7 +53,7 @@ Transparent arithmetic; ranges; fixed scope; measured pilot.
 ## Flashcards
 
 - Q: Why avoid promising a fixed financial return before a pilot?
-  A: > Volume, savings and exception rates are estimates until measured in the client’s workflow.
+  A: Show answer Volume, savings and exception rates are estimates until measured in the client’s workflow.
 
 ## Revision Questions
 
