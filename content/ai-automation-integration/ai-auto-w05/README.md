@@ -28,3 +28,4 @@ Create a small, inspectable company knowledge assistant. Weekly mission: Ingest 
 
 - [Retrieval beats giant prompts](./ai-automation-w05-l01.md)
 - [Chunking and embeddings](./ai-automation-w05-l02.md)
+- [Postgres and pgvector in context](./ai-automation-w05-l03.md)
