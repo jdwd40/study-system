@@ -35,7 +35,7 @@ Bounded tool set; explicit states; separate proposal and execution.
 
 ## Key Concepts
 
-- Bounded tool set; explicit states; separate proposal and execution.
+- Bounded tool set; explicit states; separate proposal and execution. :: Prefers a deterministic workflow when steps are known; an agent needs constrained tools and states, with suggestions separated from execution.
 
 ## Examples
 
