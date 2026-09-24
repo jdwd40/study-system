@@ -26,4 +26,4 @@ Receive, authenticate, and process requests without losing work. Weekly mission:
 
 ## Lessons
 
-_No lessons yet. Lessons are added only by explicit manual or Hermes-requested structure changes._
+- [HTTP APIs and auth boundaries](./ai-automation-w03-l01.md)
