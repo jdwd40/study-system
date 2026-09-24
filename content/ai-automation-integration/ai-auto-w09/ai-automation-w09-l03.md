@@ -53,7 +53,7 @@ Backup, off-host copy, restore test, documented recovery.
 ## Flashcards
 
 - Q: How do you know a backup works?
-  A: Show answer Restore it in a safe environment and verify application-relevant data and configuration.
+  A: Restore it in a safe environment and verify application-relevant data and configuration.
 
 ## Revision Questions
 
