@@ -28,3 +28,4 @@ Measure answers and handle document permissions. Weekly mission: Evaluate 20 que
 
 - [Cited answers and abstention](./ai-automation-w06-l01.md)
 - [Evaluate a retrieval system](./ai-automation-w06-l02.md)
+- [Business data, permissions and retention](./ai-automation-w06-l03.md)
