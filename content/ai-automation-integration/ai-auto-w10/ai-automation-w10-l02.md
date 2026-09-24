@@ -17,19 +17,19 @@ Understand and apply react review interface in a reliable AI automation and syst
 
 ## Content
 
-## Understand
+**Understand**
 
 The interface should make model suggestions easy to verify. Show the original enquiry next to extracted details and a proposed response. Visually separate generated text from saved facts and indicate missing or uncertain fields. Give clear approve, edit and reject actions with confirmation for meaningful side effects. Provide useful loading, empty and error states and keyboard-accessible controls. A dashboard is a thin layer over a well-defined API; its job is to reduce review effort, not hide uncertainty. Test the workflow on a narrow phone screen as well as desktop.
 
-## Worked example
+**Worked example**
 
 The owner sees a task suggestion but the source lacks a date. The UI labels the date unknown and prompts for it before scheduling.
 
-## Try it
+**Try it**
 
 Sketch mobile and desktop versions of a review card. For each action, name the API request and immediate UI feedback.
 
-## Key point
+**Key point**
 
 Show source, proposal and state; accessible actions.
 
@@ -53,7 +53,7 @@ Show source, proposal and state; accessible actions.
 ## Flashcards
 
 - Q: How should a missing customer date be displayed?
-  A: > As unknown or requiring input; never as an invented value that looks confirmed.
+  A: Show answer As unknown or requiring input; never as an invented value that looks confirmed.
 
 ## Revision Questions
 
