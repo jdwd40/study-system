@@ -53,7 +53,7 @@ Persist first; fake integrations; prove one complete path.
 ## Flashcards
 
 - Q: Why save the enquiry before calling the model?
-  A: Show answer The original business event is retained even if enrichment fails.
+  A: The original business event is retained even if enrichment fails.
 
 ## Revision Questions
 
