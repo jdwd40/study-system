@@ -35,7 +35,7 @@ Runbook, account ownership, measured pilot, controlled iteration.
 
 ## Key Concepts
 
-- Runbook, account ownership, measured pilot, controlled iteration.
+- Runbook, account ownership, measured pilot, controlled iteration. :: A handover needs an owner-run runbook, account ownership, measured pilot results, recovery steps, and a controlled plan for the next change.
 
 ## Examples
 
