@@ -35,7 +35,7 @@ Small stack; internal DB; health; restart; rollback.
 
 ## Key Concepts
 
-- Small stack; internal DB; health; restart; rollback.
+- Small stack; internal DB; health; restart; rollback. :: Keeps deployment small and private by default: internal database, health checks, restart procedure, and a tested rollback path.
 
 ## Examples
 
