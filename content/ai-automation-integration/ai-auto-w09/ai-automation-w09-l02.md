@@ -17,19 +17,19 @@ Understand and apply tls, secrets and least privilege in a reliable AI automatio
 
 ## Content
 
-## Understand
+**Understand**
 
 Terminate HTTPS at a maintained reverse proxy. Use distinct service credentials and limit database roles to what each component requires. Supply secrets at runtime rather than committing them; rotate them if exposed. Lock down admin surfaces and make logs useful without spilling tokens or customer messages. A simple threat review asks who can call each endpoint, who can read each record and what happens if one credential leaks. Security here is practical engineering: the business relies on the service remaining available and customer data staying controlled.
 
-## Worked example
+**Worked example**
 
 The public form can create enquiries but cannot query the whole customer table; only a signed-in owner can approve outgoing drafts.
 
-## Try it
+**Try it**
 
 Make a table for public visitor, owner, workflow service and database administrator. List allowed actions and credentials for each.
 
-## Key point
+**Key point**
 
 HTTPS; scoped credentials; protected admin; redacted logs.
 
@@ -53,7 +53,7 @@ HTTPS; scoped credentials; protected admin; redacted logs.
 ## Flashcards
 
 - Q: Why use separate service accounts?
-  A: > A compromised component is then limited to its own authorised actions.
+  A: Show answer A compromised component is then limited to its own authorised actions.
 
 ## Revision Questions
 
