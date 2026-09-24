@@ -47,8 +47,7 @@ Trigger → classify → store → draft → approve; baseline first.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://platform.openai.com/docs/quickstart/make-your-first-api-request)
-- https://platform.openai.com/docs/quickstart/make-your-first-api-request
+- [Official documentation](https://developers.openai.com/api/docs/quickstart)
 
 ## Flashcards
 
