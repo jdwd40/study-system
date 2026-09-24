@@ -53,7 +53,7 @@ Quality, speed, cost, correction rate and missed cases.
 ## Flashcards
 
 - Q: Is “the summary feels helpful” a sufficient metric?
-  A: Show answer No. Define an observable rubric and compare performance on saved examples.
+  A: No. Define an observable rubric and compare performance on saved examples.
 
 ## Revision Questions
 
