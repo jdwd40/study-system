@@ -26,4 +26,4 @@ Interview a business owner and produce a bounded proposal. Weekly mission: Condu
 
 ## Lessons
 
-_No lessons yet. Lessons are added only by explicit manual or Hermes-requested structure changes._
+- [Interview for process pain](./ai-automation-w11-l01.md)
