@@ -53,7 +53,7 @@ Stateful reminders; cancellation; idempotent sends; real metrics.
 ## Flashcards
 
 - Q: Why track corrections as well as time saved?
-  A: Show answer An apparently faster workflow may cost more time or trust when its mistakes are fixed.
+  A: An apparently faster workflow may cost more time or trust when its mistakes are fixed.
 
 ## Revision Questions
 
