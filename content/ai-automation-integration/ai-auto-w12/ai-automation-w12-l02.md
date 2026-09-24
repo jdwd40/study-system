@@ -17,19 +17,19 @@ Understand and apply find and approach suitable work in a reliable AI automation
 
 ## Content
 
-## Understand
+**Understand**
 
 Choose a narrow offer that matches the evidence you have: for example, enquiry triage with owner-approved replies for local service firms. Find businesses with visible enquiry volume and a plausible manual process; do not claim knowledge of their internal workflow from their website alone. A short outreach message asks whether the process is painful and offers a small discovery conversation, not a grand AI transformation. Keep a simple pipeline of contacted, replied, discovery, proposal and closed, and review response rates. Tailor job applications around the same integrations, APIs, data modelling and deployment evidence.
 
-## Worked example
+**Worked example**
 
 A message to a repair shop mentions its public enquiry form and asks how callbacks are handled. It makes no claim about hours they currently waste.
 
-## Try it
+**Try it**
 
 Draft two 90-word outreach variants and one CV bullet per project. Track responses for 20 carefully chosen contacts.
 
-## Key point
+**Key point**
 
 Narrow offer; evidence-backed outreach; track conversion.
 
@@ -53,7 +53,7 @@ Narrow offer; evidence-backed outreach; track conversion.
 ## Flashcards
 
 - Q: Why avoid claiming a business has a problem you have not verified?
-  A: > It weakens credibility and leads to a proposal based on assumptions.
+  A: Show answer It weakens credibility and leads to a proposal based on assumptions.
 
 ## Revision Questions
 
