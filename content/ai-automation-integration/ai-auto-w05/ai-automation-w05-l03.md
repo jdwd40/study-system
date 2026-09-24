@@ -53,7 +53,7 @@ Metadata, permission filter, bounded retrieval, measure first.
 ## Flashcards
 
 - Q: Should an embedding match override access checks?
-  A: Show answer No. Apply permissions and tenant boundaries before passages reach the model.
+  A: No. Apply permissions and tenant boundaries before passages reach the model.
 
 ## Revision Questions
 
