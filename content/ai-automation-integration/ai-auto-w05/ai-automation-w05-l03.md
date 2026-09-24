@@ -17,19 +17,19 @@ Understand and apply postgres and pgvector in context in a reliable AI automatio
 
 ## Content
 
-## Understand
+**Understand**
 
 PostgreSQL can hold documents, metadata and application records; pgvector adds vector similarity search if needed. Begin with a table for documents and a table for chunks with document ID, location, text and optional embedding. Filter by tenant and permissions before using retrieved passages in an answer. For a tiny corpus, exact search or ordinary PostgreSQL text search may be sufficient. Approximate indexes trade recall for speed and should be introduced only when measurements justify them. Keep the retrieval query parameterised and cap results and text sent to the model.
 
-## Worked example
+**Worked example**
 
 Two shop locations have different repair policies. A signed-in employee searches only the location they are permitted to see, then receives up to four matching chunks.
 
-## Try it
+**Try it**
 
 Draw documents and chunks tables with keys and metadata. State how location permissions and deleted documents affect queries.
 
-## Key point
+**Key point**
 
 Metadata, permission filter, bounded retrieval, measure first.
 
@@ -53,7 +53,7 @@ Metadata, permission filter, bounded retrieval, measure first.
 ## Flashcards
 
 - Q: Should an embedding match override access checks?
-  A: > No. Apply permissions and tenant boundaries before passages reach the model.
+  A: Show answer No. Apply permissions and tenant boundaries before passages reach the model.
 
 ## Revision Questions
 
