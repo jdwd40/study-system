@@ -35,7 +35,7 @@ Show source, proposal and state; accessible actions.
 
 ## Key Concepts
 
-- Show source, proposal and state; accessible actions.
+- Show source, proposal and state; accessible actions. :: Shows original source beside generated proposals and current state; accessible controls make approval, rejection, loading, empty, and error paths usable.
 
 ## Examples
 
