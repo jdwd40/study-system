@@ -26,4 +26,4 @@ Create a small, inspectable company knowledge assistant. Weekly mission: Ingest 
 
 ## Lessons
 
-_No lessons yet. Lessons are added only by explicit manual or Hermes-requested structure changes._
+- [Retrieval beats giant prompts](./ai-automation-w05-l01.md)
