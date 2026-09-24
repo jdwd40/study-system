@@ -17,19 +17,19 @@ Understand and apply evaluate a retrieval system in a reliable AI automation and
 
 ## Content
 
-## Understand
+**Understand**
 
 Create a fixed question set with expected source passages and expected answer behaviour. Score retrieval hit rate separately from answer faithfulness: a good passage may be ignored, and a fluent answer may cite nothing useful. Include negative questions for which the corpus has no answer, document conflicts and phrasing different from the source. Review actual errors by category: missing source, poor chunk, wrong rank, unsupported claim or permission leak. Change one variable, rerun the same tests and save the results. Do not tune only to examples you already showed to the model.
 
-## Worked example
+**Worked example**
 
 The assistant answers 18 of 20 common questions but fabricates two unsupported answers. Those two failures are critical despite the high overall percentage.
 
-## Try it
+**Try it**
 
 Build a 20-case evaluation sheet with question, expected passage, allowed answer, observed answer and failure class.
 
-## Key point
+**Key point**
 
 Fixed cases; retrieval hit rate; faithfulness; negative cases.
 
@@ -53,7 +53,7 @@ Fixed cases; retrieval hit rate; faithfulness; negative cases.
 ## Flashcards
 
 - Q: Why score retrieval and answer generation separately?
-  A: > They fail for different reasons and need different fixes.
+  A: Show answer They fail for different reasons and need different fixes.
 
 ## Revision Questions
 
