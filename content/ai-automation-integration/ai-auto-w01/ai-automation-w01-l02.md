@@ -53,7 +53,7 @@ Server-side secret; typed adapter; timeout; small inputs; stub first.
 ## Flashcards
 
 - Q: Why keep the provider call behind an adapter?
-  A: Show answer It isolates changes in provider, model and error format from the business workflow.
+  A: It isolates changes in provider, model and error format from the business workflow.
 
 ## Revision Questions
 
