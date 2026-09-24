@@ -35,7 +35,7 @@ Constrained shape, validation, evidence, explicit unknowns.
 
 ## Key Concepts
 
-- Constrained shape, validation, evidence, explicit unknowns.
+- Constrained shape, validation, evidence, explicit unknowns. :: Constrains output to a schema, validates every field against the source, and represents missing or uncertain facts explicitly instead of inventing them.
 
 ## Examples
 
