@@ -53,7 +53,7 @@ Runbook, account ownership, measured pilot, controlled iteration.
 ## Flashcards
 
 - Q: What makes a pilot ready for handover?
-  A: Show answer The owner can use it, recover common failures and review measured results with clear responsibilities.
+  A: The owner can use it, recover common failures and review measured results with clear responsibilities.
 
 ## Revision Questions
 
