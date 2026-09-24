@@ -35,7 +35,7 @@ Fixed cases; retrieval hit rate; faithfulness; negative cases.
 
 ## Key Concepts
 
-- Fixed cases; retrieval hit rate; faithfulness; negative cases.
+- Fixed cases; retrieval hit rate; faithfulness; negative cases. :: Uses fixed labelled cases to measure retrieval hits, answer faithfulness, and safe negative behaviour; failures matter as much as successes.
 
 ## Examples
 
