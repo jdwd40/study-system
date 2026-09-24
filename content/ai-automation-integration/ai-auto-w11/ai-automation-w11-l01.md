@@ -17,19 +17,19 @@ Understand and apply interview for process pain in a reliable AI automation and 
 
 ## Content
 
-## Understand
+**Understand**
 
 Discovery is a structured conversation, not a pitch for AI. Ask the owner to walk through the last real instance of the task. What started it? Which systems were opened? What decisions were difficult? What happened when it failed? How many cases occur weekly and what minutes did each take? Ask permission before examining any customer records. Write down the current path in the owner’s language. Identify exceptional cases and legal or operational constraints before designing the solution. The best first project has a narrow process, a willing reviewer and a result you can measure.
 
-## Worked example
+**Worked example**
 
 A shop owner says, “I need an AI receptionist,” but the actual pain is forgetting to call back weekend enquiries. A callback queue may solve that faster.
 
-## Try it
+**Try it**
 
 Use templates/discovery-interview.md to run a mock interview. Write the current workflow and three exceptions.
 
-## Key point
+**Key point**
 
 Observe real cases; quantify volume; identify exceptions.
 
@@ -53,7 +53,7 @@ Observe real cases; quantify volume; identify exceptions.
 ## Flashcards
 
 - Q: Why ask about the last real case?
-  A: > Concrete steps, delays and exceptions emerge more reliably than from abstract wishes.
+  A: Show answer Concrete steps, delays and exceptions emerge more reliably than from abstract wishes.
 
 ## Revision Questions
 
