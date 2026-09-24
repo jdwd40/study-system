@@ -2,6 +2,7 @@
 
 Clean Markdown curriculum content. Course → module → lesson hierarchy. Schema version 1.
 
+- [AI Automation & Systems Integration: 12-Week Practical Course](./ai-automation-integration/README.md)
 - [AI Engineering](./ai-engineering/README.md)
 - [Bronze Age Collapse](./bronze-age-collapse/README.md)
 - [Computer Architecture](./computer-architecture/README.md)
