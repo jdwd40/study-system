@@ -17,19 +17,19 @@ Understand and apply http apis and auth boundaries in a reliable AI automation a
 
 ## Content
 
-## Understand
+**Understand**
 
 An API contract states method, path, request fields, status codes and response shape. Decide which system owns each datum before wiring services together. Distinguish a user token, service credential and webhook secret; each has different scope. Limit credentials to the smallest needed permissions and do not put secrets in browser bundles. OAuth is for delegated access to a user-owned service; an API key may be suitable for server-to-server access where the provider supports it. Document what to do when credentials expire, a provider rejects a call or a request only partly succeeds.
 
-## Worked example
+**Worked example**
 
 POST /enquiries accepts contact and message, validates them, stores a pending row and returns an identifier. It does not claim an email was sent.
 
-## Try it
+**Try it**
 
 Draft a contract for POST /enquiries, GET /enquiries/:id and POST /enquiries/:id/approve with example success and failure responses.
 
-## Key point
+**Key point**
 
 Explicit contracts; correct credential scope; honest status.
 
@@ -53,7 +53,7 @@ Explicit contracts; correct credential scope; honest status.
 ## Flashcards
 
 - Q: Why should a browser not hold a private service API key?
-  A: > Anyone who can inspect the bundle or requests can copy it and use the service identity.
+  A: Show answer Anyone who can inspect the bundle or requests can copy it and use the service identity.
 
 ## Revision Questions
 
