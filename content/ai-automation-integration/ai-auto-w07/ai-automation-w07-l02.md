@@ -35,7 +35,7 @@ Approve exact version; revalidate before side effects.
 
 ## Key Concepts
 
-- Approve exact version; revalidate before side effects.
+- Approve exact version; revalidate before side effects. :: Approval applies to a specific, revalidated proposal; changes to data or context require review again before any external side effect.
 
 ## Examples
 
