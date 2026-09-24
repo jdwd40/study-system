@@ -26,3 +26,4 @@ status: active
 - [Week 7: Constrained agents and approval](./ai-auto-w07/README.md) — queued
 - [Week 8: Portfolio project 1: Lead Management Assistant](./ai-auto-w08/README.md) — queued
 - [Week 9: Deploying a reliable small stack](./ai-auto-w09/README.md) — queued
+- [Week 10: Portfolio project 2: Operations Assistant](./ai-auto-w10/README.md) — queued
