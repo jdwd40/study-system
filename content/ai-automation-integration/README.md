@@ -28,3 +28,4 @@ status: active
 - [Week 9: Deploying a reliable small stack](./ai-auto-w09/README.md) — queued
 - [Week 10: Portfolio project 2: Operations Assistant](./ai-auto-w10/README.md) — queued
 - [Week 11: Discovery and pricing](./ai-auto-w11/README.md) — queued
+- [Week 12: Portfolio, outreach, and handover](./ai-auto-w12/README.md) — queued
