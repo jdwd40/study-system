@@ -35,7 +35,7 @@ Metadata, permission filter, bounded retrieval, measure first.
 
 ## Key Concepts
 
-- Metadata, permission filter, bounded retrieval, measure first.
+- Metadata, permission filter, bounded retrieval, measure first. :: Uses metadata and permission filters before similarity search, bounds retrieved context, and measures retrieval quality before tuning vector settings.
 
 ## Examples
 
