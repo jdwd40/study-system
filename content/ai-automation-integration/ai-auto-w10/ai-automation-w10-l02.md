@@ -53,7 +53,7 @@ Show source, proposal and state; accessible actions.
 ## Flashcards
 
 - Q: How should a missing customer date be displayed?
-  A: Show answer As unknown or requiring input; never as an invented value that looks confirmed.
+  A: As unknown or requiring input; never as an invented value that looks confirmed.
 
 ## Revision Questions
 
