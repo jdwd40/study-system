@@ -35,7 +35,7 @@ Orchestrate visibly; centralise reusable rules.
 
 ## Key Concepts
 
-- Orchestrate visibly; centralise reusable rules.
+- Orchestrate visibly; centralise reusable rules. :: Makes steps, branching, credentials, and failure routes visible in the workflow tool; reusable business rules stay in one maintainable place.
 
 ## Examples
 
