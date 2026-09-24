@@ -53,7 +53,7 @@ Transparent arithmetic; ranges; fixed scope; measured pilot.
 ## Flashcards
 
 - Q: Why avoid promising a fixed financial return before a pilot?
-  A: Show answer Volume, savings and exception rates are estimates until measured in the client’s workflow.
+  A: Volume, savings and exception rates are estimates until measured in the client’s workflow.
 
 ## Revision Questions
 
