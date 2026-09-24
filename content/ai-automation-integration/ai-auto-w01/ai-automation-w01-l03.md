@@ -35,7 +35,7 @@ Quality, speed, cost, correction rate and missed cases.
 
 ## Key Concepts
 
-- Quality, speed, cost, correction rate and missed cases.
+- Quality, speed, cost, correction rate and missed cases. :: Measures business-relevant quality, latency, cost, corrections, and missed cases together; speed alone can hide errors or extra review work.
 
 ## Examples
 
