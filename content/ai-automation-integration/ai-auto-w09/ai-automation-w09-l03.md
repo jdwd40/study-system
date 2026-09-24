@@ -17,19 +17,19 @@ Understand and apply backups and recovery drill in a reliable AI automation and 
 
 ## Content
 
-## Understand
+**Understand**
 
 A backup is only useful if you can restore it. Decide a recovery-point target and a recovery-time target appropriate to the pilot. Back up the database and any workflow configuration needed to reproduce operations; keep a copy separate from the VPS. Test a restore to a temporary database, verify record counts and open the app against restored data. Record commands, owners and the last successful drill. A file existing on disk is not evidence of a successful backup. Do not copy real customer data into an insecure test environment.
 
-## Worked example
+**Worked example**
 
 The VPS disk fails on Tuesday. A tested Monday-night backup can be restored; the owner understands that Tuesday’s entries need checking.
 
-## Try it
+**Try it**
 
 Write a recovery checklist and perform a restore using fictional data. Note the elapsed time and any missing configuration.
 
-## Key point
+**Key point**
 
 Backup, off-host copy, restore test, documented recovery.
 
@@ -53,7 +53,7 @@ Backup, off-host copy, restore test, documented recovery.
 ## Flashcards
 
 - Q: How do you know a backup works?
-  A: > Restore it in a safe environment and verify application-relevant data and configuration.
+  A: Show answer Restore it in a safe environment and verify application-relevant data and configuration.
 
 ## Revision Questions
 
