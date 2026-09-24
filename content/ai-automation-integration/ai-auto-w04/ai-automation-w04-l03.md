@@ -53,7 +53,7 @@ Working pipeline + failure evidence + before/after measure.
 ## Flashcards
 
 - Q: What evidence proves this week’s workflow is useful?
-  A: Show answer Repeatable test cases, no duplicate effects, visible failures and a measured improvement against baseline.
+  A: Repeatable test cases, no duplicate effects, visible failures and a measured improvement against baseline.
 
 ## Revision Questions
 
