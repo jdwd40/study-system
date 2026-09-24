@@ -35,7 +35,7 @@ Server-side secret; typed adapter; timeout; small inputs; stub first.
 
 ## Key Concepts
 
-- Server-side secret; typed adapter; timeout; small inputs; stub first.
+- Server-side secret; typed adapter; timeout; small inputs; stub first. :: Keeps provider credentials on the server and vendor details behind a typed adapter; timeouts and stubs make failures and development safer.
 
 ## Examples
 
