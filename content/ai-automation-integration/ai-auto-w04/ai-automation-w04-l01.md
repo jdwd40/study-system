@@ -53,7 +53,7 @@ Orchestrate visibly; centralise reusable rules.
 ## Flashcards
 
 - Q: Which code belongs in the Node service?
-  A: Show answer Reusable validation and business rules that should be tested and applied consistently.
+  A: Reusable validation and business rules that should be tested and applied consistently.
 
 ## Revision Questions
 
