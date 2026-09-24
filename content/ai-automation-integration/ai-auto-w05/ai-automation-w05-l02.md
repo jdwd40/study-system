@@ -35,7 +35,7 @@ Chunk by meaning; version data; evaluate retrieval.
 
 ## Key Concepts
 
-- Chunk by meaning; version data; evaluate retrieval.
+- Chunk by meaning; version data; evaluate retrieval. :: Splits documents at meaningful boundaries, versions the index, and measures whether retrieved chunks contain the evidence needed for the question.
 
 ## Examples
 
