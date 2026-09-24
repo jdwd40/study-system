@@ -35,7 +35,7 @@ Business outcome, evidence, safeguards, limitations.
 
 ## Key Concepts
 
-- Business outcome, evidence, safeguards, limitations.
+- Business outcome, evidence, safeguards, limitations. :: Leads with the business problem and measured evidence, labels synthetic results, and states safeguards and limitations so credibility survives scrutiny.
 
 ## Examples
 
