@@ -35,7 +35,7 @@ Backup, off-host copy, restore test, documented recovery.
 
 ## Key Concepts
 
-- Backup, off-host copy, restore test, documented recovery.
+- Backup, off-host copy, restore test, documented recovery. :: A backup is trustworthy only after an off-host copy has been restored and checked; recovery ownership and steps must be documented.
 
 ## Examples
 
