@@ -17,19 +17,19 @@ Understand and apply proposal, data and acceptance in a reliable AI automation a
 
 ## Content
 
-## Understand
+**Understand**
 
 A short proposal names the problem, present process, limited pilot, deliverables, responsibilities, timeline, acceptance tests and support arrangements. Specify who provides API access, who owns accounts and data, where information is processed and who approves outbound actions. Include the failure and fallback path. Use a change request for new integrations or extra workflows. Discuss privacy and data handling early, especially if messages contain personal information. The proposal should be understandable to the owner without model terminology; technical details can sit in an appendix.
 
-## Worked example
+**Worked example**
 
 The shop pilot includes one form, one dashboard, one weekly report and manual approval of every outgoing draft. Booking and payment integrations are out of scope.
 
-## Try it
+**Try it**
 
 Complete templates/one-page-proposal.md using a fictional business. Include five acceptance tests and a handover owner.
 
-## Key point
+**Key point**
 
 Scope, roles, data, fallback, tests, support.
 
@@ -53,7 +53,7 @@ Scope, roles, data, fallback, tests, support.
 ## Flashcards
 
 - Q: What belongs in acceptance criteria?
-  A: > Observable behaviour for normal, failure and exceptional cases that both parties can verify.
+  A: Show answer Observable behaviour for normal, failure and exceptional cases that both parties can verify.
 
 ## Revision Questions
 
