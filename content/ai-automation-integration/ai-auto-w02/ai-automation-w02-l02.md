@@ -35,7 +35,7 @@ Allow-list tools; validate arguments; separate reads from writes.
 
 ## Key Concepts
 
-- Allow-list tools; validate arguments; separate reads from writes.
+- Allow-list tools; validate arguments; separate reads from writes. :: Treats model tool calls as untrusted requests; only approved tools run, arguments are validated, and the application authorises every read or write.
 
 ## Examples
 
