@@ -17,19 +17,19 @@ Understand and apply retries, queues and observability in a reliable AI automati
 
 ## Content
 
-## Understand
+**Understand**
 
 Transient failures may warrant a bounded retry with backoff and jitter; invalid input or denied permission will not improve by retrying. Queue work when it may outlive the HTTP request. Give each job an idempotency key, attempt count, last error and a terminal failed state. Record structured events containing request ID, status, duration and error class, while avoiding unnecessary personal data. Alert on the small number of things that matter: a stuck queue, a burst of failures and an overdue human approval. Make recovery instructions part of the workflow design.
 
-## Worked example
+**Worked example**
 
 An email provider returns 429. The draft remains pending and the send job is retried later; a 400 invalid address is routed for human correction.
 
-## Try it
+**Try it**
 
 Classify five failures as retry, review or stop. Write a one-paragraph runbook for a queue that has stopped processing.
 
-## Key point
+**Key point**
 
 Bounded retries; idempotency; structured events; dead-letter state.
 
@@ -53,7 +53,7 @@ Bounded retries; idempotency; structured events; dead-letter state.
 ## Flashcards
 
 - Q: Why should a 400 validation failure not be retried indefinitely?
-  A: > The same invalid request will fail repeatedly until the input is corrected.
+  A: Show answer The same invalid request will fail repeatedly until the input is corrected.
 
 ## Revision Questions
 
