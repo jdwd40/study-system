@@ -35,7 +35,7 @@ Narrow offer; evidence-backed outreach; track conversion.
 
 ## Key Concepts
 
-- Narrow offer; evidence-backed outreach; track conversion.
+- Narrow offer; evidence-backed outreach; track conversion. :: Offers a narrow, evidence-backed outcome and tests response rather than asserting an unverified problem; outreach should produce measurable learning.
 
 ## Examples
 
