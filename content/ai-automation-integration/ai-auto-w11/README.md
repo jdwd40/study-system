@@ -1,0 +1,29 @@
+---
+schema_version: 1
+type: module
+id: AI-AUTO-W11
+title: "Week 11: Discovery and pricing"
+course_id: ai-automation-integration
+order: 11
+status: queued
+summary: "Interview a business owner and produce a bounded proposal. Weekly
+  mission: Conduct a mock discovery interview, calculate a benefit range and
+  write a one-page pilot proposal."
+objectives:
+  - Interview a business owner and produce a bounded proposal.
+  - "Complete the weekly mission: Conduct a mock discovery interview, calculate
+    a benefit range and write a one-page pilot proposal."
+---
+
+# Week 11: Discovery and pricing
+
+Interview a business owner and produce a bounded proposal. Weekly mission: Conduct a mock discovery interview, calculate a benefit range and write a one-page pilot proposal.
+
+## Learning Objectives
+
+- Interview a business owner and produce a bounded proposal.
+- Complete the weekly mission: Conduct a mock discovery interview, calculate a benefit range and write a one-page pilot proposal.
+
+## Lessons
+
+_No lessons yet. Lessons are added only by explicit manual or Hermes-requested structure changes._
