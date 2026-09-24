@@ -53,7 +53,7 @@ One coherent lead journey; explicit demo and acceptance criteria.
 ## Flashcards
 
 - Q: What must be in the first scope document?
-  A: Show answer User journey, boundaries, acceptance criteria, data ownership, failure cases and review points.
+  A: User journey, boundaries, acceptance criteria, data ownership, failure cases and review points.
 
 ## Revision Questions
 
