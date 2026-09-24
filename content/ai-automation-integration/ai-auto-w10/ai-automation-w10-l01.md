@@ -35,7 +35,7 @@ Entity model; status source; attention-first dashboard.
 
 ## Key Concepts
 
-- Entity model; status source; attention-first dashboard.
+- Entity model; status source; attention-first dashboard. :: Models customers, enquiries, tasks, and status transitions explicitly; the dashboard surfaces decisions and exceptions before passive reporting.
 
 ## Examples
 
