@@ -53,7 +53,7 @@ Credential scope; error path; retention; safe reruns.
 ## Flashcards
 
 - Q: Why inspect workflow execution retention?
-  A: Show answer Stored execution payloads can contain customer details and may persist longer than intended.
+  A: Stored execution payloads can contain customer details and may persist longer than intended.
 
 ## Revision Questions
 
