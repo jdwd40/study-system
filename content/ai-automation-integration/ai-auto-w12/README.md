@@ -28,3 +28,4 @@ Show evidence of value and run a responsible first pilot. Weekly mission: Publis
 
 - [Turn projects into case studies](./ai-automation-w12-l01.md)
 - [Find and approach suitable work](./ai-automation-w12-l02.md)
+- [Pilot, handover and the next iteration](./ai-automation-w12-l03.md)
