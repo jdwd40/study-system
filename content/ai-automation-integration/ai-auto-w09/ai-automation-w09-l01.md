@@ -53,7 +53,7 @@ Small stack; internal DB; health; restart; rollback.
 ## Flashcards
 
 - Q: What is the purpose of a readiness check?
-  A: Show answer To indicate whether the service can actually handle work that depends on required components.
+  A: To indicate whether the service can actually handle work that depends on required components.
 
 ## Revision Questions
 
