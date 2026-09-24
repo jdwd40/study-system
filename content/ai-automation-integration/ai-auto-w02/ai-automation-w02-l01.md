@@ -53,7 +53,7 @@ Constrained shape, validation, evidence, explicit unknowns.
 ## Flashcards
 
 - Q: Why is valid JSON insufficient?
-  A: Show answer Schema correctness does not guarantee that extracted values are supported by the input.
+  A: Schema correctness does not guarantee that extracted values are supported by the input.
 
 ## Revision Questions
 
