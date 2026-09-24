@@ -53,7 +53,7 @@ Scope, roles, data, fallback, tests, support.
 ## Flashcards
 
 - Q: What belongs in acceptance criteria?
-  A: Show answer Observable behaviour for normal, failure and exceptional cases that both parties can verify.
+  A: Observable behaviour for normal, failure and exceptional cases that both parties can verify.
 
 ## Revision Questions
 
