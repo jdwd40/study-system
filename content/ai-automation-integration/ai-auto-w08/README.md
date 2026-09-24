@@ -27,3 +27,4 @@ Deliver an end-to-end demonstrator with clear evidence. Weekly mission: Ship por
 ## Lessons
 
 - [Scope portfolio project 1](./ai-automation-w08-l01.md)
+- [Build with a vertical slice](./ai-automation-w08-l02.md)
