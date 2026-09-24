@@ -285,6 +285,8 @@ h2 { font-size: 1.2rem; margin: 2rem 0 0.75rem; line-height: 1.35; text-wrap: ba
 .concept-btn-plain .concept-hint { color: var(--ink-faint); }
 .prose p { margin: 0.85rem 0; }
 .prose ul { padding-left: 1.3rem; }
+.rich-markdown p { margin: 0; }
+.source-list li { margin-bottom: 0.45rem; }
 
 .flashcard {
   background: var(--surface);

@@ -56,6 +56,11 @@ function md(text: string): string {
   return DOMPurify.sanitize(marked.parse(text, { async: false }));
 }
 
+/** Render a short Markdown field, including clickable links, safely. */
+function RichMarkdown({ text, className = 'rich-markdown' }: { text: string; className?: string }) {
+  return <div className={className} dangerouslySetInnerHTML={{ __html: md(text) }} />;
+}
+
 /** Human-readable duration: 90 -> "1h 30m", 45 -> "45m". */
 function fmtMinutes(minutes: number): string {
   if (minutes < 60) return `${minutes}m`;
@@ -432,14 +437,14 @@ function LessonPage() {
         ))}
       </ul>
       <h2>Examples</h2>
-      <ul>{lesson.examples.map((e: string) => <li key={e}>{e}</li>)}</ul>
+      <ul>{lesson.examples.map((e: string) => <li key={e}><RichMarkdown text={e} /></li>)}</ul>
       <h2>Takeaways</h2>
-      <ul>{lesson.takeaways.map((t: string) => <li key={t}>{t}</li>)}</ul>
+      <ul>{lesson.takeaways.map((t: string) => <li key={t}><RichMarkdown text={t} /></li>)}</ul>
       <h2>Flashcards</h2>
       {lesson.flashcards.map((f: any, i: number) => (
         <div className="flashcard" key={i}>
-          <div className="flashcard-q">{f.q}</div>
-          {flipped[i] ? <div className="flashcard-a">{f.a}</div> : null}
+          <div className="flashcard-q"><RichMarkdown text={f.q} /></div>
+          {flipped[i] ? <div className="flashcard-a"><RichMarkdown text={f.a} /></div> : null}
           <button className="btn btn-ghost" style={{ marginTop: '0.5rem', padding: '0.45rem 0.9rem' }}
             aria-expanded={!!flipped[i]} onClick={() => setFlipped((s) => ({ ...s, [i]: !s[i] }))}>
             {flipped[i] ? 'Hide answer' : 'Reveal answer'}
@@ -447,9 +452,9 @@ function LessonPage() {
         </div>
       ))}
       <h2>Revision questions</h2>
-      <ol>{lesson.revisionQuestions.map((q: string) => <li key={q}>{q}</li>)}</ol>
+      <ol>{lesson.revisionQuestions.map((q: string) => <li key={q}><RichMarkdown text={q} /></li>)}</ol>
       <h2>Sources and further reading</h2>
-      <ul>{lesson.sources.map((s: string) => <li key={s}>{s}</li>)}</ul>
+      <ul className="source-list">{lesson.sources.map((s: string) => <li key={s}><RichMarkdown text={s} /></li>)}</ul>
       {qa.length > 0 && (
         <>
           <h2>Q&amp;A from your attempts</h2>
