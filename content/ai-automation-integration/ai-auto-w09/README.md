@@ -27,3 +27,4 @@ Run the service on a VPS, recover it, and inspect failures. Weekly mission: Depl
 ## Lessons
 
 - [Deploy on a small VPS](./ai-automation-w09-l01.md)
+- [TLS, secrets and least privilege](./ai-automation-w09-l02.md)
