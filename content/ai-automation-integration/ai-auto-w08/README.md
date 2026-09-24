@@ -1,0 +1,29 @@
+---
+schema_version: 1
+type: module
+id: AI-AUTO-W08
+title: "Week 8: Portfolio project 1: Lead Management Assistant"
+course_id: ai-automation-integration
+order: 8
+status: queued
+summary: "Deliver an end-to-end demonstrator with clear evidence. Weekly
+  mission: Ship portfolio project 1 and record a normal, ambiguous and
+  failed-path demo."
+objectives:
+  - Deliver an end-to-end demonstrator with clear evidence.
+  - "Complete the weekly mission: Ship portfolio project 1 and record a normal,
+    ambiguous and failed-path demo."
+---
+
+# Week 8: Portfolio project 1: Lead Management Assistant
+
+Deliver an end-to-end demonstrator with clear evidence. Weekly mission: Ship portfolio project 1 and record a normal, ambiguous and failed-path demo.
+
+## Learning Objectives
+
+- Deliver an end-to-end demonstrator with clear evidence.
+- Complete the weekly mission: Ship portfolio project 1 and record a normal, ambiguous and failed-path demo.
+
+## Lessons
+
+_No lessons yet. Lessons are added only by explicit manual or Hermes-requested structure changes._

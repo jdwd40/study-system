@@ -24,3 +24,4 @@ status: active
 - [Week 5: Retrieval from business documents](./ai-auto-w05/README.md) — queued
 - [Week 6: Evaluation, citations, and privacy](./ai-auto-w06/README.md) — queued
 - [Week 7: Constrained agents and approval](./ai-auto-w07/README.md) — queued
+- [Week 8: Portfolio project 1: Lead Management Assistant](./ai-auto-w08/README.md) — queued
