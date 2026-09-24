@@ -17,19 +17,19 @@ Understand and apply complete the first enquiry pipeline in a reliable AI automa
 
 ## Content
 
-## Understand
+**Understand**
 
 Bring together form input, deterministic validation, AI classification, database persistence, draft creation and notification. Start with mock records and a fake model. Add the real model only after the workflow succeeds on normal and error examples. Time the process before and after, including the owner’s review time. Document what remains manual and where duplicate events are stopped. If the cost or error rate outweighs the benefit, simplify the design; a useful pilot can be a classifier and draft helper without autonomous sending.
 
-## Worked example
+**Worked example**
 
 Ten fictional requests pass through. Eight need no category correction; two are flagged for review. The owner sees one pending item per request.
 
-## Try it
+**Try it**
 
 Run ten sample enquiries, repeat one event and simulate one failed external call. Save screenshots or logs proving the three outcomes.
 
-## Key point
+**Key point**
 
 Working pipeline + failure evidence + before/after measure.
 
@@ -53,7 +53,7 @@ Working pipeline + failure evidence + before/after measure.
 ## Flashcards
 
 - Q: What evidence proves this week’s workflow is useful?
-  A: > Repeatable test cases, no duplicate effects, visible failures and a measured improvement against baseline.
+  A: Show answer Repeatable test cases, no duplicate effects, visible failures and a measured improvement against baseline.
 
 ## Revision Questions
 
