@@ -53,7 +53,7 @@ Fixed cases; retrieval hit rate; faithfulness; negative cases.
 ## Flashcards
 
 - Q: Why score retrieval and answer generation separately?
-  A: Show answer They fail for different reasons and need different fixes.
+  A: They fail for different reasons and need different fixes.
 
 ## Revision Questions
 
