@@ -26,4 +26,4 @@ Build the enquiry workflow with visible failure handling. Weekly mission: Build 
 
 ## Lessons
 
-_No lessons yet. Lessons are added only by explicit manual or Hermes-requested structure changes._
+- [n8n as an orchestrator](./ai-automation-w04-l01.md)
