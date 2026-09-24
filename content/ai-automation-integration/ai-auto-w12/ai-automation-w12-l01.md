@@ -53,7 +53,7 @@ Business outcome, evidence, safeguards, limitations.
 ## Flashcards
 
 - Q: How should synthetic measurements be presented?
-  A: Show answer Clearly labelled as results from fictional or test data, not as client outcomes.
+  A: Clearly labelled as results from fictional or test data, not as client outcomes.
 
 ## Revision Questions
 
