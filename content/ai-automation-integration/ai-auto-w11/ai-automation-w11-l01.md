@@ -53,7 +53,7 @@ Observe real cases; quantify volume; identify exceptions.
 ## Flashcards
 
 - Q: Why ask about the last real case?
-  A: Show answer Concrete steps, delays and exceptions emerge more reliably than from abstract wishes.
+  A: Concrete steps, delays and exceptions emerge more reliably than from abstract wishes.
 
 ## Revision Questions
 
