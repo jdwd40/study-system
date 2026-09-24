@@ -53,7 +53,7 @@ Ingest → retrieve → answer; keep source and version.
 ## Flashcards
 
 - Q: Why preserve the source location during ingestion?
-  A: Show answer It allows verification, citations and correction when the answer or document changes.
+  A: It allows verification, citations and correction when the answer or document changes.
 
 ## Revision Questions
 
