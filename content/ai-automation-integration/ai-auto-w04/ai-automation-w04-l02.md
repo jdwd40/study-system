@@ -35,7 +35,7 @@ Credential scope; error path; retention; safe reruns.
 
 ## Key Concepts
 
-- Credential scope; error path; retention; safe reruns.
+- Credential scope; error path; retention; safe reruns. :: Separates credential scope from workflow logic, preserves useful failure history without sensitive data, and makes reruns safe and intentional.
 
 ## Examples
 
