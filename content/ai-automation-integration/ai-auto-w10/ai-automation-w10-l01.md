@@ -17,19 +17,19 @@ Understand and apply design the operations workflow in a reliable AI automation 
 
 ## Content
 
-## Understand
+**Understand**
 
 Project 2 adds a task list, follow-up schedule and dashboard to the intake path. Write the data model before the UI: enquiry, customer, task, draft, approval and event. Give each object a stable identifier and state. The dashboard answers owner questions: what needs attention, what failed, what is due and what has been completed. Use one shared source of truth rather than duplicating status in every component. Build a vertical slice for a single customer journey and only then add charts or filters. Pick a fictional small business with a simple repeatable workflow.
 
-## Worked example
+**Worked example**
 
 An enquiry arrives, creates or links a customer, produces a summary and a proposed task, then appears in the “Needs approval” list.
 
-## Try it
+**Try it**
 
 Complete projects/02-operations-assistant.md with an entity list, state transitions and one-page dashboard wireframe.
 
-## Key point
+**Key point**
 
 Entity model; status source; attention-first dashboard.
 
@@ -53,7 +53,7 @@ Entity model; status source; attention-first dashboard.
 ## Flashcards
 
 - Q: What should determine the first dashboard view?
-  A: > The owner’s immediate decisions and exceptions, not the number of data visualisations possible.
+  A: Show answer The owner’s immediate decisions and exceptions, not the number of data visualisations possible.
 
 ## Revision Questions
 
