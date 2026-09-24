@@ -35,7 +35,7 @@ Trigger → classify → store → draft → approve; baseline first.
 
 ## Key Concepts
 
-- Trigger → classify → store → draft → approve; baseline first.
+- Trigger → classify → store → draft → approve; baseline first. :: Names the whole flow and the owner at each boundary; baseline measures current time and quality before automation so improvement is testable.
 
 ## Examples
 
