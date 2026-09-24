@@ -35,7 +35,7 @@ Citations must support claims; abstain when evidence is absent.
 
 ## Key Concepts
 
-- Citations must support claims; abstain when evidence is absent.
+- Citations must support claims; abstain when evidence is absent. :: A citation should support the exact claim; when permitted evidence is missing or weak, the system should say so instead of guessing.
 
 ## Examples
 
