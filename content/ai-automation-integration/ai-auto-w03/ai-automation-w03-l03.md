@@ -53,7 +53,7 @@ Bounded retries; idempotency; structured events; dead-letter state.
 ## Flashcards
 
 - Q: Why should a 400 validation failure not be retried indefinitely?
-  A: Show answer The same invalid request will fail repeatedly until the input is corrected.
+  A: The same invalid request will fail repeatedly until the input is corrected.
 
 ## Revision Questions
 
