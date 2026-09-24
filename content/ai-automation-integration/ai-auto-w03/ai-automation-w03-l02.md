@@ -53,7 +53,7 @@ Verify raw event; dedupe ID; queue slow work.
 ## Flashcards
 
 - Q: What does a successful webhook acknowledgement prove?
-  A: Show answer It proves receipt/acceptance as defined by the endpoint, not necessarily completion of downstream work.
+  A: It proves receipt/acceptance as defined by the endpoint, not necessarily completion of downstream work.
 
 ## Revision Questions
 
