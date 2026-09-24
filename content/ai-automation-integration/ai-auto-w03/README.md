@@ -28,3 +28,4 @@ Receive, authenticate, and process requests without losing work. Weekly mission:
 
 - [HTTP APIs and auth boundaries](./ai-automation-w03-l01.md)
 - [Webhooks, signatures and duplicates](./ai-automation-w03-l02.md)
+- [Retries, queues and observability](./ai-automation-w03-l03.md)
