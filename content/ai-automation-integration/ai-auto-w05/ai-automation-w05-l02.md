@@ -53,7 +53,7 @@ Chunk by meaning; version data; evaluate retrieval.
 ## Flashcards
 
 - Q: Why can the nearest vector still be the wrong evidence?
-  A: Show answer Semantic closeness is a ranking signal, not a guarantee that the passage answers the specific question.
+  A: Semantic closeness is a ranking signal, not a guarantee that the passage answers the specific question.
 
 ## Revision Questions
 
