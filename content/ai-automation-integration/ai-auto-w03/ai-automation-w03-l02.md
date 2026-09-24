@@ -35,7 +35,7 @@ Verify raw event; dedupe ID; queue slow work.
 
 ## Key Concepts
 
-- Verify raw event; dedupe ID; queue slow work.
+- Verify raw event; dedupe ID; queue slow work. :: Verifies the original signed payload, records a stable event ID to deduplicate retries, and moves slow work out of the request.
 
 ## Examples
 
