@@ -17,19 +17,19 @@ Understand and apply chunking and embeddings in a reliable AI automation and sys
 
 ## Content
 
-## Understand
+**Understand**
 
 A chunk should preserve enough context to answer a question without dragging in unrelated sections. Split at headings and paragraphs before arbitrary character limits; keep headings with their text. Track document version and delete or replace old chunks during re-indexing. An embedding maps text into a vector; similarity search finds close vectors, but similarity does not establish truth. Use a small holdout set of questions to compare chunk size, overlap and ranking. If a short exact phrase matters, combine keyword search with semantic search.
 
-## Worked example
+**Worked example**
 
 A refund exception is split away from its condition; a search returns the exception alone. Keeping the paragraph and heading together fixes this retrieval error.
 
-## Try it
+**Try it**
 
 Chunk the provided refund policy twice: by fixed length and by heading. Compare which method preserves the exception and its condition.
 
-## Key point
+**Key point**
 
 Chunk by meaning; version data; evaluate retrieval.
 
@@ -53,7 +53,7 @@ Chunk by meaning; version data; evaluate retrieval.
 ## Flashcards
 
 - Q: Why can the nearest vector still be the wrong evidence?
-  A: > Semantic closeness is a ranking signal, not a guarantee that the passage answers the specific question.
+  A: Show answer Semantic closeness is a ranking signal, not a guarantee that the passage answers the specific question.
 
 ## Revision Questions
 
