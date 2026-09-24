@@ -26,4 +26,4 @@ Map a real process and build a small, measurable AI application. Weekly mission:
 
 ## Lessons
 
-_No lessons yet. Lessons are added only by explicit manual or Hermes-requested structure changes._
+- [Find the process before the model](./ai-automation-w01-l01.md)
