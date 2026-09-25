@@ -83,16 +83,18 @@ export function writeTestTree(contentDir: string): void {
 }
 
 export function makeConfig(overrides: Partial<AppConfig> = {}): AppConfig {
+  const contentDir = tmpDir('content');
   return {
     port: 0,
     host: '127.0.0.1',
     dbPath: ':memory:',
-    contentDir: tmpDir('content'),
+    contentDir,
     repoRoot: tmpDir('repo'),
     webDist: '/nonexistent',
     passwordHash: null,
     devBypass: true,
     integrationSecret: 'test-integration-secret',
+    missionStatePath: join(contentDir, 'mission-control-state.json'),
     nodeEnv: 'test',
     ...overrides,
   };

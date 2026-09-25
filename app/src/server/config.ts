@@ -1,3 +1,4 @@
+import { homedir } from 'node:os';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -13,6 +14,8 @@ export interface AppConfig {
   devBypass: boolean;
   integrationSecret: string | null;
   nodeEnv: string;
+  /** Fixed local path of the Mission Control snapshot pushed from the Hermes host. */
+  missionStatePath: string;
 }
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -37,6 +40,8 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): AppConfig {
     passwordHash,
     devBypass,
     integrationSecret: env.STUDY_INTEGRATION_SECRET ?? null,
+    missionStatePath:
+      env.MISSION_CONTROL_STATE_PATH ?? resolve(homedir(), '.local', 'share', 'mission-control', 'state.json'),
     nodeEnv,
   };
 }

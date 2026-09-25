@@ -5,6 +5,7 @@ import type { ContentStore } from './contentStore.js';
 import { ContentError, normalizeKeyConcepts } from '../shared/content.js';
 import { GitSync, SyncError } from './gitSync.js';
 import { LessonService, ServiceError, londonToday } from './lessonService.js';
+import { missionControlPayload } from './missionControl.js';
 import { StructureService } from './structureService.js';
 import {
   clearSessionCookie,
@@ -118,6 +119,10 @@ export function buildApp(deps: AppDeps): Express {
 
   api.get('/sync/events', auth, (_req, res) => {
     res.json({ events: repo.recentSyncEvents(20), lastError: repo.lastSyncError() });
+  });
+
+  api.get('/mission-control', auth, (_req, res) => {
+    res.json(missionControlPayload(service, config));
   });
 
   // ---- lifecycle --------------------------------------------------------------
