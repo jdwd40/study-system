@@ -7,6 +7,7 @@ import { GitSync, SyncError } from './gitSync.js';
 import { LessonService, ServiceError, londonToday } from './lessonService.js';
 import { missionControlPayload } from './missionControl.js';
 import { StructureService } from './structureService.js';
+import { taskProxyRoutes } from './taskProxy.js';
 import {
   clearSessionCookie,
   newSessionToken,
@@ -124,6 +125,10 @@ export function buildApp(deps: AppDeps): Express {
   api.get('/mission-control', auth, (_req, res) => {
     res.json(missionControlPayload(service, config));
   });
+
+  // ---- jdct-tasks proxy (explicit routes, CSRF-guarded writes) -----------------
+
+  api.use(taskProxyRoutes(config, auth));
 
   // ---- lifecycle --------------------------------------------------------------
 

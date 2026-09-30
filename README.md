@@ -33,6 +33,15 @@ against the compiled server), `seed:outline` (reserved), `start` (production).
 See `app/.env.example`. Production requires `STUDY_PASSWORD_HASH` (scrypt string,
 generate with the command in the example file) and ignores `STUDY_DEV_BYPASS`.
 The Hermes adapter requires `STUDY_INTEGRATION_SECRET`.
+`TASK_API_URL` (optional) enables the JD-CT task proxy below.
+
+## JD-CT task proxy
+
+`/study/api/tasks*` and `/study/api/obsidian/scan` are an explicit, authenticated
+proxy to the private jdct-tasks service (`TASK_API_URL`, server-side only — the
+URL never reaches the browser). Writes require the `X-JDCT-Request: 1` header and
+a matching Origin (CSRF guard); nothing is forwarded upstream except the JSON
+body. Unset `TASK_API_URL` → 503; upstream network failure → sanitized 502.
 
 ## Canonical content rules
 

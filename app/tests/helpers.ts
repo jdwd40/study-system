@@ -95,6 +95,7 @@ export function makeConfig(overrides: Partial<AppConfig> = {}): AppConfig {
     devBypass: true,
     integrationSecret: 'test-integration-secret',
     missionStatePath: join(contentDir, 'mission-control-state.json'),
+    taskApiUrl: null,
     nodeEnv: 'test',
     ...overrides,
   };

@@ -16,6 +16,9 @@ export interface AppConfig {
   nodeEnv: string;
   /** Fixed local path of the Mission Control snapshot pushed from the Hermes host. */
   missionStatePath: string;
+  /** Base URL of the private jdct-tasks service (e.g. http://100.x.x.x:8788).
+   *  Null disables the task proxy (503). Never exposed to the browser. */
+  taskApiUrl: string | null;
 }
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -42,6 +45,7 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): AppConfig {
     integrationSecret: env.STUDY_INTEGRATION_SECRET ?? null,
     missionStatePath:
       env.MISSION_CONTROL_STATE_PATH ?? resolve(homedir(), '.local', 'share', 'mission-control', 'state.json'),
+    taskApiUrl: env.TASK_API_URL ?? null,
     nodeEnv,
   };
 }
