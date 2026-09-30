@@ -77,6 +77,7 @@ async function proxy(
     return;
   }
   let upstream: globalThis.Response;
+  let body: string;
   try {
     upstream = await fetch(`${config.taskApiUrl}${upstreamPath}`, {
       method,
@@ -87,6 +88,10 @@ async function proxy(
         : { accept: 'application/json' },
       body: withBody ? JSON.stringify(req.body ?? {}) : undefined,
     });
+    // Body consumption sits in the same try: a timeout/stream failure after
+    // headers must also sanitize to 502, and no status is sent until the body
+    // is fully read.
+    body = await upstream.text();
   } catch {
     // Network failure/timeout: sanitized — no upstream URL or internals leak.
     res.status(502).json({ error: 'task service unavailable', code: 'TASK_UPSTREAM' });
@@ -94,7 +99,6 @@ async function proxy(
   }
   // Pass through status and body verbatim (our own service always speaks JSON;
   // Express strips the body/entity headers automatically on 204).
-  const body = await upstream.text();
   res.status(upstream.status).type('application/json').send(body);
 }
 

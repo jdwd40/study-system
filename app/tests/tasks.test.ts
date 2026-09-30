@@ -176,6 +176,18 @@ describe('jdct-tasks proxy', () => {
     expect(res.headers['cache-control']).toBe('private, no-store');
   });
 
+  it('maps an upstream body-stream failure (after headers) to a sanitized 502', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      status: 200,
+      text: () => Promise.reject(new Error(`stream reset while reading ${UPSTREAM}`)),
+    });
+    vi.stubGlobal('fetch', fetchMock);
+    const res = await request(ctx.app).get('/study/api/tasks');
+    expect(res.status).toBe(502);
+    expect(res.body.code).toBe('TASK_UPSTREAM');
+    expect(JSON.stringify(res.body)).not.toContain(UPSTREAM);
+  });
+
   it('proxies the manual Obsidian scan without a body', async () => {
     const fetchMock = vi.fn().mockResolvedValue(jsonUpstream(200, { files: 12, imported: 3, skipped: 9 }));
     vi.stubGlobal('fetch', fetchMock);
