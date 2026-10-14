@@ -21,3 +21,4 @@ Build clear, purposeful writing across everyday communication, explanation, argu
 - [Clear Sentences and Precise Language](./write-201/README.md) — queued
 - [Paragraphs, Structure and Flow](./write-301/README.md) — queued
 - [Explanation, Evidence and Argument](./write-401/README.md) — queued
+- [Storytelling, Description and Voice](./write-501/README.md) — queued
