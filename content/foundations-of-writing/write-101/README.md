@@ -29,4 +29,4 @@ Start with the reader and the intended effect, then separate planning, drafting 
 
 ## Lessons
 
-_No lessons yet. Lessons are added only by explicit manual or Hermes-requested structure changes._
+- [Purpose and Reader](./write-101-purpose-and-reader.md)
