@@ -18,3 +18,4 @@ Build clear, purposeful writing across everyday communication, explanation, argu
 ## Modules
 
 - [Purpose, Reader and the Writing Process](./write-101/README.md) — active
+- [Clear Sentences and Precise Language](./write-201/README.md) — queued
