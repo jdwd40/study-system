@@ -35,7 +35,10 @@ Show source, proposal and state; accessible actions.
 
 ## Key Concepts
 
-- Show source, proposal and state; accessible actions. :: Shows original source beside generated proposals and current state; accessible controls make approval, rejection, loading, empty, and error paths usable.
+- Evidence/proposal separation :: Display the source enquiry beside extracted details and draft text, distinguishing saved facts from generated suggestions.
+- Explicit uncertainty :: Label absent or uncertain fields as unknown or needing input rather than presenting an invented date as confirmed.
+- Review action contract :: Give approve, edit and reject controls clear API operations and feedback, with confirmation where an action has meaningful side effects.
+- Complete accessible UI state :: Provide loading, empty and error states as well as success, support keyboard interaction and check the review flow on both phone and desktop.
 
 ## Examples
 
@@ -47,8 +50,8 @@ Show source, proposal and state; accessible actions.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://react.dev/learn)
-- https://react.dev/learn
+- **Start here (free): [React — Reacting to Input with State](https://react.dev/learn/reacting-to-input-with-state)** — Read **Step 1: Identify your component’s different visual states**; **Step 2: Determine what triggers those state changes**. Shows how to design empty, submitting, success and error states before wiring event logic. **Apply:** List the review card states after approve succeeds, fails or is still pending.
+- **Optional reference (free): [W3C WAI-ARIA APG — Button Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/button/)** — Read **Keyboard Interaction**; **WAI-ARIA Roles, States, and Properties**. Specifies activation, accessible naming and focus expectations; prefer native buttons rather than implementing a clickable div. **Apply:** Walk through approve and reject using only the keyboard and note where focus should remain or move.
 
 ## Flashcards
 
