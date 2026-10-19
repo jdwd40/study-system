@@ -27,7 +27,7 @@ The shop pilot includes one form, one dashboard, one weekly report and manual ap
 
 **Try it**
 
-Complete templates/one-page-proposal.md using a fictional business. Include five acceptance tests and a handover owner.
+Draft a one-page proposal for a fictional business using these headings: problem, current process, bounded pilot, deliverables and exclusions, data/account ownership, human approvals, timeline, five acceptance tests, failure/fallback route, support and handover owner. Keep legal terms proportionate and seek qualified advice where needed; no supplied proposal template is required.
 
 **Key point**
 
@@ -35,7 +35,10 @@ Scope, roles, data, fallback, tests, support.
 
 ## Key Concepts
 
-- Scope, roles, data, fallback, tests, support. :: Defines scope, roles, data handling, fallback behaviour, tests, and support so both sides can verify what success and failure mean.
+- Bounded proposal :: Describe the current problem, pilot deliverables, exclusions, timeline and change-request route in language the business owner can check.
+- Responsibility and account ownership :: Name who supplies API access, owns accounts and data, maintains the service and approves outbound actions.
+- Processing agreement :: Specify what information is processed, where and by whom, reviewing the applicable privacy and processor responsibilities before real messages are used.
+- Acceptance and fallback :: Agree observable normal and failure tests, manual fallback and support arrangements so both parties know what delivery and recovery mean.
 
 ## Examples
 
@@ -47,8 +50,8 @@ Scope, roles, data, fallback, tests, support.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://ico.org.uk/for-organisations/advice-for-small-organisations/getting-started-with-gdpr/)
-- https://ico.org.uk/for-organisations/advice-for-small-organisations/getting-started-with-gdpr/
+- **Start here (free): [GOV.UK — Writing user stories](https://www.gov.uk/service-manual/agile-delivery/writing-user-stories)** — Read **Acceptance criteria**. Defines observable outcomes as a checklist and links them to evidence, helping avoid vague contractual claims such as “AI works well”. **Apply:** Write five owner-verifiable pilot tests including duplicate handling and a provider outage.
+- **Optional reference (free): [ICO — What needs to be included in the contract?](https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/contracts-and-liabilities-between-controllers-and-processors-multi/what-needs-to-be-included-in-the-contract/)** — Read **What details about the processing must the contract include?**; **What are the minimum required terms?**; **End-of-contract provisions**. Details controller/processor contract requirements, including processing purpose and deletion/return. A short pilot proposal does not replace an applicable data-processing contract or tailored legal advice. **Apply:** Identify the parties, data, duration, sub-processors and end-of-pilot deletion/export questions to resolve.
 
 ## Flashcards
 
