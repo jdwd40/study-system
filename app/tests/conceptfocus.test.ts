@@ -13,7 +13,7 @@ import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 const appDir = resolve(new URL('.', import.meta.url).pathname, '..');
-const appTsx = readFileSync(resolve(appDir, 'web/src/App.tsx'), 'utf8');
+const appTsx = readFileSync(resolve(appDir, 'web/src/pages/LessonPage.tsx'), 'utf8');
 
 describe('concept dialog focus restoration', () => {
   it('captures the exact opener element at click time', () => {

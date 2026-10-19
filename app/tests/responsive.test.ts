@@ -6,13 +6,24 @@
  * the surfaces they render on, and that the header nav can never clip its
  * labels (e.g. "Library") — the regression the browser pass caught at 412px.
  */
-import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { readdirSync, readFileSync } from 'node:fs';
+import { join, resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 const appDir = resolve(new URL('.', import.meta.url).pathname, '..');
 const css = readFileSync(resolve(appDir, 'web/src/styles.css'), 'utf8');
-const appTsx = readFileSync(resolve(appDir, 'web/src/App.tsx'), 'utf8');
+
+/** Every .tsx file under web/src (sorted, recursive), concatenated. */
+function tsxSources(dir: string): string[] {
+  const out: string[] = [];
+  for (const entry of readdirSync(dir, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
+    const full = join(dir, entry.name);
+    if (entry.isDirectory()) out.push(...tsxSources(full));
+    else if (entry.name.endsWith('.tsx')) out.push(full);
+  }
+  return out;
+}
+const appTsx = tsxSources(resolve(appDir, 'web/src')).map((f) => readFileSync(f, 'utf8')).join('\n');
 
 /* ---------- WCAG contrast helpers ---------- */
 
@@ -130,9 +141,10 @@ describe('visual polish guards', () => {
     const body = ruleBody(css, '.pill-archived');
     expect(body).not.toBe('');
     expect(body).toContain('background: var(--line)');
-    const color = body.match(/color:\s*(#[0-9a-fA-F]{6})/)?.[1];
-    expect(color).toBeDefined();
-    expect(contrast(color!, cssVar('line'))).toBeGreaterThanOrEqual(4.5);
+    const colorDecl = body.match(/color:\s*(#[0-9a-fA-F]{6}|var\(--([a-z-]+)\))/);
+    expect(colorDecl).not.toBeNull();
+    const color = colorDecl![2] ? cssVar(colorDecl![2]) : colorDecl![1]!;
+    expect(contrast(color, cssVar('line'))).toBeGreaterThanOrEqual(4.5);
   });
 
   it('course card headers are a flex row: title wraps, pill keeps its shape', () => {
