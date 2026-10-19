@@ -305,3 +305,62 @@ describe('lesson reader guards (phase 4)', () => {
     expect(lessonTsx).toContain('not a quiz');
   });
 });
+
+describe('review page guards (phase 5)', () => {
+  const reviewTsx = readFileSync(resolve(appDir, 'web/src/pages/ReviewPage.tsx'), 'utf8');
+
+  it('reads the short-session size from the ?session URL param (1..50) and can toggle it without a reload', () => {
+    expect(reviewTsx).toContain("parseSessionParam(searchParams.get('session'))");
+    expect(reviewTsx).toContain('const MAX_SESSION = 50;');
+    expect(reviewTsx).toContain("next.delete('session'); else next.set('session', String(n));");
+    expect(reviewTsx).toContain('setSearchParams(next, { replace: true });');
+    // Today links here with ?session=10.
+    const dashboard = readFileSync(resolve(appDir, 'web/src/pages/Dashboard.tsx'), 'utf8');
+    expect(dashboard).toContain('to="/review?session=10"');
+  });
+
+  it('keyboard handler ignores text-entry and choice controls, and only Space/Enter when not on a button', () => {
+    expect(reviewTsx).toContain("return tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA' || tag === 'OPTION';");
+    expect(reviewTsx).toContain('if (isTypingTarget(e.target)) return;');
+    expect(reviewTsx).toContain("e.target.closest('button, a, summary')");
+    expect(reviewTsx).toContain("if (e.key === 'ArrowLeft')");
+    expect(reviewTsx).toContain("if (e.key === 'ArrowRight')");
+    expect(reviewTsx).toContain("(e.key === ' ' || e.key === 'Enter') && !flipped");
+    // Visible key legend on the card.
+    expect(reviewTsx).toContain('className="review-keys"');
+  });
+
+  it('posts exactly one review per grade press with the server body shape', () => {
+    const calls = reviewTsx.match(/\/flashcards\/review'/g) ?? [];
+    expect(calls).toHaveLength(1);
+    expect(reviewTsx).toContain("await api.post('/flashcards/review', { cardId: card.cardId, lessonId: card.lessonId, grade: g });");
+    expect(reviewTsx).toContain('if (!card || busy) return;');
+    // No scheduling maths client-side: intervals are never invented.
+    expect(reviewTsx).not.toContain('scheduleCard(');
+  });
+
+  it('lesson filter shows readable titles from card.lessonTitle, de-duplicated by lesson id', () => {
+    expect(reviewTsx).toContain('if (!seen.has(c.lessonId)) seen.set(c.lessonId, c.lessonTitle);');
+    expect(reviewTsx).toContain('<option key={l.id} value={l.id}>{l.title}</option>');
+  });
+
+  it('grade row is 2x2 on phones; grade buttons stay 44px', () => {
+    expect(ruleBody(mobile, '.grade-row')).toContain('grid-template-columns: repeat(2, 1fr)');
+    expect(ruleBody(css, '.grade-btn')).toContain('min-height: 44px');
+    expect(ruleBody(mobile, '.review-summary-grades')).toContain('repeat(2, minmax(0, 1fr))');
+  });
+
+  it('session summary is calm: counts per grade, next actions, no streaks or scores', () => {
+    expect(reviewTsx).toContain('className="card review-summary"');
+    expect(reviewTsx).toContain('You reviewed {reviewedTotal} card');
+    expect(reviewTsx).toContain('className="review-summary-grades list-plain"');
+    expect(reviewTsx).toContain('Back to Today');
+    expect(reviewTsx).toContain('Open full queue');
+    expect(reviewTsx).toContain('more</button>');
+    expect(reviewTsx).not.toMatch(/streak|score|%\s*correct|accuracy/i);
+    // Ratings disclosure explains SM-2 and separates lesson self-ratings from card grades.
+    expect(reviewTsx).toContain('What do the ratings mean?');
+    expect(reviewTsx).toContain('SM-2-style');
+    expect(reviewTsx).toContain('separate from the 1–5 self-rating');
+  });
+});
