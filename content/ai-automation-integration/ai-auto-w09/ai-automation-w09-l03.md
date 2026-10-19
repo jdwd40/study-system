@@ -35,7 +35,10 @@ Backup, off-host copy, restore test, documented recovery.
 
 ## Key Concepts
 
-- Backup, off-host copy, restore test, documented recovery. :: A backup is trustworthy only after an off-host copy has been restored and checked; recovery ownership and steps must be documented.
+- Recovery-point target :: State how much recent data loss the pilot can tolerate, making the backup schedule and possible missing entries explicit to the owner.
+- Recovery-time target :: State how long restoration may take, then time a realistic drill rather than assuming the existence of a backup meets the target.
+- Complete off-host backup :: Keep a separate copy of the database, workflow configuration and required recovery secrets such as the n8n encryption key, with appropriate protection.
+- Restore verification :: Restore into an isolated environment with fictional data, check record counts and application behaviour, and record the commands, owner and last successful drill.
 
 ## Examples
 
@@ -47,8 +50,8 @@ Backup, off-host copy, restore test, documented recovery.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://docs.docker.com/compose/how-tos/production/)
-- https://docs.docker.com/compose/how-tos/production/
+- **Start here (free): [PostgreSQL — SQL Dump](https://www.postgresql.org/docs/current/backup-dump.html)** — Read **SQL Dump**; **Restoring the Dump**; **Using pg_dumpall**. Explains dump/restore formats, required roles and restore error handling; a dump file alone does not prove a usable application has been recovered. **Apply:** Write a fictional-data restore checklist that checks command errors, counts and a view in the app.
+- **Optional reference (free): [n8n — Back up and restore](https://docs.n8n.io/deploy/host-n8n/keep-n8n-running/backup-and-restore)** — Read **What a complete backup includes**; **What a CLI backup doesn't contain**; **Restore the full instance**. Shows why workflow exports alone are insufficient: the instance database, deployment configuration and credential encryption key can be essential. **Apply:** List every recovery artefact needed if the VPS and its local volume disappear.
 
 ## Flashcards
 
