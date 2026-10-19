@@ -35,7 +35,11 @@ Metadata, permission filter, bounded retrieval, measure first.
 
 ## Key Concepts
 
-- Metadata, permission filter, bounded retrieval, measure first. :: Uses metadata and permission filters before similarity search, bounds retrieved context, and measures retrieval quality before tuning vector settings.
+- Document/chunk data model :: Keep documents and their chunks linked by stable identifiers, storing text, location, version metadata and an optional embedding.
+- Permission-constrained retrieval :: Enforce tenant and user access before passages enter model context; a semantic match must never grant access to another location’s documents.
+- Exact versus approximate search :: Use exact or ordinary text search for a small corpus first; approximate vector indexes can improve speed while reducing recall.
+- Filtering and recall :: Apply an authorised SQL predicate, but do not assume the index physically filters before similarity scanning; approximate pgvector scans can return fewer eligible results and need measurement.
+- Bounded query :: Parameterise retrieval inputs and cap the number and length of returned passages to control injection risk, latency and context cost.
 
 ## Examples
 
@@ -47,8 +51,8 @@ Metadata, permission filter, bounded retrieval, measure first.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://github.com/pgvector/pgvector)
-- https://github.com/pgvector/pgvector
+- **Start here (free): [pgvector — Indexing, filtering and multitenancy](https://github.com/pgvector/pgvector)** — Read **Indexing**; **Filtering**; **Multitenancy**. Documents exact-search defaults, approximate-index trade-offs and the important fact that approximate-index filtering occurs after the index scan. **Apply:** Sketch an authorised location filter and explain why fewer than four eligible chunks might be returned.
+- **Optional reference (free): [PostgreSQL — Row Security Policies](https://www.postgresql.org/docs/current/ddl-rowsecurity.html)** — Read **Row Security Policies**. Explains row-level access policies, default-deny behaviour when enabled without policies, and owner bypass caveats. **Apply:** Describe a cross-location denial test and which non-owner database role should run it.
 
 ## Flashcards
 
