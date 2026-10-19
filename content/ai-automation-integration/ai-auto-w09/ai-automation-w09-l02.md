@@ -35,7 +35,11 @@ HTTPS; scoped credentials; protected admin; redacted logs.
 
 ## Key Concepts
 
-- HTTPS; scoped credentials; protected admin; redacted logs. :: Encrypts traffic, scopes every credential to its job, protects administrative actions, and redacts secrets from logs and diagnostics.
+- TLS termination :: Use a maintained reverse proxy to provide HTTPS and certificate renewal; transport encryption does not by itself authorise application actions.
+- Least-privilege service identity :: Give each component distinct credentials and only the database permissions and API actions needed for its role.
+- Runtime secret lifecycle :: Supply secrets outside source control, restrict which service receives each one and rotate any value that has been exposed.
+- Protected administration :: Require appropriate authentication and authorisation for admin and approval routes instead of exposing them with the public enquiry form.
+- Threat review and redacted logs :: Ask who can call endpoints or read records and what one leaked credential enables, while keeping tokens and customer messages out of diagnostics.
 
 ## Examples
 
@@ -47,8 +51,9 @@ HTTPS; scoped credentials; protected admin; redacted logs.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://docs.docker.com/compose/how-tos/production/)
-- https://docs.docker.com/compose/how-tos/production/
+- **Start here (free): [Caddy — Automatic HTTPS](https://caddyserver.com/docs/automatic-https)** — Read **Activation**; **Effects**; **Hostname requirements**. Explains when automatic certificate management and HTTPS redirects activate; actual DNS and network conditions still need checking. **Apply:** Mark where HTTPS terminates and what must be true of the public hostname.
+- **Optional reference (free): [Docker — Manage secrets securely in Docker Compose](https://docs.docker.com/compose/how-tos/use-secrets/)** — Read **Use secrets**; **Single-service secret injection**. Shows explicit per-service secret access through mounted files. Protect the source secret file too; this is not automatic encryption of host storage. **Apply:** Draw which of the API, workflow and database services needs each secret.
+- **Optional reference (free): [OWASP — Authorization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html)** — Read **Enforce Least Privileges**; **Verify that Authorization Checks are Performed in the Right Location**. Links the role table to trusted server-side enforcement rather than hiding privileged buttons in the browser. **Apply:** Test that a public visitor can submit an enquiry but cannot list customers or approve a reply.
 
 ## Flashcards
 
