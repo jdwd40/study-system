@@ -3,8 +3,9 @@
  *
  * These are static guards, not a browser: they verify the mobile (<=640px)
  * rules exist, that muted palette colors meet WCAG AA contrast (4.5:1) against
- * the surfaces they render on, and that the header nav can never clip its
- * labels (e.g. "Library") — the regression the browser pass caught at 412px.
+ * the surfaces they render on, and that the shell navigation (sidebar >=900px,
+ * bottom tab bar below) can never clip its labels (e.g. "Library") — the
+ * regression the browser pass caught at 412px.
  */
 import { readdirSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
@@ -49,10 +50,10 @@ function cssVar(name: string): string {
 
 /* ---------- media-query block extraction ---------- */
 
-/** Concatenate the bodies of every `@media (max-width: 640px)` block. */
-function mobileBlock(): string {
+/** Concatenate the bodies of every `@media (max-width: <px>px)` block. */
+function mediaBlock(maxWidthPx: number): string {
   const blocks: string[] = [];
-  const re = /@media\s*\(max-width:\s*640px\)\s*\{/g;
+  const re = new RegExp(`@media\\s*\\(max-width:\\s*${maxWidthPx}px\\)\\s*\\{`, 'g');
   let m: RegExpExecArray | null;
   while ((m = re.exec(css))) {
     let depth = 1;
@@ -75,7 +76,9 @@ function ruleBody(chunk: string, selector: string): string {
   return m ? m[1]! : '';
 }
 
-const mobile = mobileBlock();
+const mobile = mediaBlock(640);
+/** Shell breakpoint: below 900px the sidebar hides and the tab bar shows. */
+const shellMobile = mediaBlock(899);
 
 describe('responsive stylesheet guards', () => {
   it('defines a <=640px mobile block', () => {
@@ -95,28 +98,33 @@ describe('responsive stylesheet guards', () => {
     }
   });
 
-  it('mobile header wraps so the nav gets a full-width row', () => {
-    expect(ruleBody(mobile, '.topbar-inner')).toContain('flex-wrap: wrap');
-    const nav = ruleBody(mobile, '.nav');
-    expect(nav).toContain('flex-basis: 100%');
-    expect(nav).toContain('order: 3');
+  it('shell switches below 900px: sidebar hidden, top bar and tab bar shown', () => {
+    expect(shellMobile.length).toBeGreaterThan(0);
+    expect(ruleBody(shellMobile, '.sidebar')).toContain('display: none');
+    expect(ruleBody(shellMobile, '.mobile-bar')).toContain('display: flex');
+    expect(ruleBody(shellMobile, '.tabbar')).toContain('display: flex');
+    // Page content is never hidden under the fixed tab bar (safe-area aware).
+    expect(ruleBody(shellMobile, '.page')).toMatch(/padding-bottom:\s*calc\(.*env\(safe-area-inset-bottom/);
+    expect(ruleBody(css, '.tabbar')).toContain('env(safe-area-inset-bottom');
   });
 
-  it('mobile nav fits without scrolling: equal-width links, compact type', () => {
-    const nav = ruleBody(mobile, '.nav');
-    expect(nav).toContain('overflow-x: visible');
-    const link = ruleBody(mobile, '.nav a');
-    expect(link).toContain('flex: 1 1 0');
-    expect(link).toMatch(/font-size:\s*0\.8rem/);
-    // Labels stay untruncated everywhere.
-    expect(ruleBody(css, '.nav a')).toContain('white-space: nowrap');
+  it('bottom tabs fit without scrolling: equal-width tabs, labels never clipped', () => {
+    const tab = ruleBody(css, '.tab');
+    expect(tab).toContain('flex: 1 1 0');
+    expect(tab).toContain('min-height: 44px');
+    expect(tab).toContain('white-space: nowrap');
     expect(css).not.toContain('text-overflow: ellipsis');
+    expect(ruleBody(css, '.sidenav-link')).toContain('min-height: 44px');
   });
 
   it('mobile touch targets are at least 44px tall', () => {
-    for (const selector of ['.nav a', '.logout-btn', '.btn-sm']) {
+    for (const selector of ['.btn-sm']) {
       expect(ruleBody(mobile, selector)).toContain('min-height: 44px');
     }
+    // Shell controls (icon buttons, sidebar buttons, brand) are 44px at every width.
+    expect(ruleBody(css, '.icon-btn')).toMatch(/height:\s*44px/);
+    expect(ruleBody(css, '.shell-btn')).toContain('min-height: 44px');
+    expect(ruleBody(css, '.brand')).toContain('min-height: 44px');
     // Desktop base controls already meet 44px.
     for (const selector of ['.btn', '.grade-btn']) {
       expect(ruleBody(css, selector)).toContain('min-height: 44px');
@@ -173,8 +181,17 @@ describe('visual polish guards', () => {
 });
 
 describe('app shell responsive markup', () => {
-  it('keeps full nav labels including "Library"', () => {
-    expect(appTsx).toContain('<NavLink to="/library">Library</NavLink>');
+  it('keeps the four full nav labels, rendered as both sidebar links and bottom tabs', () => {
+    const nav = readFileSync(resolve(appDir, 'web/src/components/shell/navItems.ts'), 'utf8');
+    for (const label of ['Today', 'Library', 'Review', 'Manage']) expect(nav).toContain(`label: '${label}'`);
+    expect(nav.match(/label: '/g)?.length).toBe(4);
+    expect(appTsx).toContain('className="sidenav-link"');
+    expect(appTsx).toContain('className="tab"');
+  });
+
+  it('search palette is a labelled modal dialog with a full-search fallback', () => {
+    expect(appTsx).toContain('aria-modal="true" aria-labelledby="palette-title"');
+    expect(appTsx).toContain('Open full search');
   });
 
   it('manage rows use the stacking-friendly .manage-main class', () => {

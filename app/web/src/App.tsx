@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Link, NavLink, Route, Routes, useNavigate } from 'react-router-dom';
+import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 import { api } from './api';
+import { AppShell } from './components/shell/AppShell';
 import { Spinner } from './components/Spinner';
 import { CoursePage } from './pages/CoursePage';
 import { Dashboard } from './pages/Dashboard';
@@ -12,8 +13,6 @@ import { ReviewPage } from './pages/ReviewPage';
 import { SearchPage } from './pages/SearchPage';
 import type { AuthMe } from './types';
 
-/* ---------- shell ---------- */
-
 export default function App() {
   const [me, setMe] = useState<AuthMe | null>(null);
   const navigate = useNavigate();
@@ -24,23 +23,11 @@ export default function App() {
     window.addEventListener('study:unauthenticated', onUnauth);
     return () => window.removeEventListener('study:unauthenticated', onUnauth);
   }, [check]);
+  const signOut = useCallback(async () => { await api.post('/auth/logout'); setMe({ authenticated: false, devBypass: false }); navigate('/'); }, [navigate]);
   if (me === null) return <Spinner />;
   if (!me.authenticated) return <Login onLogin={check} devBypass={me.devBypass} />;
   return (
-    <div className="app-shell">
-      <header className="topbar">
-        <div className="topbar-inner">
-          <Link to="/" className="brand">Study System</Link>
-          <nav className="nav" aria-label="Main">
-            <NavLink to="/" end>Dashboard</NavLink>
-            <NavLink to="/library">Library</NavLink>
-            <NavLink to="/review">Review</NavLink>
-            <NavLink to="/manage">Manage</NavLink>
-            <NavLink to="/search">Search</NavLink>
-          </nav>
-          <button className="logout-btn" onClick={async () => { await api.post('/auth/logout'); setMe({ authenticated: false, devBypass: false }); navigate('/'); }}>Sign out</button>
-        </div>
-      </header>
+    <AppShell onSignOut={signOut}>
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/library" element={<Library />} />
@@ -49,8 +36,8 @@ export default function App() {
         <Route path="/review" element={<ReviewPage />} />
         <Route path="/manage" element={<ManagePage />} />
         <Route path="/search" element={<SearchPage />} />
-        <Route path="*" element={<main className="page"><div className="empty">Page not found. <Link to="/">Back to dashboard</Link>.</div></main>} />
+        <Route path="*" element={<main className="page"><div className="empty">Page not found. <Link to="/">Back to Today</Link>.</div></main>} />
       </Routes>
-    </div>
+    </AppShell>
   );
 }

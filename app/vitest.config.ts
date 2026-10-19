@@ -6,5 +6,8 @@ export default defineConfig({
     include: ['tests/**/*.test.ts'],
     testTimeout: 20000,
     hookTimeout: 20000,
+    // Small VPS: cap parallel test workers so the suite never competes with a build or browser run.
+    maxWorkers: 2,
+    minWorkers: 1,
   },
 });
