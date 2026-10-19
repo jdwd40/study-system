@@ -35,7 +35,10 @@ Explicit contracts; correct credential scope; honest status.
 
 ## Key Concepts
 
-- Explicit contracts; correct credential scope; honest status. :: A clear request/response contract and narrowly scoped credentials define what each caller may do; status codes must describe actual completion.
+- HTTP contract :: Document method, path, request fields, status codes and response shape; returning an enquiry ID is not evidence that a message was sent.
+- Data ownership :: Name the authoritative system for each datum so integrations do not silently create conflicting copies of customer or enquiry state.
+- Credential scope :: Distinguish a user token, service credential and webhook secret, granting only the permissions needed at that boundary.
+- Delegated access and failure handling :: Use OAuth for supported delegated user access and suitable server credentials for service access; document expiry, rejection and partial success explicitly.
 
 ## Examples
 
@@ -47,8 +50,8 @@ Explicit contracts; correct credential scope; honest status.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview)
-- https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview
+- **Start here (free): [MDN — Overview of HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview)** — Read **HTTP Messages**; **Requests**; **Responses**. Explains the method, path, headers, body and status elements that make an integration contract explicit. **Apply:** Write a request and honest response for POST /enquiries and an approval failure.
+- **Optional reference (free): [OWASP — REST Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html)** — Read **Access Control**; **API Keys**; **HTTP Return Code**. Connects API contracts with endpoint permissions and warns against using API keys alone for sensitive operations. **Apply:** List which identity may call each shop endpoint and how expired credentials are reported.
 
 ## Flashcards
 
