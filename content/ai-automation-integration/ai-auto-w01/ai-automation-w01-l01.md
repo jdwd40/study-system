@@ -35,7 +35,10 @@ Trigger → classify → store → draft → approve; baseline first.
 
 ## Key Concepts
 
-- Trigger → classify → store → draft → approve; baseline first. :: Names the whole flow and the owner at each boundary; baseline measures current time and quality before automation so improvement is testable.
+- Process map :: Break the current task into trigger, input, decision and action, naming the owner at each hand-off before choosing tools.
+- Deterministic versus AI work :: Use ordinary code for validation, scheduling and arithmetic; reserve a model for genuinely ambiguous text or documents.
+- Baseline :: Measure current volume, handling time and errors before building; include review and correction in the later comparison.
+- Automation boundary :: Specify where automation stops and a person takes responsibility, such as generating a draft without authorising its delivery.
 
 ## Examples
 
@@ -47,7 +50,8 @@ Trigger → classify → store → draft → approve; baseline first.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://developers.openai.com/api/docs/quickstart)
+- **Start here (free): [GOV.UK — Learning about users and their needs](https://www.gov.uk/service-manual/user-research/start-by-learning-user-needs)** — Read **Understanding user needs**; **Validating user needs**. Starts from the outcome and observed problem rather than assuming the shop needs a chatbot. Government service examples are adaptable, not requirements for this pilot. **Apply:** Rewrite “build an AI receptionist” as one evidence-backed owner need.
+- **Optional reference (free): [GOV.UK — Creating an experience map](https://www.gov.uk/service-manual/user-research/creating-an-experience-map)** — Read **Identify common stages**; **Build up the experience**. Shows how to turn observed events into stages, steps and service touchpoints. **Apply:** Map one enquiry and label its trigger, hand-offs and current pain point.
 
 ## Flashcards
 
