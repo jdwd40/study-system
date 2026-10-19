@@ -35,7 +35,11 @@ Bounded retries; idempotency; structured events; dead-letter state.
 
 ## Key Concepts
 
-- Bounded retries; idempotency; structured events; dead-letter state. :: Retries transient failures only within bounds, makes work idempotent, and emits structured events so stuck or permanently failed jobs are visible.
+- Bounded retry :: Retry transient failures with an attempt limit, backoff and jitter; invalid input or denied permission requires correction, not endless repetition.
+- Durable job state :: Keep an operation key, attempt count, last error and terminal failed state so work can outlive the HTTP request and remain recoverable.
+- Idempotent execution :: Reuse one operation identifier across attempts and make the executor avoid repeating an already completed side effect.
+- Structured observability :: Record request or job ID, status, duration and error class without unnecessary personal payloads so failures can be traced.
+- Actionable alert and runbook :: Alert on stuck queues, bursts of failures and overdue approvals, with a named owner and safe recovery instructions.
 
 ## Examples
 
@@ -47,8 +51,8 @@ Bounded retries; idempotency; structured events; dead-letter state.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview)
-- https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview
+- **Start here (free): [AWS Builders’ Library — Timeouts, retries, and backoff with jitter](https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/)** — Read **Retries and backoff**; **Jitter**. Explains how unbounded or synchronised retries amplify an outage and why side effects require care. **Apply:** Define an attempt limit and retry delay policy for a rate-limited email job.
+- **Optional reference (free): [GOV.UK — Monitoring the status of your service](https://www.gov.uk/service-manual/technology/monitoring-the-status-of-your-service)** — Read **Metrics to monitor**; **Writing alerts**; **Processing and recording issues**. Connects useful monitoring to understandable alerts, issue ownership and operational documentation. **Apply:** Draft an alert and three-step runbook for a queue whose oldest pending job is overdue.
 
 ## Flashcards
 
