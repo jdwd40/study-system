@@ -164,19 +164,49 @@ describe('visual polish guards', () => {
     expect(title).toContain('overflow-wrap: break-word');
     expect(ruleBody(css, '.course-card-head .pill')).toContain('flex-shrink: 0');
     expect(appTsx).toContain('className="course-card-head"');
+    // Phase 3: on Today the pill moved out of the head to the meta line
+    // (long titles were squeezed between mark and pill); it keeps its shape there.
+    expect(ruleBody(css, '.course-card-meta .pill')).toContain('flex-shrink: 0');
+    expect(appTsx).toContain('No lessons yet');
   });
 
   it('lesson completion and tracker time are labelled as distinct metrics', () => {
     expect(appTsx).toContain('% of lessons complete');
+    // Phase 3 (operator brief 2026-10-19): the progress audit found that
+    // plannedLessons counts lesson files that exist, so Today's course cards
+    // say "X of Y available lessons studied" instead of "lessons complete".
+    expect(appTsx).toContain('available lessons studied');
     expect(appTsx).toContain('tracked via Habit Tracker');
   });
 
-  it('tracker-backed study time renders above the fold, before the course grid', () => {
+  it('Today lists courses (active first) before the secondary study-time report', () => {
+    // Phase 3 (operator brief 2026-10-19): the operator asked for courses to
+    // come before study-time reporting, with study time kept but secondary.
+    // This inverts the earlier "study time above the course grid" guard; the
+    // heading is now "Your courses".
     const studyIdx = appTsx.indexOf('<h2>Study time');
-    const coursesIdx = appTsx.indexOf('<h2>Courses</h2>');
+    const coursesIdx = appTsx.indexOf('<h2>Your courses</h2>');
     expect(studyIdx).toBeGreaterThan(-1);
     expect(coursesIdx).toBeGreaterThan(-1);
-    expect(studyIdx).toBeLessThan(coursesIdx);
+    expect(coursesIdx).toBeLessThan(studyIdx);
+  });
+
+  it('Today and the sidebar share one continue-selection helper (no /next-lesson in the shell)', () => {
+    const continueCard = readFileSync(resolve(appDir, 'web/src/components/shell/ContinueCard.tsx'), 'utf8');
+    const dashboard = readFileSync(resolve(appDir, 'web/src/pages/Dashboard.tsx'), 'utf8');
+    expect(continueCard).toContain('pickContinueTarget(');
+    expect(dashboard).toContain('pickContinueTarget(');
+    expect(continueCard).not.toContain("'/next-lesson'");
+    expect(dashboard).toContain("'/next-lesson'");
+  });
+
+  it('Today hero row stacks below 900px and sits side by side above it', () => {
+    expect(ruleBody(css, '.today-hero')).toContain('grid-template-columns: minmax(0, 1fr)');
+    const desktop = css.match(/@media \(min-width: 900px\) \{\s*\.today-hero \{([^}]*)\}/);
+    expect(desktop?.[1]).toContain('minmax(240px, 1fr)');
+    // Course accent is applied to edges and marks only, never a full card background.
+    expect(ruleBody(css, '.continue-hero')).toContain('border-left: 4px solid var(--course-accent');
+    expect(ruleBody(css, '.continue-hero')).not.toContain('background');
   });
 });
 

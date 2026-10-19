@@ -665,7 +665,7 @@ h2 { font-size: 1.2rem; margin: 2rem 0 0.75rem; line-height: 1.35; text-wrap: ba
 .section-gap { margin-top: 2rem; }
 
 /* Tracker-backed study time */
-.course-card { border-left: 3px solid var(--accent); }
+.course-card { border-left: 3px solid var(--course-accent, var(--accent)); }
 .studytime-line { margin-top: 0.4rem; color: var(--accent-strong); font-weight: 600; }
 
 .studytime-card { max-width: 560px; }
@@ -733,6 +733,105 @@ textarea.input-tall { min-height: 200px; font-family: ui-monospace, 'SF Mono', M
 .manage-module { border-top: 1px solid var(--line); padding: 0.6rem 0 0.3rem; margin-top: 0.6rem; }
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1rem; }
 @media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
+
+/* =========================================================================
+   Today
+   One dominant "Continue studying" card with a compact Revise card beside it
+   (>=900px) or below it (<900px), then courses, then weak areas + recent
+   activity side by side, then tracker study time (secondary). Course accent
+   is used only on marks and left edges, never as a full background.
+   ========================================================================= */
+
+/* Course identity: the card sets paired light/dark values inline; the theme
+   picks which pair becomes --course-accent / --course-accent-soft. */
+.course-ident {
+  --course-accent: var(--course-accent-light, var(--accent));
+  --course-accent-soft: var(--course-accent-soft-light, var(--accent-soft));
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .course-ident {
+    --course-accent: var(--course-accent-dark, var(--accent));
+    --course-accent-soft: var(--course-accent-soft-dark, var(--accent-soft));
+  }
+}
+:root[data-theme="dark"] .course-ident {
+  --course-accent: var(--course-accent-dark, var(--accent));
+  --course-accent-soft: var(--course-accent-soft-dark, var(--accent-soft));
+}
+
+.course-mark {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.2rem;
+  flex-shrink: 0;
+  min-width: 44px; height: 44px; padding: 0 0.55rem;
+  border-radius: 12px;
+  background: var(--course-accent-soft);
+  color: var(--course-accent);
+  font-weight: 700; font-size: 0.78rem; letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.course-mark svg { width: 18px; height: 18px; }
+.course-mark-sm { min-width: 30px; width: 30px; height: 30px; padding: 0; border-radius: 9px; gap: 0; font-size: 0.62rem; }
+.course-mark-sm svg { width: 14px; height: 14px; }
+.course-mark-sm .course-mark-mono { display: none; }
+.course-mark-lg { width: 56px; height: 56px; border-radius: 14px; font-size: 0.9rem; }
+.course-mark-lg svg { width: 22px; height: 22px; }
+
+.today-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  margin-top: 0.25rem;
+}
+@media (min-width: 900px) {
+  .today-hero { grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr); align-items: stretch; }
+}
+
+.continue-hero {
+  position: relative;
+  display: flex; flex-direction: column; gap: 0.45rem;
+  padding: 1.4rem 1.5rem 1.5rem;
+  border-left: 4px solid var(--course-accent, var(--accent));
+}
+.continue-hero-empty { border-left-color: var(--line); justify-content: center; }
+.continue-hero .continue-eyebrow { color: var(--course-accent, var(--accent)); }
+.continue-hero-course { display: flex; align-items: center; gap: 0.55rem; font-size: 0.92rem; color: var(--ink-soft); }
+.continue-hero-courselink { color: var(--ink-soft); font-weight: 500; }
+.continue-hero-courselink:hover { color: var(--ink); }
+.continue-hero-title { font-size: 1.4rem; font-weight: 650; line-height: 1.3; margin: 0.1rem 0 0; letter-spacing: -0.01em; text-wrap: balance; }
+.continue-hero-meta { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin: 0; }
+.continue-hero-btn { align-self: flex-start; margin-top: 0.6rem; }
+.continue-hero-btn:hover { text-decoration: none; }
+
+.revise-card { display: flex; flex-direction: column; gap: 0.45rem; padding: 1.4rem 1.5rem 1.5rem; }
+.revise-card .continue-eyebrow { color: var(--ink-soft); }
+.revise-count { font-size: 1.25rem; }
+.revise-btn { align-self: flex-start; margin-top: 0.2rem; }
+.revise-btn:hover { text-decoration: none; }
+.revise-card .card-sub { margin-top: auto; padding-top: 0.4rem; }
+
+/* Course grid: mark + title + pill head, calm hover lift, archived muted. */
+/* Today's cards: head is mark + title only (title takes the full remaining
+   width); the status pill sits on the meta line under the progress bar. */
+.course-grid .course-card-head { align-items: center; gap: 0.65rem; margin-bottom: 0.3rem; }
+.course-card-meta { display: flex; align-items: center; gap: 0.55rem; flex-wrap: wrap; margin-top: 0.5rem; }
+.course-card-meta .pill { flex-shrink: 0; }
+.course-card { transition: transform 0.15s ease-out, box-shadow 0.15s ease-out; }
+.course-card:hover { text-decoration: none; transform: translateY(-2px); box-shadow: 0 2px 4px rgba(35, 39, 46, 0.06), 0 8px 22px rgba(35, 39, 46, 0.09); }
+.course-card .progress-fill { background: var(--course-accent, var(--accent)); }
+.course-card-muted { background: var(--surface-soft); box-shadow: none; border-left-color: var(--line); }
+.course-card-muted .card-title { color: var(--ink-archived); }
+.course-card-muted .course-mark { background: var(--line); color: var(--ink-archived); }
+.course-card-muted .progress-fill { background: var(--ink-faint); }
+.course-card-muted:hover { transform: none; box-shadow: none; }
+
+.today-two { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 1.5rem; }
+@media (min-width: 900px) { .today-two { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.today-two h2 { margin-top: 2rem; }
+.today-two .list-plain.card { padding-top: 0.4rem; padding-bottom: 0.4rem; }
+.section-note { color: var(--ink-soft); font-size: 0.85rem; margin: -0.35rem 0 0.75rem; }
+.empty-sm { padding: 1.6rem 1rem; }
+.today .studytime-card { max-width: none; }
+@media (min-width: 900px) { .today .studytime-card { max-width: 620px; } }
 
 @media (max-width: 640px) {
   h1 { font-size: 1.35rem; }

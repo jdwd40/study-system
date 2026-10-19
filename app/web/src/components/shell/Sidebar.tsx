@@ -34,7 +34,7 @@ export function Sidebar({ dashboard, onSearch, theme, setTheme, onSignOut, colla
           {collapsed ? <IconExpand /> : <IconCollapse />}
         </button>
       </div>
-      {dashboard && <ContinueCard resume={dashboard.resume} collapsed={collapsed} />}
+      {dashboard && <ContinueCard dashboard={dashboard} collapsed={collapsed} />}
       <nav className="sidenav" aria-label="Main">
         {NAV_ITEMS.map(({ to, label, Icon, end }) => (
           <NavLink key={to} to={to} end={end} className="sidenav-link" {...lab(label)}>
