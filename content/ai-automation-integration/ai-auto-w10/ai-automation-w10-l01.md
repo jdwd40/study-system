@@ -27,7 +27,7 @@ An enquiry arrives, creates or links a customer, produces a summary and a propos
 
 **Try it**
 
-Complete projects/02-operations-assistant.md with an entity list, state transitions and one-page dashboard wireframe.
+In your own notes, outline the operations assistant with an entity list, stable IDs, permitted state transitions and a one-page dashboard wireframe. Identify one source of truth for each status and one complete customer journey. No supplied project file is required.
 
 **Key point**
 
@@ -35,7 +35,10 @@ Entity model; status source; attention-first dashboard.
 
 ## Key Concepts
 
-- Entity model; status source; attention-first dashboard. :: Models customers, enquiries, tasks, and status transitions explicitly; the dashboard surfaces decisions and exceptions before passive reporting.
+- Entity model :: Represent enquiry, customer, task, draft, approval and event as identifiable objects before designing the dashboard.
+- Stable identity and state :: Give records durable IDs, links and explicit states so the same customer journey can be traced across forms, jobs and approvals.
+- Single source of truth :: Keep authoritative business status in the shared data model rather than separately updating competing copies in each component.
+- Attention-first dashboard :: Surface what needs review, what failed and what is due before charts; start with one complete customer journey and add views only when useful.
 
 ## Examples
 
@@ -47,8 +50,8 @@ Entity model; status source; attention-first dashboard.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://react.dev/learn)
-- https://react.dev/learn
+- **Start here (free): [PostgreSQL — Constraints](https://www.postgresql.org/docs/current/ddl-constraints.html)** — Read **Primary Keys**; **Foreign Keys**. Explains how identifiers and relationships can be enforced in the data model instead of merely implied by dashboard code. **Apply:** Draw customer-to-enquiry and enquiry-to-task keys, including what happens if a referenced record is deleted.
+- **Optional reference (free): [React — Choosing the State Structure](https://react.dev/learn/choosing-the-state-structure)** — Read **Avoid contradictions in state**; **Avoid duplication in state**. Shows how duplicated or contradictory client state drifts; the same discipline supports a UI that reflects authoritative API status. **Apply:** Represent the selected task by ID and identify which values should be derived instead of copied.
 
 ## Flashcards
 
