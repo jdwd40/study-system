@@ -35,7 +35,11 @@ Small stack; internal DB; health; restart; rollback.
 
 ## Key Concepts
 
-- Small stack; internal DB; health; restart; rollback. :: Keeps deployment small and private by default: internal database, health checks, restart procedure, and a tested rollback path.
+- Deployment boundary :: Expose only required public routes through a reverse proxy while keeping the database and other internal services off public ports.
+- Reproducible stack :: Describe Node, PostgreSQL, n8n and proxy services in Compose with explicit production configuration and runtime secrets outside source control.
+- Persistent state :: Store database data on a persistent volume so recreating a service container does not discard business records.
+- Liveness versus readiness :: A responding health endpoint can show the process is alive; readiness must also consider dependencies required to handle work.
+- Operational recovery :: Document restart, logs, update and rollback steps and test the service after reboot rather than assuming a running container means a working system.
 
 ## Examples
 
@@ -47,8 +51,8 @@ Small stack; internal DB; health; restart; rollback.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://docs.docker.com/compose/how-tos/production/)
-- https://docs.docker.com/compose/how-tos/production/
+- **Start here (free): [Docker — Use Compose in production](https://docs.docker.com/compose/how-tos/production/)** — Read **Modify your Compose file for production**; **Deploying changes**; **Running Compose on a single server**. Explains production-specific configuration and controlled service recreation for a small single-host deployment. **Apply:** Annotate the stack diagram with production-only settings, persistent storage and the service-update command boundary.
+- **Optional reference (free): [Docker — Control startup and shutdown order in Compose](https://docs.docker.com/compose/how-tos/startup-order/)** — Read **Control startup**; **Example**. Shows that container start is not readiness and how a dependency healthcheck can gate startup. It does not replace ongoing application failure handling. **Apply:** Describe what the form should show while PostgreSQL is starting and after it becomes ready.
 
 ## Flashcards
 
