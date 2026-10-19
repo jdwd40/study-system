@@ -35,7 +35,10 @@ Bounded tool set; explicit states; separate proposal and execution.
 
 ## Key Concepts
 
-- Bounded tool set; explicit states; separate proposal and execution. :: Prefers a deterministic workflow when steps are known; an agent needs constrained tools and states, with suggestions separated from execution.
+- Workflow versus agent :: Use fixed code paths when steps are known; use model-selected tools only where the next action genuinely needs flexible judgement.
+- Bounded agency :: Limit available tools, visible data, steps, runtime and cost rather than granting an open-ended mandate to complete the task.
+- Explicit state machine :: Represent waiting, proposed, approved, applied, failed and cancelled states with allowed transitions and a responsible owner.
+- Proposal/executor separation :: Let the model suggest a plan while a separate executor validates permissions and applies approved actions; consequential operations retain a human gate.
 
 ## Examples
 
@@ -47,8 +50,8 @@ Bounded tool set; explicit states; separate proposal and execution.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://platform.openai.com/docs/guides/function-calling)
-- https://platform.openai.com/docs/guides/function-calling
+- **Start here (free): [Anthropic — Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)** — Read **What are agents?**; **When (and when not) to use agents**; **Agents**. Distinguishes predefined workflows from model-directed processes and explains why simpler solutions and stopping conditions are often preferable. **Apply:** Decide which shop decisions genuinely need model choice and which should remain rules.
+- **Optional reference (free): [OpenAI — Function calling](https://developers.openai.com/api/docs/guides/function-calling)** — Read **The tool calling flow**; **Tool choice**. Shows the concrete model-to-application tool boundary and controls over the tools offered to the model. Tool choice is not an authorisation system. **Apply:** Allow only three narrow tools and draw where proposed actions become validated execution.
 
 ## Flashcards
 
