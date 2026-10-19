@@ -35,7 +35,10 @@ Demo normal, ambiguous and failure paths; record evidence.
 
 ## Key Concepts
 
-- Demo normal, ambiguous and failure paths; record evidence. :: Evidence covers normal, ambiguous, duplicate, and failed cases, showing what the system did and where human control intervened.
+- Demonstration coverage :: Show normal, ambiguous and failure journeys, including duplicate suppression, instead of presenting only a successful screenshot.
+- Measured case-study claim :: Report only observed timing and quality, explaining how review time and sample size were counted; do not infer unmeasured savings.
+- Reviewable evidence package :: Provide a short demo, architecture/data-flow drawing, test results and deployment notes that another reviewer can understand or repeat.
+- Limitations and next iteration :: State what remains manual, what failed and one concrete improvement supported by the tests rather than hiding uncertainty behind polish.
 
 ## Examples
 
@@ -47,8 +50,8 @@ Demo normal, ambiguous and failure paths; record evidence.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.errortrigger/)
-- https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.errortrigger/
+- **Start here (free): [GOV.UK — Sharing user research findings](https://www.gov.uk/service-manual/user-research/sharing-user-research-findings)** — Read **Presenting your findings**; **Structuring research slides**. Offers a concise evidence-first presentation structure: finding, essential facts, importance and a relevant screenshot or clip. **Apply:** Make three demo slides covering a normal lead, uncertainty and a failure, each with an observed fact.
+- **Optional reference (free): [GOV.UK — Measuring the success of your service](https://www.gov.uk/service-manual/measuring-success/measuring-the-success-of-your-service)** — Read **Measuring an end-to-end journey or non-transactional website**. Explains repeated task-completion and timing measurements that are more informative than a polished screen alone. **Apply:** Annotate your before/after claim with the sample, timing boundaries and remaining manual work.
 
 ## Flashcards
 
