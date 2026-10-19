@@ -17,32 +17,40 @@ Recognise technical debt as a trade-off with interest, and make architecture tra
 
 ## Content
 
-Technical debt is a deliberate or accidental shortcut whose cost is paid later as slower change. Like financial debt it can be rational: shipping now at the cost of interest later is sometimes correct. What makes debt dangerous is taking it invisibly.
+Technical debt is a design or implementation condition that makes later work more costly than it needs to be. It can arise from a conscious shortcut, weak practices or learning that reveals a better design. Fowler’s quadrant separates deliberate from inadvertent debt and prudent from reckless debt; deliberate does not automatically mean prudent.[6]
 
-There are no best architectures, only trade-offs fit to context. Every decision optimises some qualities at the expense of others. Professional practice is stating the trade-off in the open: what we gain, what we give up, what would make us revisit.
+The debt metaphor distinguishes principal (work to improve the design) from interest (extra effort or risk incurred while working with it). Interest is uneven: a rarely changed module may cost little, while a frequently modified integration creates repeated rework. Not every bug is technical debt, and not every imperfection deserves repayment. Compare expected future costs, safety and opportunity cost before scheduling cleanup.[6]
+
+Architecture decisions balance requirements under constraints. There may be a best option for a stated set of priorities, but no context-free best architecture. A useful record explains the problem, alternatives, chosen action, consequences and what evidence would trigger review. Some decisions improve several qualities at once; identify actual tensions rather than inventing a sacrifice for every choice.
+
+Nygard’s architecture decision record (ADR) keeps context, decision, status and consequences in a short document. If a decision is replaced, mark the original as superseded rather than deleting its history. Alternatives and revisit triggers are useful additions for this lesson, not mandatory fields of every ADR format.[7]
+
+Curriculum provenance (internal, not external evidence): Personal Curriculum — Hermes Master Document (Software Systems Engineering) sets the lesson scope. The named external readings support the explanations; optional depth is not required to complete the lesson.
 
 ## Key Concepts
 
-- Technical debt :: A deliberate or accidental shortcut whose cost is paid later as slower change. Like financial debt it can be rational — the danger is taking it invisibly.
-- Interest :: The ongoing cost of debt, paid as slower change until the debt is serviced. Every new feature pays it until the debt is repaid.
-- Explicit trade-off :: Stating in the open what a decision gains, what it gives up, and what would make you revisit it. There are no best architectures, only trade-offs fit to context.
-- Reversibility :: How easily a decision can be revisited; a stated revisit trigger keeps a trade-off honest. Easy-to-reverse decisions need less ceremony than expensive ones.
-- Architecture decision record :: A short record of the decision, context, options, the trade-off accepted, and what would trigger revisiting. It turns a trade-off from a vibe into something the team can check later.
+- Technical debt :: A condition in the design or implementation that increases future change cost. It may be deliberate or inadvertent, prudent or reckless, and can become visible through learning.[6]
+- Principal and interest :: Principal is the effort to reduce the debt; interest is its additional ongoing change effort or risk. Interest varies with which parts of the system are exercised and changed.
+- Explicit trade-off :: A stated comparison of options against prioritised requirements, including gains, costs, risks and assumptions. It makes the reasoning open to challenge.
+- Reversibility :: The effort and risk of changing course, including code, data migration, rollout and coordination. A feature flag does not make persisted-data changes automatically reversible.
+- Architecture decision record :: A short, versioned record of an important choice and its context, status and consequences. Keep superseded records; add alternatives and a review trigger where useful.[7]
 
 ## Examples
 
-- Skipping an outbox to ship faster: gain speed now, pay when dual-write inconsistency appears
-- A one-line ADR: "Chose modular monolith; gives up independent scaling; revisit if any module exceeds 30% of traffic"
+- Shipping a dual write to a database and queue without an atomic handoff creates an inconsistency risk. A deliberate shortcut is not acceptable merely because it is recorded: evaluate the consequences and safeguards first.
+- ADR sketch: “Keep one deployment because current operations are manageable; independent module scaling is unavailable. Review if measurements show a module exhausting shared capacity and simpler optimisations fail.” This is a trigger to investigate, not automatic approval for services.
+- For one debt item, record the next change it obstructs, the extra work it causes, and whether a small containment fix is cheaper than a rewrite.
 
 ## Takeaways
 
-- Debt is fine when deliberate, visible and serviced
-- Record trade-offs as decisions, not vibes
+- Deliberate debt can still be reckless; evaluate consequences, not just intent.
+- Repay debt where expected interest or risk justifies the cost.
+- Keep decision rationale and revisit it when assumptions change.
 
 ## Sources and Further Reading
 
-- Personal Curriculum — Hermes Master Document (Software Systems Engineering)
-- Fowler, "Technical Debt Quadrant"
+- **Start here — [Martin Fowler — Technical Debt Quadrant](https://martinfowler.com/bliki/TechnicalDebtQuadrant.html).[6]** Read: the full short article, especially the prudent/reckless and deliberate/inadvertent distinctions and the low-interest example. Why: avoids treating all shortcuts as rational or all imperfect code as urgent cleanup. Try: Classify one debt item in the quadrant and identify a concrete interest payment. Access: Free public reading; no account needed.
+- **Optional practical depth — [Michael Nygard — Documenting Architecture Decisions](https://www.cognitect.com/blog/2011/11/15/documenting-architecture-decisions).[7]** Read: “Decision”, the template fields and “Consequences”; note the treatment of superseded decisions. Why: gives the original lightweight ADR proposal and explains preserving decision history. Try: Write a short ADR with one rejected option, one downside and a measurable review trigger. Access: Free public reading; no account needed.
 
 ## Flashcards
 
