@@ -27,7 +27,7 @@ A case study says, “In a 20-case fictional test, 18 categories matched our lab
 
 **Try it**
 
-Write 250 words each for the two portfolio projects, using the supplied case-study template and evidence from your demos.
+Write about 250 words for each portfolio project, one project per session if needed. Use this structure: previous process, user problem, proposed workflow, safeguards, observed test result, limitations and next step. Link your demo or diagram and label fictional data and unmeasured assumptions. Report only evidence you actually collected; no supplied case-study template is required.
 
 **Key point**
 
@@ -35,7 +35,10 @@ Business outcome, evidence, safeguards, limitations.
 
 ## Key Concepts
 
-- Business outcome, evidence, safeguards, limitations. :: Leads with the business problem and measured evidence, labels synthetic results, and states safeguards and limitations so credibility survives scrutiny.
+- Business narrative :: Explain the previous process, user pain, proposed workflow and observed result before listing the technology used.
+- Honest evidence label :: State sample size, test conditions and whether data is fictional; never imply a synthetic demonstration is a live client outcome.
+- Reviewable technical evidence :: Link a short demo, system diagram, code or architecture notes and measured results so a reader can inspect both benefit and implementation.
+- Safeguards and limitations :: Explain human control, known weaknesses, deployment and recovery responsibilities to demonstrate maintainable design rather than unsupported autonomy.
 
 ## Examples
 
@@ -47,8 +50,8 @@ Business outcome, evidence, safeguards, limitations.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://www.gov.uk/government/publications/ai-adoption-research/ai-adoption-research)
-- https://www.gov.uk/government/publications/ai-adoption-research/ai-adoption-research
+- **Start here (free): [GOV.UK — Sharing user research findings](https://www.gov.uk/service-manual/user-research/sharing-user-research-findings)** — Read **Structuring research slides**. Supports a concise portfolio narrative connecting a finding to facts, importance and a screenshot or clip; use observed study evidence, not invented client quotes. **Apply:** Turn one demo observation into a headline, evidence sentence and limitation.
+- **Optional reference (free): [GOV.UK — Measuring the success of your service](https://www.gov.uk/service-manual/measuring-success/measuring-the-success-of-your-service)** — Read **Measuring transactions**; **Measuring an end-to-end journey or non-transactional website**. Provides outcome, task-completion and timing approaches for substantiated before/after claims instead of generic AI-adoption statistics. **Apply:** Add the test conditions and timing boundaries to each proposed portfolio metric.
 
 ## Flashcards
 
