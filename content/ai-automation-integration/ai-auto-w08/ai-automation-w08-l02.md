@@ -35,7 +35,11 @@ Persist first; fake integrations; prove one complete path.
 
 ## Key Concepts
 
-- Persist first; fake integrations; prove one complete path. :: Persists real state first, fakes external services, and proves one end-to-end path before adding integrations or polishing disconnected pieces.
+- Vertical slice :: Prove one request crosses the form, API, persistent store, model adapter and review UI before polishing separate components.
+- Fake integration :: Use deterministic fake model and email implementations first, then introduce real external services individually so failures stay attributable.
+- Persist-before-enrichment :: Save the original enquiry independently from model output so a timeout leaves a recoverable record marked for review.
+- Database invariant :: Use uniqueness and allowed-state checks as appropriate, while enforcing legal state transitions in application or transaction logic; a simple field constraint alone cannot validate transition history.
+- Reproducible user-flow test :: Test normal, timeout and duplicate submissions through visible behaviour and document local start/reset steps using fictional data.
 
 ## Examples
 
@@ -47,8 +51,8 @@ Persist first; fake integrations; prove one complete path.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.errortrigger/)
-- https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.errortrigger/
+- **Start here (free): [Playwright — Best Practices](https://playwright.dev/docs/best-practices)** — Read **Test user-visible behavior**; **Avoid testing third-party dependencies**; **Testing with a database**. Shows how to test the owner-visible journey with controlled data and stubbed external services rather than depending on live providers. **Apply:** Define assertions that the original message survives a model timeout and a repeated event creates only one record.
+- **Optional reference (free): [PostgreSQL — Constraints](https://www.postgresql.org/docs/current/ddl-constraints.html)** — Read **Unique Constraints**; **Check Constraints**. Explains database-enforced row invariants and limits of CHECK expressions. Transition checks still need suitable transaction/application logic. **Apply:** Choose a unique external-event key and a valid-status constraint for the lead table.
 
 ## Flashcards
 
