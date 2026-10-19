@@ -35,7 +35,10 @@ Verify raw event; dedupe ID; queue slow work.
 
 ## Key Concepts
 
-- Verify raw event; dedupe ID; queue slow work. :: Verifies the original signed payload, records a stable event ID to deduplicate retries, and moves slow work out of the request.
+- Webhook authenticity :: Verify the provider’s signature against the required original payload and timestamp rules; a familiar-looking event body is not proof of origin.
+- Durable deduplication :: Record a stable event ID with concurrency-safe uniqueness and make processing repeatable so retried deliveries do not repeat business effects.
+- Acknowledgement boundary :: Durably accept or enqueue verified work before acknowledging quickly; a success response need not mean downstream work has finished.
+- Out-of-order delivery :: Validate state transitions when delayed events arrive so an older created event cannot overwrite a later closed state.
 
 ## Examples
 
@@ -47,8 +50,8 @@ Verify raw event; dedupe ID; queue slow work.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview)
-- https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview
+- **Start here (free): [Stripe — Receive events in your webhook endpoint](https://docs.stripe.com/webhooks)** — Read **Verify the signature**; **Preventing replay attacks**; **Handle duplicate events**; **Event ordering**. Provides concrete signed-payload, replay and delivery semantics; adapt the pattern to your actual provider’s signature rules. **Apply:** Trace one valid, one tampered and one repeated event through verify, record, enqueue and acknowledge.
+- **Optional reference (free): [Stripe API — Idempotent requests](https://docs.stripe.com/api/idempotent_requests)** — Read **Idempotent requests**. Explains stable request keys for repeated writes; outbound request idempotency complements rather than replaces inbound event deduplication. **Apply:** Choose a separate stable operation key for the follow-up created from evt-42.
 
 ## Flashcards
 
