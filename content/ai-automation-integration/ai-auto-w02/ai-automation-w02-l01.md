@@ -35,7 +35,11 @@ Constrained shape, validation, evidence, explicit unknowns.
 
 ## Key Concepts
 
-- Constrained shape, validation, evidence, explicit unknowns. :: Constrains output to a schema, validates every field against the source, and represents missing or uncertain facts explicitly instead of inventing them.
+- Extraction schema :: Define fields, allowed categories and types before asking the model for data so downstream code has an explicit contract.
+- Explicit unknown :: Represent absent facts with an agreed nullable value; null, an empty string and false have different meanings and must not be interchanged.
+- Structural versus factual validity :: A schema-valid object can still invent a date or contact preference; validate its shape and separately check values against the source.
+- Evidence span :: Keep the source message and the supporting words for important extracted fields so a reviewer can verify the claim.
+- Review rule :: Use explicit conditions such as missing required evidence to trigger inspection; a model-generated confidence number is not automatically a calibrated probability.
 
 ## Examples
 
@@ -47,8 +51,8 @@ Constrained shape, validation, evidence, explicit unknowns.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://platform.openai.com/docs/guides/structured-outputs)
-- https://platform.openai.com/docs/guides/structured-outputs
+- **Start here (free): [OpenAI — Structured model outputs](https://developers.openai.com/api/docs/guides/structured-outputs)** — Read **Structured data extraction**; **Handling mistakes**; **All fields must be required**. Separates schema-constrained output from factual correctness and shows the supported schema constraints, including nullable required fields. **Apply:** Represent an absent appointment date without inventing one and decide what evidence would validate a proposed value.
+- **Optional reference (free): [JSON Schema — Object reference](https://json-schema.org/understanding-json-schema/reference/object)** — Read **Required Properties**; **Additional Properties**. Clarifies that a missing property differs from a null value and explains controlling unexpected fields. General JSON Schema is broader than a provider’s supported subset. **Apply:** Test your enquiry schema against one missing property, one null and one extra field.
 
 ## Flashcards
 
