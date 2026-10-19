@@ -35,7 +35,10 @@ Working pipeline + failure evidence + before/after measure.
 
 ## Key Concepts
 
-- Working pipeline + failure evidence + before/after measure. :: A useful first pipeline is complete end to end, demonstrates normal and failure paths, and compares results with a measured baseline.
+- End-to-end pipeline :: Prove that input, validation, classification, persistence, drafting and notification work together rather than counting isolated successful nodes.
+- Fake-to-real integration :: Start with mock records and a fake model, then add the paid dependency after normal and error cases are repeatable.
+- Failure and duplicate evidence :: Demonstrate one repeated event and one failed external call, checking that state remains visible and business effects are not duplicated.
+- Net pilot benefit :: Compare before-and-after handling time including owner review, errors and running costs; simplify the workflow if the benefit is not demonstrated.
 
 ## Examples
 
@@ -47,8 +50,8 @@ Working pipeline + failure evidence + before/after measure.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://docs.n8n.io/)
-- https://docs.n8n.io/
+- **Start here (free): [n8n — Handle errors gracefully](https://docs.n8n.io/flow-logic/error-handling/)** — Read **How do I make a workflow fail on purpose with the Stop and Error node?**. Provides a deliberate failure mechanism to test the pipeline’s error route rather than relying on an accidental outage. **Apply:** Inject one controlled failure and record the pending enquiry and visible alert.
+- **Optional reference (free): [GOV.UK — Measuring the success of your service](https://www.gov.uk/service-manual/measuring-success/measuring-the-success-of-your-service)** — Read **Measuring an end-to-end journey or non-transactional website**. Shows how task completion and elapsed time can be compared across repeated whole journeys. **Apply:** Time the same sample enquiries manually and through the pipeline, including approval time.
 
 ## Flashcards
 
