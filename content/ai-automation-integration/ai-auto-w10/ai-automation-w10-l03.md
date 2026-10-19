@@ -35,7 +35,11 @@ Stateful reminders; cancellation; idempotent sends; real metrics.
 
 ## Key Concepts
 
-- Stateful reminders; cancellation; idempotent sends; real metrics. :: Reminders need durable state, cancellation, and idempotent sending; measure corrections, failures, response time, and outcomes rather than volume alone.
+- Durable reminder :: Store the customer/action link, due time, timezone, owner and state so scheduled work remains understandable across restarts.
+- Cancellation rule :: Editing or closing an enquiry must invalidate stale reminders, with a state recheck before sending.
+- Idempotent send :: Use a stable operation identifier so duplicate schedule ticks or retries cannot send the same reminder twice.
+- Outcome and unit-cost metrics :: Measure queue age, missed follow-ups, review effort, corrections and cost per completed case; a high automated-action count can hide expensive mistakes.
+- Exception operations :: Provide an overdue-items view and a provider-outage runbook so owners can see and recover failed follow-ups.
 
 ## Examples
 
@@ -47,8 +51,9 @@ Stateful reminders; cancellation; idempotent sends; real metrics.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://react.dev/learn)
-- https://react.dev/learn
+- **Start here (free): [n8n — Schedule Trigger](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.scheduletrigger/)** — Read **Schedule Trigger**; **Custom (Cron) interval**. Explains published scheduled workflows and timezone selection. A trigger only starts a check; your database must still own due/cancelled/sent state. **Apply:** Specify a timezone and the query that selects due reminders without reactivating cancelled ones.
+- **Optional reference (free): [Stripe API — Idempotent requests](https://docs.stripe.com/api/idempotent_requests)** — Read **Idempotent requests**. Provides a concrete stable-key retry pattern to apply to reminder writes; check the actual sending provider’s semantics rather than assuming Stripe rules transfer. **Apply:** Choose the operation ID for one reminder and test two attempts against it.
+- **Optional reference (free): [GOV.UK — Measuring cost per transaction](https://www.gov.uk/service-manual/measuring-success/measuring-cost-per-transaction)** — Read **How to calculate cost per transaction**; **What to include in your ‘total cost’**. Includes support and operating costs, not just API usage, when measuring a completed service outcome. Government reporting/accounting rules are not a pricing mandate for your pilot. **Apply:** Calculate a sample cost-per-completed-case sheet that includes human review and failed attempts.
 
 ## Flashcards
 
