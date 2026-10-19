@@ -35,7 +35,11 @@ Server-side secret; typed adapter; timeout; small inputs; stub first.
 
 ## Key Concepts
 
-- Server-side secret; typed adapter; timeout; small inputs; stub first. :: Keeps provider credentials on the server and vendor details behind a typed adapter; timeouts and stubs make failures and development safer.
+- Server-side secret :: Keep the provider API key in server configuration, never in browser code or logs; it grants access under the service identity.
+- Typed provider adapter :: Hide provider-specific models, parameters and errors behind a small interface so the rest of the app receives a stable result.
+- Bounded external call :: Limit input length and waiting time, support cancellation, and handle rate limits or provider errors without treating the model as always available.
+- Privacy-aware diagnostics :: Use an opaque request identifier and error class to trace a failure without logging the entire customer message.
+- Stub-first development :: Build the form and storage against a fake adapter with fictional inputs before introducing a paid, nondeterministic dependency.
 
 ## Examples
 
@@ -47,7 +51,8 @@ Server-side secret; typed adapter; timeout; small inputs; stub first.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://developers.openai.com/api/docs/quickstart)
+- **Start here (free): [OpenAI — Developer quickstart](https://developers.openai.com/api/docs/quickstart)** — Read **Create and export an API key**; **Install the OpenAI SDK and Run an API Call**. Read the JavaScript tab for the current server-side SDK shape; reading is free, but executing a real API call can cost money. **Apply:** Write a fake summariseEnquiry adapter matching the result shape you want before adding the SDK.
+- **Optional reference (free): [Node.js — Global objects: cancellation](https://nodejs.org/api/globals.html)** — Read **Static method: AbortSignal.timeout(delay)**; **Static method: AbortSignal.any(signals)**. Explains deadline signals and combining cancellation sources for a bounded network request. Check support in your installed Node version. **Apply:** Describe how a timeout and a user cancellation produce distinct adapter outcomes.
 
 ## Flashcards
 
