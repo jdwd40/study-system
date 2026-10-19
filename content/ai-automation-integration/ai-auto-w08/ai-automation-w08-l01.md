@@ -27,7 +27,7 @@ A repair shop owner opens a pending lead, sees the extracted issue and the propo
 
 **Try it**
 
-Complete the project brief in projects/01-lead-management.md and decide what a 2-minute demo must show.
+Write a short project brief in your own notes: intended user, enquiry-to-approval journey, deliverables, exclusions, data ownership, four failure cases and observable acceptance criteria. Decide what a 2-minute demo must show. No pre-existing project template is required.
 
 **Key point**
 
@@ -35,7 +35,10 @@ One coherent lead journey; explicit demo and acceptance criteria.
 
 ## Key Concepts
 
-- One coherent lead journey; explicit demo and acceptance criteria. :: Chooses one complete lead journey with explicit boundaries, demo cases, and acceptance tests; a smaller trustworthy slice beats a broad unfinished system.
+- Narrow user journey :: Scope a single receive-to-review lead flow rather than promising autonomous sales or several unrelated features.
+- Acceptance-before-build :: Define demonstrable normal, missing-information, duplicate, malicious-input and external-failure outcomes before implementation.
+- Data ownership and access :: State where customer data lives and who can view or change it, including which actions require the owner’s approval.
+- Review-focused interface :: Keep the first UI to pending leads, a detail view, evidence and approve/reject actions so a short demo proves one coherent journey.
 
 ## Examples
 
@@ -47,8 +50,8 @@ One coherent lead journey; explicit demo and acceptance criteria.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.errortrigger/)
-- https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.errortrigger/
+- **Start here (free): [GOV.UK — Writing user stories](https://www.gov.uk/service-manual/agile-delivery/writing-user-stories)** — Read **Focus on the goal**; **Acceptance criteria**. Turns a desired owner outcome into a bounded story and a checklist of observable results rather than a feature shopping list. **Apply:** Write one lead-assistant story with a duplicate case and an approval safety criterion.
+- **Optional reference (free): [GOV.UK — Learning about users and their needs](https://www.gov.uk/service-manual/user-research/start-by-learning-user-needs)** — Read **Writing user needs**; **Linking user needs to user stories**. Helps trace project features back to an actual task and reason instead of treating “AI sales” as the user need. **Apply:** Remove any proposed demo feature that does not help the owner review an enquiry.
 
 ## Flashcards
 
