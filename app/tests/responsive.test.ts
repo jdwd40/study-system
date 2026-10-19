@@ -171,7 +171,10 @@ describe('visual polish guards', () => {
   });
 
   it('lesson completion and tracker time are labelled as distinct metrics', () => {
-    expect(appTsx).toContain('% of lessons complete');
+    // Phase 6: the progress bar label uses the same wording as the cards
+    // ("% of available lessons studied"); the old "lessons complete" phrase is gone.
+    expect(appTsx).toContain('% of available lessons studied');
+    expect(appTsx).not.toContain('% of lessons complete');
     // Phase 3 (operator brief 2026-10-19): the progress audit found that
     // plannedLessons counts lesson files that exist, so Today's course cards
     // say "X of Y available lessons studied" instead of "lessons complete".
@@ -362,5 +365,43 @@ describe('review page guards (phase 5)', () => {
     expect(reviewTsx).toContain('What do the ratings mean?');
     expect(reviewTsx).toContain('SM-2-style');
     expect(reviewTsx).toContain('separate from the 1–5 self-rating');
+  });
+});
+
+describe('library and course guards (phase 6)', () => {
+  const libraryTsx = readFileSync(resolve(appDir, 'web/src/pages/Library.tsx'), 'utf8');
+  const courseTsx = readFileSync(resolve(appDir, 'web/src/pages/CoursePage.tsx'), 'utf8');
+  const cardTsx = readFileSync(resolve(appDir, 'web/src/components/CourseCard.tsx'), 'utf8');
+  const filterTs = readFileSync(resolve(appDir, 'web/src/hooks/useLibraryFilter.ts'), 'utf8');
+
+  it('status filter chips are a labelled group of 44px toggle buttons, persisted in study.libraryFilter', () => {
+    expect(libraryTsx).toContain('className="filter-chips" role="group" aria-label="Filter by status"');
+    expect(libraryTsx).toContain('className="filter-chip" aria-pressed={active === f}');
+    expect(ruleBody(css, '.filter-chip')).toContain('min-height: 44px');
+    expect(filterTs).toContain("'study.libraryFilter'");
+    expect(filterTs).toContain('try {');
+    // "Completed" is derived (all available lessons studied), never a stored status.
+    expect(libraryTsx).toContain("f !== 'completed' || counts.completed > 0");
+  });
+
+  it('Library cards share Today\'s progress wording and clamp the description to three lines', () => {
+    expect(cardTsx).toContain('available lessons studied');
+    expect(cardTsx).toContain("'No lessons yet'");
+    expect(cardTsx).toContain('className="course-card-head"');
+    expect(cardTsx).toContain('className="card-sub course-card-desc" title={c.description}');
+    const desc = ruleBody(css, '.course-card-desc');
+    expect(desc).toContain('-webkit-line-clamp: 3');
+    expect(desc).toContain('overflow: hidden');
+  });
+
+  it('course page: "Next up" marker on the first not-complete lesson, modules keep aria-expanded, rows are 44px links', () => {
+    expect(courseTsx).toContain('nextUpLesson(c.modules)');
+    expect(courseTsx).toContain('className="next-up-mark"');
+    expect(courseTsx).toContain('All available lessons studied');
+    expect(courseTsx).toContain('aria-expanded={expanded} aria-controls={panelId}');
+    expect(courseTsx).toContain('Planned — no lessons yet');
+    expect(ruleBody(css, '.lesson-row')).toContain('min-height: 44px');
+    // Phones: title takes its own line, meta wraps beneath.
+    expect(ruleBody(mobile, '.lesson-row-title')).toContain('flex: 1 1 100%');
   });
 });

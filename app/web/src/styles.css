@@ -521,8 +521,10 @@ h2 { font-size: 1.2rem; margin: 2rem 0 0.75rem; line-height: 1.35; text-wrap: ba
 .lesson-row {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 0.75rem;
-  padding: 0.65rem 0.75rem;
+  min-height: 44px;
+  padding: 0.5rem 0.6rem;
   border-radius: 10px;
   color: var(--ink);
 }
@@ -1120,4 +1122,94 @@ textarea.input-tall { min-height: 200px; font-family: ui-monospace, 'SF Mono', M
   .review-summary { padding: 1.2rem 1rem; }
   .review-summary-grades { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .review-summary .btn-row .btn { width: 100%; }
+}
+
+/* =========================================================================
+   Library & course
+   Library: status chips + the same course cards as Today (plus description,
+   module count and self-rating). Course page: identity header, meta strip,
+   "Next up" line, then modules as plain sections (rules, not boxed cards),
+   with lesson rows as 44px links. The course accent colours the mark and
+   the progress fill only.
+   ========================================================================= */
+.filter-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: -0.5rem 0 1.25rem; }
+.filter-chip {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  min-height: 44px; padding: 0.4rem 0.95rem;
+  border: 1px solid var(--line); border-radius: 999px;
+  background: var(--surface); color: var(--ink-soft);
+  font-family: var(--font); font-size: 0.9rem; font-weight: 600;
+  cursor: pointer;
+}
+.filter-chip:hover { background: var(--surface-soft); color: var(--ink); }
+.filter-chip[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent-line); color: var(--accent-strong); }
+.filter-chip-count { font-weight: 500; font-variant-numeric: tabular-nums; color: var(--ink-faint); }
+.filter-chip[aria-pressed="true"] .filter-chip-count { color: var(--accent-strong); }
+.filter-chip:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+
+/* Description: three lines at most (full text in the title attribute). */
+.course-card-desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0.1rem 0 0;
+}
+.course-card-modules { margin-top: 0.45rem; }
+.course-card-rating { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.3rem; }
+.course-card-muted .course-card-desc, .course-card-muted .course-card-modules { color: var(--ink-archived); }
+
+/* Course page header */
+.course-head { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; }
+.course-head-text { min-width: 0; flex: 1 1 auto; }
+.course-head-row { display: flex; align-items: center; flex-wrap: wrap; gap: 0.35rem 0.65rem; }
+.course-head-row h1 { margin: 0; }
+.course-head-desc { margin: 0.35rem 0 0; max-width: 68ch; }
+.course-page .progress-fill { background: var(--course-accent, var(--accent)); }
+.course-page-muted .course-mark { background: var(--line); color: var(--ink-archived); }
+.course-page-muted .progress-fill { background: var(--ink-faint); }
+.course-page .course-meta { margin-top: 0.25rem; gap: 0.5rem 1.25rem; }
+.course-meta-rating { display: inline-flex; align-items: center; gap: 0.4rem; }
+
+.course-nextup { display: flex; align-items: center; flex-wrap: wrap; gap: 0.35rem 0.75rem; margin: 1rem 0 0; font-size: 0.95rem; color: var(--ink-soft); }
+.course-nextup-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--course-accent, var(--accent)); }
+.course-nextup-link { font-weight: 600; color: var(--ink); min-height: 44px; display: inline-flex; align-items: center; gap: 0.35rem; flex-wrap: wrap; }
+.course-nextup-link .meta { font-weight: 400; }
+
+/* Modules: sections separated by rules, not stacked cards */
+.module-list { margin-top: 1.25rem; border-top: 1px solid var(--line); }
+.module { border-bottom: 1px solid var(--line); }
+.module-trigger { align-items: flex-start; justify-content: flex-start; padding: 0.9rem 0.5rem; border-radius: 10px; }
+.module-trigger .accordion-chevron { margin-top: 0.2rem; flex-shrink: 0; }
+.module-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.6rem; min-width: 0; flex: 1 1 auto; }
+.module-id { font-size: 0.78rem; font-weight: 600; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.module-title { font-weight: 600; min-width: 0; overflow-wrap: break-word; }
+.module-head-meta { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 0.3rem 0.6rem; flex: 1 1 100%; font-weight: 400; }
+.module-panel { padding: 0 0.5rem 0.9rem 2rem; }
+.module-summary { margin: 0 0 0.6rem; max-width: 68ch; }
+.module-planned { margin: 0; }
+.lesson-list li { padding: 0; border: none; }
+
+/* Lesson rows: whole row is the link, 44px tall, meta wraps under the title on phones */
+.lesson-row-order { flex-shrink: 0; min-width: 1.6rem; font-size: 0.82rem; font-weight: 600; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.lesson-row-title { font-weight: 500; }
+.lesson-row-meta { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 0.35rem 0.6rem; flex-shrink: 0; }
+.lesson-row-next { background: var(--course-accent-soft, var(--accent-soft)); }
+.lesson-row-next:hover { background: var(--course-accent-soft, var(--accent-soft)); filter: brightness(0.97); }
+.next-up-mark {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+  padding: 0.15rem 0.55rem; border-radius: 999px;
+  background: var(--course-accent, var(--accent)); color: var(--on-accent);
+}
+.course-page-muted .next-up-mark { background: var(--ink-faint); }
+
+@media (max-width: 640px) {
+  .course-head { gap: 0.75rem; }
+  .course-head .course-mark-lg { width: 48px; height: 48px; }
+  .module-panel { padding-left: 0.5rem; }
+  .lesson-row { align-items: flex-start; row-gap: 0.3rem; }
+  .lesson-row-title { flex: 1 1 100%; order: 1; }
+  .lesson-row-order { order: 0; line-height: 1.55rem; }
+  .lesson-row-meta { order: 2; margin-left: 1.6rem; }
+  .lesson-row-order + .lesson-row-title { flex-basis: calc(100% - 2.35rem); }
 }
