@@ -21,9 +21,13 @@ Identify a specific reader and purpose, then write and revise a 120–180 word p
 A piece can be grammatically correct and still fail because it answers the wrong question or assumes knowledge the reader does not have. Begin with the intended effect, not impressive wording.
 
 ### Core explanation
-Before drafting, answer three questions: Who is this for? What should they understand, feel or do? What do they already know? Write a brief: “For [reader], this piece will [purpose], so that [desired response].” Select details that serve that brief. Tone is the relationship you establish with the reader; it is not a rule that all writing must sound formal.
+Before drafting, answer three questions: Who is this for? What should they understand, feel or do? What do they already know? Audience and purpose shape which facts need explaining, what can be left out, and how ideas should be ordered.[1][3] A subject is not yet a purpose: “backups” names a topic; “help a colleague decide whether to test a restore” names an intended effect.
 
-Planning chooses the message and relevant details. Drafting puts ideas into words. Revision checks whether those words achieve the purpose. Editing improves sentences; proofreading catches remaining surface errors. These activities can overlap, but fixing every comma while drafting can prevent you from discovering what you mean.
+Use this lesson's practical brief: “For [reader], this piece will [purpose], so that [desired response].” Add one sentence about the reader's existing knowledge and likely question. Choose details against that brief rather than including everything you know. For several audiences, identify the primary reader and any secondary reader whose needs or access requirements you must also respect.[1]
+
+Tone is the attitude towards the reader and subject conveyed by vocabulary, emphasis and phrasing. It is not a rule that all writing must sound formal. A request can be friendly and precise; an incident report may need to be neutral and explicit. Workplace tone guidance is useful for requests, but is not a universal prescription for fiction.[4]
+
+Planning chooses the message and relevant details. Drafting produces material to work with. Revision reconsiders meaning, relevance and structure; editing improves sentence-level expression; proofreading checks remaining surface errors. These are useful distinctions, not a rigid one-way sequence: discovering a better idea during drafting can send you back to the plan. Review the whole piece before polishing every comma.[2][3]
 
 ### Worked example
 Vague brief: “Write about backups.” Specific brief: “For a colleague who does not manage servers, explain why a backup must be tested, so that they agree to a restore check.”
@@ -52,10 +56,15 @@ Save the baseline and revision for later comparison. Continue with Generating an
 
 ## Key Concepts
 
-- Audience
-- Purpose
-- Writing brief
-- Draft versus revision
+- Audience :: The intended reader or readers, with particular knowledge, concerns and expectations. A colleague maintaining the server needs different detail from someone deciding whether to fund it.
+- Purpose and intended effect :: What the piece is meant to help the reader understand, feel or do; different from its topic. “Explain backups” becomes “help a non-specialist agree to a restore check.”
+- Reader's prior knowledge :: What can reasonably be assumed and what needs explaining. Define a restore test for a newcomer; do not explain every familiar term to an expert.
+- Writing brief :: A compact statement of reader, purpose and desired response that guides drafting and revision. It is a practical planning tool, not a compulsory formula for every genre.
+- Relevance and selection :: Including the details that advance the brief and cutting or postponing those that distract. A restore request needs the reason and action, not the entire history of storage systems.
+- Genre and context :: The kind of text and circumstances in which it is read: an email, incident report and fictional scene invite different structures and levels of explanation.
+- Tone and register :: Tone is the attitude conveyed towards the reader and subject; register is the level and kind of language chosen for the situation. Respectful need not mean stiff, and informal need not mean vague.
+- Drafting :: Producing an initial version that makes your ideas available to inspect. You can revise the brief as you discover what you mean; the first draft is not a test of final quality.
+- Revision, editing and proofreading :: Revision changes ideas, structure and reader effect; editing improves expression; proofreading checks remaining surface errors. They can overlap, but punctuation fixes do not substitute for a missing explanation.
 
 ## Examples
 
@@ -70,7 +79,10 @@ Save the baseline and revision for later comparison. Continue with Generating an
 
 ## Sources and Further Reading
 
-
+- [1] Start here — [University of North Carolina Writing Center: Audience](https://writingcenter.unc.edu/tips-and-tools/audience). Free handout; allow about 5 minutes for “How do I identify my audience and what they want from me?” and “How much should I explain?” Useful for deciding what your reader needs rather than displaying everything you know. Apply it: name one detail to explain and one to leave out of your draft. Its examples are academic; adapt the reader questions to an email or fictional scene rather than copying an essay format.
+- [2] Optional depth — [University of North Carolina Writing Center: Revising Drafts](https://writingcenter.unc.edu/tips-and-tools/revising-drafts). Free handout; read the opening discussion of revision versus proofreading and “But sometimes I revise as I go”. Useful for making substantial improvements without treating writing as a rigid sequence. Apply it: identify whether one proposed change affects meaning, structure or surface correctness.
+- [3] Optional depth — [Purdue OWL: Invention — Starting the Writing Process](https://owl.purdue.edu/owl/general_writing/the_writing_process/invention_starting_the_writing_process.html). Free university guide; read “Use the rhetorical elements as a guide” and “Keep in mind the purpose of the writing assignment”. Useful for distinguishing topic from purpose and generating a workable starting point. Apply it: turn one broad topic into two briefs for different readers. Assignment/deadline advice is context, not a new study obligation.
+- [4] Optional workplace application — [Purdue OWL: Tone in Business Writing](https://owl.purdue.edu/owl/subject_specific_writing/professional_technical_writing/tone_in_business_writing.html). Free university guide; read “What is Tone?” and the questions about purpose and audience. Useful for comparing respectful, clear wording with defensive or overconfident phrasing. Apply it: rewrite a request without blame while keeping the requested action explicit. This is workplace guidance, not a rule that fiction must sound professional.
 
 ## Flashcards
 
