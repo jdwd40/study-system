@@ -35,7 +35,11 @@ Chunk by meaning; version data; evaluate retrieval.
 
 ## Key Concepts
 
-- Chunk by meaning; version data; evaluate retrieval. :: Splits documents at meaningful boundaries, versions the index, and measures whether retrieved chunks contain the evidence needed for the question.
+- Context-preserving chunk :: Keep related conditions, exceptions and headings together so a retrieved passage can answer the question without losing essential context.
+- Embedding similarity :: Map text to a vector for semantic ranking; a nearby vector indicates similarity, not that a passage is true or sufficient evidence.
+- Versioned re-indexing :: Associate chunks with a document version and remove or replace obsolete chunks when the source changes.
+- Retrieval holdout :: Use questions not used to tune the system to compare chunk size, overlap and ranking against expected evidence.
+- Hybrid search :: Combine keyword matching for exact phrases with semantic search for paraphrases when evaluation shows either alone misses useful passages.
 
 ## Examples
 
@@ -47,8 +51,8 @@ Chunk by meaning; version data; evaluate retrieval.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://github.com/pgvector/pgvector)
-- https://github.com/pgvector/pgvector
+- **Start here (free): [OpenAI — Retrieval: chunking](https://developers.openai.com/api/docs/guides/retrieval)** — Read **Chunking**; **Ranking**. Gives concrete chunk-size, overlap and ranking controls to contrast with your heading-based split; provider defaults are not universally optimal. **Apply:** Compare two chunk boundaries for a refund exception and record which preserves its condition.
+- **Optional reference (free): [pgvector — Hybrid search](https://github.com/pgvector/pgvector)** — Read **Hybrid Search**. Shows combining vector search with PostgreSQL full-text search when exact words and semantic matches both matter. **Apply:** Choose one exact refund phrase and one paraphrased question to test against both retrieval methods.
 
 ## Flashcards
 
