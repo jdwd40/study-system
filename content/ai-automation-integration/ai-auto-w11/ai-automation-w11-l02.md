@@ -27,7 +27,7 @@ Thirty cases a week save an observed four minutes each: two hours weekly before 
 
 **Try it**
 
-Fill templates/value-calculator.csv for low, expected and high scenarios, including operating costs and human review time.
+Create a small table in your own notes or spreadsheet with low, expected and high scenarios. Include weekly case volume, minutes saved per case, human review minutes, hourly value, provider/hosting costs and maintenance. Convert minutes to hours before valuing time; show assumptions, avoid counting review twice, and distinguish a cash saving from freed capacity. Use fictional assumptions unless measured, and label them. No supplied CSV is required.
 
 **Key point**
 
@@ -35,7 +35,11 @@ Transparent arithmetic; ranges; fixed scope; measured pilot.
 
 ## Key Concepts
 
-- Transparent arithmetic; ranges; fixed scope; measured pilot. :: Shows arithmetic and assumptions, uses ranges, bounds scope, and validates benefits in a measured pilot before promising returns.
+- Net time-value estimate :: Estimate volume times minutes saved times an appropriate hourly value, converting minutes to hours and subtracting review, maintenance and provider costs without counting them twice.
+- Assumption range :: Present low, expected and high scenarios, making uncertain volume and savings explicit rather than promising a fixed return.
+- Cost floor versus customer value :: Distinguish the effort and ongoing cost of delivering a pilot from what the client values; neither a generic markup nor imagined sales proves an appropriate price.
+- Bounded commercial scope :: Quote defined deliverables, integration uncertainty, support and margin, explaining exclusions and when new work needs a change quote.
+- Measured repricing :: Replace estimates with observed pilot results and charge recurring fees only where ongoing service and responsibilities are clear.
 
 ## Examples
 
@@ -47,8 +51,8 @@ Transparent arithmetic; ranges; fixed scope; measured pilot.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://ico.org.uk/for-organisations/advice-for-small-organisations/getting-started-with-gdpr/)
-- https://ico.org.uk/for-organisations/advice-for-small-organisations/getting-started-with-gdpr/
+- **Start here (free): [Stripe — Cost-based and value-based pricing](https://stripe.com/resources/more/cost-based-and-value-based-pricing)** — Read **How to calculate cost-based pricing**; **Can you combine cost-based and value-based pricing?**. Distinguishes a delivery-cost floor from evidence of customer value. Read critically: this is commercial guidance, not a promise that hypothetical benefits justify any price. **Apply:** List the build/support costs that set your pilot floor and which value assumptions still need testing.
+- **Optional reference (free): [GOV.UK — Measuring cost per transaction](https://www.gov.uk/service-manual/measuring-success/measuring-cost-per-transaction)** — Read **How to calculate cost per transaction**; **Working out costs shared with other services**. Helps allocate real operating/support costs rather than presenting gross time savings as net profit. Adapt the costing method, not the government publication obligations. **Apply:** Add provider, hosting and allocated maintenance costs to your low/expected/high worksheet.
 
 ## Flashcards
 
