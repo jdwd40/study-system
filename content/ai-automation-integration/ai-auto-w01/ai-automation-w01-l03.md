@@ -35,7 +35,10 @@ Quality, speed, cost, correction rate and missed cases.
 
 ## Key Concepts
 
-- Quality, speed, cost, correction rate and missed cases. :: Measures business-relevant quality, latency, cost, corrections, and missed cases together; speed alone can hide errors or extra review work.
+- Outcome metrics :: Measure accuracy, correction rate, latency, failures, duplicate effects and operating cost together; a successful API response proves none of these by itself.
+- Representative evaluation set :: Save ordinary, awkward and incomplete enquiries with expected outcomes so changes can be compared on the same inputs.
+- Acceptance criterion :: State an observable target and a safety constraint before testing, such as correct categories plus no unreviewed outgoing replies.
+- Error-sensitive scoring :: Track missed urgent cases separately from overall accuracy, and use a rubric for subjective reply quality rather than confusing it with exact-field correctness.
 
 ## Examples
 
@@ -47,7 +50,8 @@ Quality, speed, cost, correction rate and missed cases.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://developers.openai.com/api/docs/quickstart)
+- **Start here (free): [GOV.UK — Measuring the success of your service](https://www.gov.uk/service-manual/measuring-success/measuring-the-success-of-your-service)** — Read **Measuring transactions**; **Measuring an end-to-end journey or non-transactional website**. Combines performance data with user research and task-completion timing instead of relying on a single activity count. **Apply:** Choose one quality measure and one end-to-end timing measure for the shop.
+- **Optional reference (free): [OpenAI — Evaluation best practices](https://developers.openai.com/api/docs/guides/evaluation-best-practices)** — Read **Design your eval process**; **Handle edge cases**. Explains objectives, datasets and edge cases for repeatable model evaluation; example thresholds are not universal targets. **Apply:** Add vague and urgent enquiries to a saved test set with explicit expected behaviour.
 
 ## Flashcards
 
