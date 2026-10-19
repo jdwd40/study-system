@@ -17,32 +17,41 @@ Compare a simple monolith with a modular monolith, and design for likely change 
 
 ## Content
 
-A monolith deploys as one unit; a modular monolith also enforces internal boundaries — separate modules with explicit interfaces and controlled dependencies. The modular monolith keeps monolith simplicity (one deploy, easy refactoring) while buying most of the change-isolation that services promise.
+A monolith is an application deployed as one unit; it can still run as several replicas. “Monolith” says little about internal quality. A modular monolith deliberately groups responsibilities, defines interfaces and controls dependencies inside that deployment unit. Boundaries can be reinforced with import rules, tests and data-access ownership rather than directories alone.
 
-Design for likely change, not imaginable change. Identify which parts change together and separate those that change for different reasons. Distribution (services) is a tax paid in network failure, operational cost and consistency pain; pay it only when scaling or team boundaries demand it.
+Internal modularity can improve change isolation and make refactoring easier, but it does not provide all service properties. Modules still share a release and often a process, so they lack independent deployment, process-level fault isolation and independent scaling. A monolith is not always easy to operate merely because it has one deployment artifact.
+
+Fowler’s “Monolith First” argues that learning boundaries before distributing them can be valuable, but explicitly describes the evidence as limited and warns that an arbitrary monolith cannot simply be split later.[8] Good boundaries preserve an option, not a guaranteed cheap extraction. Moving a module into a service changes a local call into a remote interaction and requires revisiting data ownership, transactions, failures, latency and operations.
+
+Microservices add a complexity premium; whether it is justified depends on the problem.[9] Independent release needs, measured scaling bottlenecks, fault isolation, security isolation or team ownership may justify distribution. First check whether profiling, clearer internal boundaries or scaling the whole application resolves the need more simply. Design for plausible changes supported by evidence, not every imaginable future.
+
+Curriculum provenance (internal, not external evidence): Personal Curriculum — Hermes Master Document (Software Systems Engineering) sets the lesson scope. The named external readings support the explanations; optional depth is not required to complete the lesson.
 
 ## Key Concepts
 
-- Monolith :: A system that deploys as one unit. Simple to run and refactor, but internal structure can rot without enforced boundaries.
-- Modular monolith :: A monolith that also enforces internal boundaries — separate modules with explicit interfaces and controlled dependencies. It keeps one deploy while buying most of the change-isolation services promise.
-- Change isolation :: Enforced internal boundaries let parts change independently while keeping monolith simplicity and one deploy. One requirement then touches one module instead of the whole codebase.
-- Premature distribution :: Paying the services tax — network failure, operational cost and consistency pain — before scaling or team boundaries demand it. Pay that tax only when scaling or team boundaries actually require it.
-- Module extraction path :: A module with a clean interface can be extracted into a service later; the boundary is the real investment. Good boundaries keep that option open without paying for distribution today.
+- Monolith :: An application deployed as one unit, potentially with multiple replicas. It may be well structured or tightly tangled; deployment shape does not determine modularity.
+- Modular monolith :: A single-deployment application with explicit internal module interfaces and controlled code/data dependencies. Modularity needs enforcement, not just folders.
+- Change isolation :: Limiting the spread of a change through stable contracts and coherent ownership. Shared contracts, data or business rules can still require coordinated changes.
+- Premature distribution :: Introducing remote boundaries before their benefits justify network failures, operational overhead and consistency complexity. The judgement depends on requirements, not a universal size threshold.
+- Module extraction path :: A possible future migration from an internal module to a service. Clean interfaces help, but extraction still needs decisions about data, failure handling, deployment and observability.[8]
+- Deployment versus modularity :: Deployment units describe how software is released and run; modules describe responsibility and dependency boundaries. These are separate design dimensions.
 
 ## Examples
 
-- Coins: one Node process with clear module boundaries beats five services at current scale
-- A module with a clean interface can be extracted into a service later — the boundary is the real investment
+- Hypothetical Node application: billing and notifications expose public functions; direct cross-module table access and private imports are rejected in tests. It remains one deployment with a shared process failure domain.
+- Before extracting notifications, inventory shared transactions and direct reads of account tables; a clean function signature does not remove those dependencies.
+- If one workload creates measured resource contention, compare whole-app replication, an isolated worker and a separate service against cost and failure requirements.
 
 ## Takeaways
 
-- Internal boundaries give most service benefits without distribution costs
-- Design for change frequency and reason, not fashion
+- Internal modularity can improve change locality without introducing remote calls.
+- It does not provide independent deployment, scaling or fault isolation.
+- Treat later extraction as an option with migration costs; justify distribution with requirements and evidence.
 
 ## Sources and Further Reading
 
-- Personal Curriculum — Hermes Master Document (Software Systems Engineering)
-- Fowler, "Monolith First"
+- **Start here — [Martin Fowler — Monolith First](https://martinfowler.com/bliki/MonolithFirst.html).[8]** Read: the argument about boundary discovery, the concluding evidence caveat and note 1 on extracting an arbitrary monolith. Why: explains the monolith-first judgement while making its limits explicit. Try: Name one boundary you do not yet understand well enough to turn into a service. Access: Free public reading; no account needed.
+- **Optional decision depth — [Martin Fowler — Microservice Premium](https://martinfowler.com/bliki/MicroservicePremium.html).[9]** Read: the full short article and its discussion of system complexity versus the microservice premium. Why: helps decide when distribution overhead may buy enough benefit. Try: Write one observable requirement that could justify extraction and one cheaper alternative to test first. Access: Free public reading; no account needed.
 
 ## Flashcards
 
