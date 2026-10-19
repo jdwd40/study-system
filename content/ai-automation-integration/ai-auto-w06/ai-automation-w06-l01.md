@@ -35,7 +35,10 @@ Citations must support claims; abstain when evidence is absent.
 
 ## Key Concepts
 
-- Citations must support claims; abstain when evidence is absent. :: A citation should support the exact claim; when permitted evidence is missing or weak, the system should say so instead of guessing.
+- Claim-level citation :: Attach a readable source title, section and passage ID to each material factual claim; merely displaying a plausible link does not establish support.
+- Faithfulness :: Check whether the cited evidence actually entails the answer’s claims, separately from whether retrieval found a useful passage.
+- Version conflict :: Expose disagreement between source versions and identify which is current rather than silently merging incompatible policies.
+- Evidence-based abstention :: Say that the available documents do not support an answer and route to a person when necessary; do not replace missing evidence with an uncalibrated confidence percentage.
 
 ## Examples
 
@@ -47,8 +50,8 @@ Citations must support claims; abstain when evidence is absent.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://platform.openai.com/docs/guides/evals)
-- https://platform.openai.com/docs/guides/evals
+- **Start here (free): [Ragas — Faithfulness](https://docs.ragas.io/en/stable/concepts/metrics/available_metrics/faithfulness/)** — Read **Faithfulness**; **How It’s Calculated**. Breaks answer evaluation into claims supported by retrieved context. Use the claim-checking idea manually; running an automated model judge is optional and not itself proof of truth. **Apply:** Underline each claim in a policy answer and link it to words in the cited passage.
+- **Optional reference (free): [OpenAI — Retrieval: synthesizing responses](https://developers.openai.com/api/docs/guides/retrieval)** — Read **Synthesizing responses**. Shows the boundary where retrieved evidence is supplied for answer generation; your application still needs citation checks and an unsupported-answer policy. **Apply:** Write an instruction for an absent warranty clause that requires abstention rather than an invented policy.
 
 ## Flashcards
 
