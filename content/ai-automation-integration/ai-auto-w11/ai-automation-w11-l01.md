@@ -27,7 +27,7 @@ A shop owner says, “I need an AI receptionist,” but the actual pain is forge
 
 **Try it**
 
-Use templates/discovery-interview.md to run a mock interview. Write the current workflow and three exceptions.
+Run a mock interview using these prompts: walk through the last real or clearly fictional case; what triggered it; which steps and systems were involved; where was judgement needed; what failed; what volume and time are observed; what data access is permitted? Record the current workflow and three exceptions in your own notes. Do not invent client evidence; no supplied interview template is required.
 
 **Key point**
 
@@ -35,7 +35,10 @@ Observe real cases; quantify volume; identify exceptions.
 
 ## Key Concepts
 
-- Observe real cases; quantify volume; identify exceptions. :: Observes recent real cases, quantifies frequency and effort, and asks about exceptions; concrete evidence is more reliable than a requested technology.
+- Discovery rather than pitch :: Ask what the owner needs to get done and where the current process hurts, without assuming AI is the appropriate solution.
+- Recent-case walkthrough :: Reconstruct the last real task through its trigger, systems, decisions and failure points using open, neutral follow-up questions.
+- Volume and exception evidence :: Record weekly frequency and observed effort alongside unusual cases and legal or operational constraints before choosing a pilot.
+- Respectful research boundary :: Obtain permission before viewing customer records, describe the process in the owner’s language and seek a narrow measurable task with a willing reviewer.
 
 ## Examples
 
@@ -47,8 +50,8 @@ Observe real cases; quantify volume; identify exceptions.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://ico.org.uk/for-organisations/advice-for-small-organisations/getting-started-with-gdpr/)
-- https://ico.org.uk/for-organisations/advice-for-small-organisations/getting-started-with-gdpr/
+- **Start here (free): [GOV.UK — Using in-depth interviews](https://www.gov.uk/service-manual/user-research/using-in-depth-interviews)** — Read **Design the interview**; **Do the interview**. Recommends open neutral questions and stories of real examples rather than abstract claims about how work should happen. **Apply:** Replace three leading AI-sales questions with neutral prompts about the last missed callback.
+- **Optional reference (free): [GOV.UK — Creating an experience map](https://www.gov.uk/service-manual/user-research/creating-an-experience-map)** — Read **Preparation**; **Build up the experience**. Shows how research observations become a map of actual stages, channels, needs and frustrations. **Apply:** Turn the mock interview into a current workflow, with one evidence note and three exceptions.
 
 ## Flashcards
 
