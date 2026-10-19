@@ -236,3 +236,72 @@ describe('app shell responsive markup', () => {
     }
   });
 });
+
+describe('lesson reader guards (phase 4)', () => {
+  const lessonTsx = readFileSync(resolve(appDir, 'web/src/pages/LessonPage.tsx'), 'utf8');
+  const navTsx = readFileSync(resolve(appDir, 'web/src/components/LessonNav.tsx'), 'utf8');
+  const textSizeTs = readFileSync(resolve(appDir, 'web/src/hooks/useTextSize.ts'), 'utf8');
+
+  it('reading column is a 68ch measure at 1.05rem/1.65', () => {
+    expect(ruleBody(css, '.lesson-main')).toContain('max-width: 68ch');
+    const body = ruleBody(css, '.lesson-body');
+    expect(body).toContain('font-size: 1.05rem');
+    expect(body).toContain('line-height: 1.65');
+  });
+
+  it('Aa text size: three classes on the reading container only, persisted in study.textSize', () => {
+    for (const size of ['small', 'medium', 'large']) expect(ruleBody(css, `.lesson-body.text-${size}`)).toContain('font-size');
+    expect(lessonTsx).toContain('className={`lesson-body text-${textSize}`}');
+    expect(textSizeTs).toContain("'study.textSize'");
+    expect(textSizeTs).toContain('try {');
+    // The control must not touch the shell: no text-size class is applied to html/body/main.
+    expect(lessonTsx).not.toMatch(/document\.(documentElement|body)\.classList/);
+    expect(ruleBody(css, '.textsize')).toContain('min-height: 44px');
+  });
+
+  it('"On this page" navigation: landmark, current-section tracking, sticky rail at >=1100px, popover below', () => {
+    expect(navTsx).toContain('aria-label="On this page"');
+    expect(navTsx).toContain('aria-label="In this course"');
+    expect(navTsx).toContain("aria-current={current === s.id ? 'location' : undefined}");
+    expect(lessonTsx).toContain('data-lesson-section');
+    expect(lessonTsx).toContain('new IntersectionObserver(');
+    expect(ruleBody(css, '.lesson-rail')).toContain('display: none');
+    const wide = css.match(/@media \(min-width: 1100px\) \{([\s\S]*?)\n\}/)?.[1] ?? '';
+    expect(ruleBody(wide, '.lesson-rail')).toContain('position: sticky');
+    expect(ruleBody(wide, '.lesson-contents')).toContain('display: none');
+    expect(navTsx).toContain('aria-controls="lesson-contents-pop"');
+    // No fixed/sticky bottom action bar on the reader — the end-of-content block is the mobile action.
+    expect(css).not.toMatch(/\.lesson[a-z-]*\s*\{[^}]*position:\s*fixed/);
+  });
+
+  it('lifecycle button appears in the header and in the end-of-content Finish block (after Sources, before Q&A)', () => {
+    expect(lessonTsx).toContain("'Retake lesson' : 'Start lesson'");
+    expect(lessonTsx).toContain("I've finished reading");
+    expect(lessonTsx).toContain('>End lesson</button>');
+    const headerIdx = lessonTsx.indexOf('<div className="btn-row lesson-tools-action">{lifecycle}</div>');
+    const sourcesIdx = lessonTsx.indexOf('id="sec-sources"');
+    const finishIdx = lessonTsx.indexOf('<section className="lesson-finish">');
+    const finishBtnIdx = lessonTsx.indexOf('<div className="btn-row">{lifecycle}</div>', finishIdx);
+    const qaIdx = lessonTsx.indexOf('id="sec-qa"');
+    expect(headerIdx).toBeGreaterThan(-1);
+    expect(sourcesIdx).toBeGreaterThan(headerIdx);
+    expect(finishIdx).toBeGreaterThan(sourcesIdx);
+    expect(finishBtnIdx).toBeGreaterThan(finishIdx);
+    expect(qaIdx).toBeGreaterThan(finishBtnIdx);
+    expect(lessonTsx).toContain('Nothing completes automatically');
+  });
+
+  it('never calls /end without a userRating, and fetches /next-lesson only after a successful end', () => {
+    const endCalls = lessonTsx.match(/\/end`/g) ?? [];
+    expect(endCalls).toHaveLength(1);
+    expect(lessonTsx).toContain('if (userRating === null) return;\n    await api.post(`/lessons/${lesson.id}/end`, { userRating });');
+    expect(lessonTsx).toContain('disabled={busy || userRating === null}');
+    const endIdx = lessonTsx.indexOf('/end`');
+    const nextIdx = lessonTsx.indexOf('/next-lesson?course=');
+    expect(nextIdx).toBeGreaterThan(endIdx);
+    expect(lessonTsx.match(/\/next-lesson/g)).toHaveLength(1);
+    // Q&A logging uses the server's body shape and is labelled as a note, not a quiz.
+    expect(lessonTsx).toContain('/qa`, body)');
+    expect(lessonTsx).toContain('not a quiz');
+  });
+});

@@ -833,6 +833,183 @@ textarea.input-tall { min-height: 200px; font-family: ui-monospace, 'SF Mono', M
 .today .studytime-card { max-width: none; }
 @media (min-width: 900px) { .today .studytime-card { max-width: 620px; } }
 
+/* =========================================================================
+   Lesson reader
+   One reading column (68ch at 1.05rem/1.65) with a sticky navigation rail
+   at >=1100px; below that a compact "Contents" popover in the header. Text
+   size (Aa) scales .lesson-body only — the header, rail and shell keep the
+   base size. Sections are separated by spacing and thin rules, not cards.
+   ========================================================================= */
+.lesson { max-width: 1120px; }
+.lesson-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 3rem; align-items: start; }
+.lesson-main { max-width: 68ch; min-width: 0; font-size: 1.05rem; }
+.lesson-rail { display: none; }
+
+/* Header */
+.lesson-head { margin-bottom: 1.5rem; }
+.lesson-crumb { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin: 0 0 0.6rem; font-size: 0.92rem; color: var(--ink-soft); }
+.lesson-crumb-course { color: var(--ink-soft); font-weight: 500; min-height: 30px; display: inline-flex; align-items: center; }
+.lesson-crumb-course:hover { color: var(--ink); }
+.lesson-crumb-sep { color: var(--ink-faint); }
+.lesson-crumb-module { font-variant-numeric: tabular-nums; }
+.lesson-head h1 { margin-bottom: 0.5rem; }
+.lesson-status { margin: 0; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.lesson-tools { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+.lesson-tools-action:empty { display: none; }
+.lesson-tools-right { display: flex; align-items: center; gap: 0.5rem; margin-left: auto; }
+
+/* Aa text-size control: three 44px buttons, the active one filled */
+.textsize { display: inline-flex; align-items: center; gap: 0.1rem; padding: 0 0.15rem 0 0.6rem; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); min-height: 44px; }
+.textsize-label { font-size: 0.82rem; font-weight: 600; color: var(--ink-faint); margin-right: 0.3rem; letter-spacing: 0.02em; }
+.textsize-btn { min-width: 36px; height: 40px; border: none; border-radius: 8px; background: transparent; color: var(--ink-soft); font-family: var(--font); font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+.textsize-btn:hover { background: var(--surface-soft); color: var(--ink); }
+.textsize-btn[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent-strong); }
+.textsize-small { font-size: 0.78rem; }
+.textsize-medium { font-size: 0.95rem; }
+.textsize-large { font-size: 1.15rem; }
+
+/* Contents popover (below 1100px) */
+.lesson-contents { position: relative; }
+.lesson-contents-btn { padding: 0.5rem 0.9rem; font-size: 0.9rem; }
+.lesson-contents-pop {
+  position: absolute; right: 0; top: calc(100% + 0.4rem); z-index: 30;
+  width: min(340px, calc(100vw - 2rem));
+  max-height: min(70vh, 560px); overflow-y: auto;
+  padding: 0.9rem 1rem;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow);
+  animation: palette-in 0.18s ease-out;
+}
+.lesson-contents-pop .lesson-coursenav { margin-top: 1rem; padding-top: 0.9rem; border-top: 1px solid var(--line); }
+
+/* Resume hint (localStorage only; never auto-scrolls) */
+.lesson-resume { display: flex; align-items: center; gap: 0.25rem; margin: 0.75rem 0 0; font-size: 0.9rem; }
+.lesson-resume a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 500; }
+.lesson-resume-dismiss { width: 44px; height: 44px; border: none; border-radius: 10px; background: transparent; color: var(--ink-faint); font-size: 1.3rem; line-height: 1; cursor: pointer; font-family: var(--font); }
+.lesson-resume-dismiss:hover { background: var(--surface-soft); color: var(--ink); }
+
+/* Reading body: the only thing the Aa control scales */
+.lesson-body { font-size: 1.05rem; line-height: 1.65; }
+.lesson-body.text-small { font-size: 0.95rem; }
+.lesson-body.text-medium { font-size: 1.05rem; }
+.lesson-body.text-large { font-size: 1.18rem; line-height: 1.7; }
+.lesson-section { scroll-margin-top: 1rem; }
+.lesson-section + .lesson-section { margin-top: 2.25rem; }
+.lesson-body h2 { font-size: 1.3em; margin: 0 0 0.9rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.lesson-body .prose h2 { font-size: 1.3em; margin: 2rem 0 0.9rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.lesson-body .prose h3 { font-size: 1.1em; margin: 1.6rem 0 0.5rem; }
+.lesson-body .prose h4 { font-size: 1em; margin: 1.25rem 0 0.4rem; }
+.lesson-body .prose p { margin: 0 0 1.1em; }
+.lesson-body .prose ul, .lesson-body .prose ol { padding-left: 1.4em; margin: 0 0 1.1em; }
+.lesson-body .prose li { margin: 0.35em 0; }
+.lesson-body .prose li p { margin: 0; }
+.lesson-body .prose blockquote { margin: 1.1em 0; padding: 0.2em 0 0.2em 1em; border-left: 3px solid var(--accent-line); color: var(--ink-soft); }
+.lesson-body .prose pre { overflow-x: auto; padding: 0.9em 1em; background: var(--surface-soft); border: 1px solid var(--line); border-radius: 10px; font-size: 0.88em; line-height: 1.5; }
+.lesson-body .prose code { font-size: 0.92em; background: var(--surface-soft); padding: 0.1em 0.35em; border-radius: 5px; }
+.lesson-body .prose pre code { background: none; padding: 0; }
+.lesson-body .prose img { max-width: 100%; height: auto; }
+.lesson-body .prose table { border-collapse: collapse; width: 100%; margin: 0 0 1.1em; font-size: 0.95em; }
+.lesson-body .prose th, .lesson-body .prose td { border: 1px solid var(--line); padding: 0.45em 0.6em; text-align: left; vertical-align: top; }
+.lesson-body .callout { margin: 0 0 0.5rem; line-height: 1.6; }
+.lesson-body .meta { font-size: 0.82em; }
+.prose-list { padding-left: 1.4em; margin: 0; }
+.prose-list li { margin: 0.5em 0; }
+.prose-list li .rich-markdown p { margin: 0; }
+.lesson-body .concept-grid { font-size: 1rem; }
+.lesson-body .flashcard { font-size: 1em; }
+.flashcard-btn { margin-top: 0.6rem; padding: 0.45rem 0.9rem; font-size: 0.9rem; }
+.lesson-body .source-list { padding-left: 1.4em; margin: 0; font-size: 0.95em; overflow-wrap: anywhere; }
+
+/* Finish block at the end of the content (after Sources, before Q&A) */
+.lesson-finish {
+  margin: 2.5rem 0 0;
+  padding: 1.25rem 1.4rem 1.4rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: 1rem;
+}
+.lesson-finish h2 { margin: 0 0 0.5rem; padding-top: 0; border-top: none; font-size: 1.15rem; }
+.lesson-finish p { margin: 0 0 0.9rem; color: var(--ink-soft); }
+.lesson-finish .btn-row:empty { display: none; }
+.lesson-finish-done { background: var(--accent-soft); border-color: var(--accent-line); border-left-color: var(--accent); }
+.lesson-finish-done p { color: var(--ink); }
+.lesson-finish-done .stars { font-size: 0.95rem; }
+.lesson-next-link:hover { text-decoration: none; }
+
+/* Q&A log form: a collapsed note for later discussion, not a quiz */
+.lesson-qa { margin-top: 2.5rem; }
+.lesson-qa .list-plain.card { font-size: 0.95em; margin-bottom: 0.9rem; }
+.lesson-qa-log { margin-top: 0.75rem; }
+.lesson-qa-log .btn { font-size: 0.9rem; }
+.lesson-qa-form { margin-top: 0.9rem; padding: 1rem 1.1rem; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); font-size: 1rem; }
+.lesson-qa-form .meta { margin: 0 0 0.9rem; }
+.lesson-qa-form textarea.input { min-height: 72px; }
+
+/* Navigation lists (shared by the rail and the popover) */
+.lesson-nav-title { margin: 0 0 0.4rem; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); }
+.lesson-toc .list-plain li, .lesson-coursenav .list-plain li { padding: 0; border: none; }
+.lesson-toc-link {
+  display: flex; align-items: center; min-height: 44px;
+  padding: 0.3rem 0.7rem; margin-left: -0.7rem;
+  border-left: 2px solid transparent; border-radius: 0 8px 8px 0;
+  color: var(--ink-soft); font-size: 0.9rem; font-weight: 500;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+.lesson-toc-link:hover { color: var(--ink); background: var(--surface-soft); text-decoration: none; }
+.lesson-toc-link.is-current { color: var(--accent-strong); border-left-color: var(--accent); font-weight: 600; }
+.lesson-coursenav { margin-top: 1.5rem; }
+.lesson-coursenav-module + .lesson-coursenav-module { margin-top: 0.15rem; }
+.lesson-coursenav-toggle {
+  display: flex; align-items: center; gap: 0.4rem; width: 100%; min-height: 44px;
+  padding: 0.3rem 0.5rem; margin-left: -0.5rem;
+  border: none; border-radius: 8px; background: transparent;
+  color: var(--ink-soft); font-family: var(--font); font-size: 0.88rem; font-weight: 600; text-align: left; cursor: pointer;
+}
+.lesson-coursenav-toggle:hover { background: var(--surface-soft); color: var(--ink); }
+.lesson-coursenav-toggle.is-here { color: var(--ink); }
+.lesson-coursenav-toggle .accordion-chevron { flex: none; font-size: 0.8rem; }
+.lesson-coursenav-toggle[aria-expanded="true"] .accordion-chevron { transform: rotate(90deg); }
+.lesson-coursenav-modtitle { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.lesson-coursenav-count { flex: none; font-size: 0.72rem; font-weight: 600; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.lesson-coursenav-lessons { margin: 0.1rem 0 0.4rem; padding-left: 0.4rem; border-left: 1px solid var(--line); }
+.lesson-coursenav-empty { padding: 0.3rem 0.5rem; font-size: 0.82rem; color: var(--ink-faint); font-style: italic; }
+.lesson-coursenav-link {
+  display: flex; align-items: center; gap: 0.5rem; min-height: 44px;
+  padding: 0.3rem 0.5rem; border-radius: 8px;
+  color: var(--ink-soft); font-size: 0.88rem;
+}
+.lesson-coursenav-link:hover { background: var(--surface-soft); color: var(--ink); text-decoration: none; }
+.lesson-coursenav-link.is-current { background: var(--accent-soft); color: var(--accent-strong); font-weight: 600; }
+.lesson-coursenav-link.is-complete { color: var(--ink-faint); }
+.lesson-coursenav-link.is-complete.is-current { color: var(--accent-strong); }
+.lesson-coursenav-order { flex: none; min-width: 1.4em; font-size: 0.78rem; font-variant-numeric: tabular-nums; color: var(--ink-faint); }
+.lesson-coursenav-title { flex: 1; min-width: 0; overflow-wrap: anywhere; line-height: 1.3; }
+.lesson-coursenav-done { flex: none; color: var(--accent); font-size: 0.85rem; }
+
+/* Focus rings for the reader's new controls */
+.textsize-btn:focus-visible, .lesson-toc-link:focus-visible, .lesson-coursenav-toggle:focus-visible, .lesson-coursenav-link:focus-visible, .lesson-resume-dismiss:focus-visible, .lesson-contents-btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Rail: >=1100px only — sticky, scrolls within itself when tall */
+@media (min-width: 1100px) {
+  .lesson-layout { grid-template-columns: minmax(0, 1fr) 260px; }
+  .lesson-rail { display: block; position: sticky; top: 1.5rem; max-height: calc(100vh - 3rem); overflow-y: auto; padding-left: 1.25rem; border-left: 1px solid var(--line); }
+  .lesson-contents { display: none; }
+}
+@media (max-width: 899px) {
+  .lesson-section { scroll-margin-top: calc(var(--mobile-bar-h) + 0.75rem); }
+}
+@media (max-width: 640px) {
+  .lesson-head h1 { font-size: 1.5rem; }
+  .lesson-tools-action, .lesson-tools-action .btn { width: 100%; }
+  .lesson-tools-right { margin-left: 0; width: 100%; justify-content: space-between; }
+  .lesson-finish { padding: 1.1rem 1rem 1.2rem; }
+  .lesson-finish .btn-row .btn { width: 100%; }
+}
+
 @media (max-width: 640px) {
   h1 { font-size: 1.35rem; }
   .page { padding-top: 1rem; padding-left: 0.75rem; padding-right: 0.75rem; }
