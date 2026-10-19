@@ -27,7 +27,7 @@ The shop has a six-page warranty policy. A question about a damaged wheel retrie
 
 **Try it**
 
-Split the supplied fictional policies into passages with IDs and titles. For five questions, write the passage each should retrieve.
+For this exercise only, invent and clearly label three short fictional shop policies covering warranty scope, cancellations and opening hours. Do not present them as legal terms or real company policy. Split them into passages with IDs, titles and a version label. For five questions, identify the passage that should be retrieved; include one question the documents cannot answer. No supplied policy files are required.
 
 **Key point**
 
@@ -35,7 +35,10 @@ Ingest → retrieve → answer; keep source and version.
 
 ## Key Concepts
 
-- Ingest → retrieve → answer; keep source and version. :: Stores documents once, retrieves relevant passages at query time, and keeps source/version metadata so answers remain inspectable and current.
+- Retrieval-augmented generation :: Search a document collection for relevant passages and supply a bounded selection as context for an answer instead of repeatedly pasting every document.
+- Inspectable retrieval stages :: Separate ingestion, indexing, retrieval and generation so a missing passage can be diagnosed independently from an unsupported answer.
+- Source provenance :: Store a passage ID, title, version and location so an answer can point back to the exact business policy used.
+- Minimal search and trust boundary :: Start with keywords for a small corpus and add semantic search when needed; retrieved content remains untrusted reference data, never new assistant instructions.
 
 ## Examples
 
@@ -47,8 +50,8 @@ Ingest → retrieve → answer; keep source and version.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://github.com/pgvector/pgvector)
-- https://github.com/pgvector/pgvector
+- **Start here (free): [OpenAI — Retrieval](https://developers.openai.com/api/docs/guides/retrieval)** — Read **Semantic search**; **Performing semantic search**; **Synthesizing responses**. Shows search results containing chunks and file origins, followed by a separate answer-synthesis step. The hosted vector store is an example, not a required replacement for Postgres. **Apply:** For five warranty questions, name the passage expected at retrieval and the source identifier the answer should expose.
+- **Optional reference (free): [OWASP — LLM Prompt Injection Prevention](https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html)** — Read **Remote/Indirect Prompt Injection**; **RAG Poisoning (Retrieval Attacks)**. Explains why policy documents and retrieved passages can carry malicious instructions despite appearing to be reference material. **Apply:** Add a fake policy passage that requests customer-data export and state the allowed answer behaviour.
 
 ## Flashcards
 
