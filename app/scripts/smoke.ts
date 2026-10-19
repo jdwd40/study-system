@@ -8,7 +8,7 @@
  * from its stdout, so a stale process squatting on a fixed port can never
  * silently answer in place of the server under test.
  */
-import { mkdtempSync, rmSync } from 'node:fs';
+import { existsSync, mkdtempSync, readdirSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { spawn, type ChildProcess } from 'node:child_process';
@@ -76,14 +76,17 @@ async function main(): Promise<void> {
 
     const courses = await (await req('/courses')).json();
     const courseIds = courses.courses.map((c: { id: string }) => c.id).sort();
-    const expected = ['ai-engineering', 'bronze-age-collapse', 'computer-architecture', 'industrial-revolution', 'sse'];
+    // Expected set is derived from the canonical tree (every course dir with a README), never hardcoded.
+    const contentDir = resolve(appDir, '..', 'content');
+    const expected = readdirSync(contentDir, { withFileTypes: true })
+      .filter((d) => d.isDirectory() && existsSync(join(contentDir, d.name, 'README.md')))
+      .map((d) => d.name)
+      .sort();
     if (courses.courses.length !== expected.length || JSON.stringify(courseIds) !== JSON.stringify(expected)) {
       throw new Error(`expected courses ${expected.join(',')}, got ${courseIds.join(',')}`);
     }
-    // Status semantics: Industrial Revolution stays queued/paused, Computer Architecture archived —
-    // recorded time never makes a course active.
+    // Status semantics: Computer Architecture stays archived — recorded time never makes a course active.
     const byId = Object.fromEntries(courses.courses.map((c: { id: string; status: string }) => [c.id, c.status]));
-    if (byId['industrial-revolution'] !== 'paused') throw new Error(`industrial-revolution should be paused, got ${byId['industrial-revolution']}`);
     if (byId['computer-architecture'] !== 'archived') throw new Error(`computer-architecture should be archived, got ${byId['computer-architecture']}`);
 
     const next = await (await req('/next-lesson')).json();
@@ -129,7 +132,7 @@ async function main(): Promise<void> {
     const sseCard = dash.courses.find((c: { id: string }) => c.id === 'sse');
     if (sseCard?.studyMinutes !== 25) throw new Error(`course card should carry 25 tracked minutes, got ${sseCard?.studyMinutes}`);
 
-    console.log('SMOKE OK: health, courses(5 incl. industrial-revolution paused, computer-architecture archived), lifecycle(start/end), habit-link(201), COURSE_REQUIRED(400), integration courses+due, dashboard study time (title + total + course card)');
+    console.log('SMOKE OK: health, courses(derived from content tree, computer-architecture archived), lifecycle(start/end), habit-link(201), COURSE_REQUIRED(400), integration courses+due, dashboard study time (title + total + course card)');
   } finally {
     proc.kill('SIGKILL');
     rmSync(dataDir, { recursive: true, force: true });
