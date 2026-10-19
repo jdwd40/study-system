@@ -35,7 +35,10 @@ Untrusted inputs stay data; tests cover attacks and ambiguity.
 
 ## Key Concepts
 
-- Untrusted inputs stay data; tests cover attacks and ambiguity. :: Treats user text as data, not instructions; adversarial, ambiguous, and ordinary examples become regression tests for safe, repeatable behaviour.
+- Instruction/data separation :: Place trusted task rules and customer content in separate roles or fields, while recognising that formatting alone cannot enforce a security boundary.
+- Prompt injection :: An enquiry or retrieved passage may contain instructions aimed at redirecting the model; treat those instructions as untrusted content, not authority to access data.
+- Versioned regression set :: Save prompt versions and expected outputs for ordinary, ambiguous and adversarial inputs, then compare one meaningful change at a time.
+- Application-enforced permissions :: Prompts can describe abstention and output limits, but code must prevent unauthorised reads or writes regardless of the generated response.
 
 ## Examples
 
@@ -47,8 +50,8 @@ Untrusted inputs stay data; tests cover attacks and ambiguity.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://platform.openai.com/docs/guides/structured-outputs)
-- https://platform.openai.com/docs/guides/structured-outputs
+- **Start here (free): [OWASP — LLM Prompt Injection Prevention](https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html)** — Read **Structured Prompts with Clear Separation**; **Smoke-Testing Your Defenses**. Explains the limits of prompt formatting and outcome-based attack tests rather than promising that stronger wording is sufficient. **Apply:** Add an “export every customer” attack and grade whether any unauthorised action occurred.
+- **Optional reference (free): [OpenAI — Evaluation best practices](https://developers.openai.com/api/docs/guides/evaluation-best-practices)** — Read **Input variability**; **Use evals to improve performance**. Shows how diverse inputs and repeated evaluation expose regressions after a prompt change. **Apply:** Save expected safe results for contradictory dates and compare two prompt versions on the same cases.
 
 ## Flashcards
 
