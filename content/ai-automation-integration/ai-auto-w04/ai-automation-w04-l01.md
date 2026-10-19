@@ -35,7 +35,10 @@ Orchestrate visibly; centralise reusable rules.
 
 ## Key Concepts
 
-- Orchestrate visibly; centralise reusable rules. :: Makes steps, branching, credentials, and failure routes visible in the workflow tool; reusable business rules stay in one maintainable place.
+- Workflow orchestration :: Use connected nodes to make triggers, transformations and service calls visible as one left-to-right process.
+- Centralised business rule :: Keep reusable validation and classification rules in a tested TypeScript service rather than duplicating them across workflow nodes.
+- Node contract :: Give each node a descriptive name, expected input and output, responsible system and an explicit indication of possible write effects.
+- Manual-first execution :: Use fictional data and a manual trigger while building; locate the human approval boundary before enabling automatic production triggers.
 
 ## Examples
 
@@ -47,8 +50,8 @@ Orchestrate visibly; centralise reusable rules.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://docs.n8n.io/)
-- https://docs.n8n.io/
+- **Start here (free): [n8n — Create and run workflows](https://docs.n8n.io/workflows/create/)** — Read **Create a workflow**; **Run workflows manually**; **Run workflows automatically**. Distinguishes constructing and manually testing a workflow from publishing it for automatic triggering. **Apply:** Sketch the six shop nodes and mark which remain manual during the pilot.
+- **Optional reference (free): [n8n — HTTP Request node](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.httprequest/)** — Read **Method**; **Authentication**; **Send Body**; **Timeout**. Shows the concrete configuration for calling a shared Node service rather than rebuilding its rules inside the visual workflow. **Apply:** Specify the validation node’s URL, body, credential and timeout without entering a real secret.
 
 ## Flashcards
 
