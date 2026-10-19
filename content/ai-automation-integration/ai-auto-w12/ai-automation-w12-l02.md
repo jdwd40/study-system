@@ -35,7 +35,10 @@ Narrow offer; evidence-backed outreach; track conversion.
 
 ## Key Concepts
 
-- Narrow offer; evidence-backed outreach; track conversion. :: Offers a narrow, evidence-backed outcome and tests response rather than asserting an unverified problem; outreach should produce measurable learning.
+- Evidence-matched offer :: Choose a narrow integration outcome supported by your projects rather than promising broad transformation or autonomous sales.
+- Problem hypothesis :: A public website can suggest a possible process to ask about, but cannot establish internal workload, pain or hours wasted.
+- Permission-aware discovery outreach :: Ask for a small discovery conversation, check applicable contact/privacy rules before sending, and respect objections rather than treating every public address as permission.
+- Conversion and application evidence :: Track contacted, replied, discovery, proposal and closed stages, and tailor CV claims to demonstrated API, integration, data and deployment work.
 
 ## Examples
 
@@ -47,8 +50,8 @@ Narrow offer; evidence-backed outreach; track conversion.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://www.gov.uk/government/publications/ai-adoption-research/ai-adoption-research)
-- https://www.gov.uk/government/publications/ai-adoption-research/ai-adoption-research
+- **Start here (free): [GOV.UK — Learning about users and their needs](https://www.gov.uk/service-manual/user-research/start-by-learning-user-needs)** — Read **Validating user needs**. Requires evidence-based problems rather than assumed solutions, helping frame outreach as a question instead of an unsupported diagnosis. **Apply:** Rewrite a claimed time-saving pitch as one neutral question about callbacks.
+- **Optional reference (free): [ICO — Business-to-business marketing](https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/business-to-business-marketing/)** — Read **What are the rules for sending business-to-business marketing by electronic mail?**; **Can we use publicly available data to send business-to-business marketing?**; **Can businesses object to our marketing?**. Essential before the contact exercise: public business details do not remove privacy obligations, and sole traders/partnerships can have different email rules from corporate subscribers. **Apply:** Before contacting anyone, classify the recipient and channel, check the applicable permission basis, and define an opt-out/suppression process.
 
 ## Flashcards
 
