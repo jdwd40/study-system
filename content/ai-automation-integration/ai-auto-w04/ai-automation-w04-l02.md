@@ -35,7 +35,11 @@ Credential scope; error path; retention; safe reruns.
 
 ## Key Concepts
 
-- Credential scope; error path; retention; safe reruns. :: Separates credential scope from workflow logic, preserves useful failure history without sensitive data, and makes reruns safe and intentional.
+- Managed credential :: Store connection secrets in the tool’s credential mechanism, limit their scope and protect access to the workflow instance.
+- Execution retention :: Decide which execution payloads to save, what to redact and when to prune them; history may contain customer messages.
+- Separate error path :: Report workflow, failed stage and event identifiers through a failure workflow without dumping the full customer payload.
+- Safe rerun :: Inspect saved state before replaying an event so a failure after persistence does not create a second enquiry or notification.
+- Authenticated webhook boundary :: Protect public triggers with provider authentication or a server gate; obscurity of a webhook URL is not access control.
 
 ## Examples
 
@@ -47,8 +51,9 @@ Credential scope; error path; retention; safe reruns.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://docs.n8n.io/)
-- https://docs.n8n.io/
+- **Start here (free): [n8n — Handle errors gracefully](https://docs.n8n.io/flow-logic/error-handling/)** — Read **How do I set up an error workflow?**; **What data does an error workflow receive?**. Shows how Error Trigger workflows receive failure information and how to route an actionable alert. **Apply:** Choose the identifiers to include when notification fails after the enquiry was stored.
+- **Optional reference (free): [n8n — Manage execution data](https://docs.n8n.io/hosting/scaling/execution-data/)** — Read **Reduce saved data**; **Enable executions pruning**. Documents saving and pruning controls; saving errors can still retain sensitive inputs, so retention is a deliberate choice. **Apply:** Write the minimum useful history and retention policy for the shop pilot.
+- **Optional reference (free): [n8n — Create and edit credentials](https://docs.n8n.io/credentials/add-edit-credentials/)** — Read **Create a credential**; **Allowed HTTP request domains**. Explains reusable credential records and restrictions on where an HTTP Request node can use them. **Apply:** Name a service credential by purpose and list its allowed API domains.
 
 ## Flashcards
 
