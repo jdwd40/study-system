@@ -13,10 +13,14 @@ export function useDashboardPeek(): DashboardData | null {
   const { pathname } = useLocation();
   const [data, setData] = useState<DashboardData | null>(null);
   useEffect(() => {
-    if (pathname === '/') return;
     let alive = true;
-    api.get<DashboardData>('/dashboard').then((d) => { if (alive) setData(d); }).catch(() => { /* shell extras are optional */ });
-    return () => { alive = false; };
+    const peek = () => { api.get<DashboardData>('/dashboard').then((d) => { if (alive) setData(d); }).catch(() => { /* shell extras are optional */ }); };
+    if (pathname !== '/') peek();
+    // LessonPage announces a successful start/end so the Continue card never keeps
+    // pointing at a lesson that was just completed (also while on Today, where this
+    // hook otherwise stays idle).
+    window.addEventListener('study:progress', peek);
+    return () => { alive = false; window.removeEventListener('study:progress', peek); };
   }, [pathname]);
   return data;
 }

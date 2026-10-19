@@ -274,7 +274,9 @@ describe('lesson reader guards (phase 4)', () => {
     expect(ruleBody(wide, '.lesson-contents')).toContain('display: none');
     expect(navTsx).toContain('aria-controls="lesson-contents-pop"');
     // No fixed/sticky bottom action bar on the reader — the end-of-content block is the mobile action.
-    expect(css).not.toMatch(/\.lesson[a-z-]*\s*\{[^}]*position:\s*fixed/);
+    // (Review 2026-10-19: the Contents popover alone may be fixed on phones — it is a navigation
+    // sheet between the bars, not an action bar — so it is excluded by name, nothing else is.)
+    expect(css).not.toMatch(/\.lesson(?!-contents-pop)[a-z-]*\s*\{[^}]*position:\s*fixed/);
   });
 
   it('lifecycle button appears in the header and in the end-of-content Finish block (after Sources, before Q&A)', () => {
@@ -292,6 +294,19 @@ describe('lesson reader guards (phase 4)', () => {
     expect(finishBtnIdx).toBeGreaterThan(finishIdx);
     expect(qaIdx).toBeGreaterThan(finishBtnIdx);
     expect(lessonTsx).toContain('Nothing completes automatically');
+  });
+
+  it('End-lesson dialog is keyboard-complete and the shell is told when progress changes (review fixes)', () => {
+    // Review 2026-10-19: the dialog had no focus move, no Escape and no trap; the
+    // sidebar Continue card kept pointing at a lesson that had just been ended.
+    expect(lessonTsx).toContain("if (e.key === 'Escape') { e.preventDefault(); setEnding(false); }");
+    expect(lessonTsx).toContain('aria-labelledby="end-lesson-title"');
+    expect(lessonTsx).toContain("window.dispatchEvent(new Event('study:progress'))");
+    const peek = readFileSync(resolve(appDir, 'web/src/hooks/useDashboardPeek.ts'), 'utf8');
+    expect(peek).toContain("window.addEventListener('study:progress', peek)");
+    expect(peek).toContain("window.removeEventListener('study:progress', peek)");
+    // Text-size buttons are real 44px targets, not 36x40 inside a 44px wrapper.
+    expect(ruleBody(css, '.textsize-btn')).toContain('height: 44px');
   });
 
   it('never calls /end without a userRating, and fetches /next-lesson only after a successful end', () => {

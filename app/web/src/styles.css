@@ -334,7 +334,7 @@ a:hover { text-decoration: underline; }
 .sidebar-toggle { flex: none; }
 .app-shell.rail .sidebar { width: var(--rail-w); padding-left: 0.6rem; padding-right: 0.6rem; align-items: stretch; }
 .app-shell.rail .sidebar-head { flex-direction: column; }
-.app-shell.rail .sidebar-brand { justify-content: center; padding: 0; font-size: 1.2rem; }
+.app-shell.rail .sidebar-brand { justify-content: center; padding: 0; font-size: 1.2rem; width: 44px; margin: 0 auto; }
 .app-shell.rail .sidenav-link,
 .app-shell.rail .shell-btn { justify-content: center; padding-left: 0; padding-right: 0; }
 .app-shell.rail .sidenav-link span,
@@ -863,7 +863,7 @@ textarea.input-tall { min-height: 200px; font-family: ui-monospace, 'SF Mono', M
 /* Aa text-size control: three 44px buttons, the active one filled */
 .textsize { display: inline-flex; align-items: center; gap: 0.1rem; padding: 0 0.15rem 0 0.6rem; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); min-height: 44px; }
 .textsize-label { font-size: 0.82rem; font-weight: 600; color: var(--ink-faint); margin-right: 0.3rem; letter-spacing: 0.02em; }
-.textsize-btn { min-width: 36px; height: 40px; border: none; border-radius: 8px; background: transparent; color: var(--ink-soft); font-family: var(--font); font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+.textsize-btn { min-width: 44px; height: 44px; border: none; border-radius: 8px; background: transparent; color: var(--ink-soft); font-family: var(--font); font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
 .textsize-btn:hover { background: var(--surface-soft); color: var(--ink); }
 .textsize-btn[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent-strong); }
 .textsize-small { font-size: 0.78rem; }
@@ -1003,6 +1003,12 @@ textarea.input-tall { min-height: 200px; font-family: ui-monospace, 'SF Mono', M
 }
 @media (max-width: 899px) {
   .lesson-section { scroll-margin-top: calc(var(--mobile-bar-h) + 0.75rem); }
+  /* Review fix: anchored below the button the popover ran past the viewport bottom (under the
+     tab bar) and its lower half was unreachable. On phones it is a fixed sheet between the bars. */
+  .lesson-contents-pop {
+    position: fixed; top: calc(var(--mobile-bar-h) + 0.5rem); left: 1rem; right: 1rem;
+    width: auto; max-height: calc(100vh - var(--mobile-bar-h) - var(--tabbar-h) - 1rem - env(safe-area-inset-bottom, 0px));
+  }
 }
 @media (max-width: 640px) {
   .lesson-head h1 { font-size: 1.5rem; }

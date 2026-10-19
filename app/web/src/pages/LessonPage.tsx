@@ -48,6 +48,23 @@ function LessonReader({ lessonId }: { lessonId: string }) {
    * fire in occluded/backgrounded tabs, silently dropping focus restoration.
    */
   const returnFocusRef = useRef<HTMLButtonElement | null>(null);
+  const endDialogRef = useRef<HTMLDivElement>(null);
+  const endOpenerRef = useRef<HTMLElement | null>(null);
+
+  // End-lesson dialog: focus moves to the rating row, Escape cancels, focus returns to the opener.
+  useEffect(() => {
+    if (!ending) return;
+    endOpenerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    endDialogRef.current?.querySelector<HTMLElement>('.rating-btn.selected, .rating-btn')?.focus();
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { e.preventDefault(); setEnding(false); } };
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      const opener = endOpenerRef.current;
+      endOpenerRef.current = null;
+      if (opener && opener.isConnected) opener.focus();
+    };
+  }, [ending]);
 
   useEffect(() => {
     if (openConcept) return;
@@ -111,7 +128,23 @@ function LessonReader({ lessonId }: { lessonId: string }) {
 
   const act = async (fn: () => Promise<unknown>) => {
     setBusy(true); setActionError(null);
-    try { await fn(); reload(); } catch (e) { setActionError(e); } finally { setBusy(false); }
+    try {
+      await fn();
+      // Tell the shell (sidebar Continue card) that lesson progress changed.
+      window.dispatchEvent(new Event('study:progress'));
+      reload();
+    } catch (e) { setActionError(e); } finally { setBusy(false); }
+  };
+
+  /** Keep Tab inside the End-lesson dialog (same light trap as ConceptModal). */
+  const trapEndTab = (e: React.KeyboardEvent) => {
+    if (e.key !== 'Tab' || !endDialogRef.current) return;
+    const focusables = endDialogRef.current.querySelectorAll<HTMLElement>('button:not([disabled])');
+    if (focusables.length === 0) return;
+    const first = focusables[0]!;
+    const last = focusables[focusables.length - 1]!;
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   };
 
   const endLesson = () => act(async () => {
@@ -342,13 +375,14 @@ function LessonReader({ lessonId }: { lessonId: string }) {
 
       {openConcept && <ConceptModal concept={openConcept} lessonTitle={lesson.title} onClose={closeConcept} />}
       {ending && (
-        <div className="modal-backdrop" role="dialog" aria-modal="true" aria-label="End lesson">
-          <div className="modal">
-            <h2 style={{ marginTop: 0 }}>End lesson</h2>
+        <div className="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="end-lesson-title" onKeyDown={trapEndTab} onClick={(e) => { if (e.target === e.currentTarget) setEnding(false); }}>
+          <div className="modal" ref={endDialogRef}>
+            <h2 id="end-lesson-title" style={{ marginTop: 0 }}>End lesson</h2>
             <p className="card-sub">How well do you understand this? (required)</p>
-            <div className="rating-row" role="radiogroup" aria-label="Your understanding rating">
+            {/* Toggle buttons with aria-pressed, so the container is a plain group (a radiogroup would expect radio children). */}
+            <div className="rating-row" role="group" aria-label="Your understanding rating">
               {[1, 2, 3, 4, 5].map((n) => (
-                <button key={n} className={`rating-btn ${userRating === n ? 'selected' : ''}`} onClick={() => setUserRating(n)} aria-pressed={userRating === n}>{n}</button>
+                <button key={n} type="button" className={`rating-btn ${userRating === n ? 'selected' : ''}`} onClick={() => setUserRating(n)} aria-pressed={userRating === n}>{n}</button>
               ))}
             </div>
             <div className="btn-row">
