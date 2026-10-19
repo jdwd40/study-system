@@ -35,7 +35,11 @@ Allow-list tools; validate arguments; separate reads from writes.
 
 ## Key Concepts
 
-- Allow-list tools; validate arguments; separate reads from writes. :: Treats model tool calls as untrusted requests; only approved tools run, arguments are validated, and the application authorises every read or write.
+- Tool proposal :: A model supplies a function name and arguments; only application code can decide to execute the requested operation.
+- Tool allow-list :: Expose only recognised, narrowly scoped functions and reject unknown names or malformed arguments rather than invoking arbitrary code.
+- Execution authorisation :: Check the caller, permissions and current record state for every tool call, even when the model produced plausible arguments.
+- Read/write boundary :: Distinguish lookups from consequential writes; sending a reply needs a separate approval path rather than inheriting permission from a read.
+- Action audit :: Record the proposed action, approving actor and completion outcome so a request is not mistaken for a completed side effect.
 
 ## Examples
 
@@ -47,8 +51,8 @@ Allow-list tools; validate arguments; separate reads from writes.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://platform.openai.com/docs/guides/structured-outputs)
-- https://platform.openai.com/docs/guides/structured-outputs
+- **Start here (free): [OpenAI — Function calling](https://developers.openai.com/api/docs/guides/function-calling)** — Read **The tool calling flow**; **Handling function calls**. The flow explicitly places execution in application code; this is the relevant guide, not merely structured output formatting. **Apply:** Mark the exact point where your executor must validate lookupOpeningHours and draftReply.
+- **Optional reference (free): [OWASP — Authorization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html)** — Read **Deny by Default**; **Validate the Permissions on Every Request**. Explains why a tool request cannot bypass server-side access checks. **Apply:** Write a denial test for a model-proposed action on another owner’s enquiry.
 
 ## Flashcards
 
