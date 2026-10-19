@@ -35,7 +35,11 @@ Fixed cases; retrieval hit rate; faithfulness; negative cases.
 
 ## Key Concepts
 
-- Fixed cases; retrieval hit rate; faithfulness; negative cases. :: Uses fixed labelled cases to measure retrieval hits, answer faithfulness, and safe negative behaviour; failures matter as much as successes.
+- Labelled question set :: Save questions with expected source passages and allowed answer behaviour so retrieval changes can be evaluated consistently.
+- Retrieval versus generation scoring :: Measure whether relevant evidence was retrieved separately from whether the answer faithfully used it; each failure needs a different fix.
+- Negative and boundary case :: Include absent answers, conflicting versions, paraphrases and permission-restricted material, not only questions the system can answer easily.
+- Failure taxonomy :: Classify errors as missing source, broken chunk, poor ranking, unsupported answer or permission leak to choose the next targeted change.
+- Holdout and controlled comparison :: Change one meaningful variable, rerun fixed cases and keep results; avoid tuning solely to examples already shown to the model.
 
 ## Examples
 
@@ -47,8 +51,9 @@ Fixed cases; retrieval hit rate; faithfulness; negative cases.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://platform.openai.com/docs/guides/evals)
-- https://platform.openai.com/docs/guides/evals
+- **Start here (free): [OpenAI — Evaluation best practices](https://developers.openai.com/api/docs/guides/evaluation-best-practices)** — Read **Example: Q&A over docs**; **Handle edge cases**. Provides a document-Q&A evaluation design and a reason to include adversarial and unusual inputs; adapt the example goals to your own risk tolerance. **Apply:** Create five rows of the 20-case sheet, including unsupported and permission-boundary questions.
+- **Optional reference (free): [Ragas — Context Recall](https://docs.ragas.io/en/stable/concepts/metrics/available_metrics/context_recall/)** — Read **Context Recall**; **ID BasedContext Recall**. Explains checking retrieved evidence against a reference; ID-based recall is useful when expected passage identifiers are known. This is not identical to the simpler per-question hit rate. **Apply:** For one question, list all required passage IDs and which were actually retrieved.
+- **Optional reference (free): [Ragas — Faithfulness](https://docs.ragas.io/en/stable/concepts/metrics/available_metrics/faithfulness/)** — Read **How It’s Calculated**. Separately scores supported answer claims, helping diagnose a fluent answer that ignores otherwise correct retrieved context. **Apply:** Classify one failure as retrieval miss or unsupported generation and identify the appropriate fix.
 
 ## Flashcards
 
