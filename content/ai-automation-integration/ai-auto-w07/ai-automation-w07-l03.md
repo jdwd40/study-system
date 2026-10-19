@@ -35,7 +35,11 @@ Step, time, spend and side-effect limits.
 
 ## Key Concepts
 
-- Step, time, spend and side-effect limits. :: Caps calls, elapsed time, spend, and side effects so an agent cannot loop indefinitely or turn one request into uncontrolled activity.
+- Per-enquiry budget :: Set explicit maximum tool calls, elapsed time, estimated spend and allowed writes so a repeating agent cannot consume unbounded resources.
+- Stable operation ID :: Reuse the same operation identifier after a timeout so an executor can return the existing result instead of repeating a completed write.
+- Visible stop condition :: Distinguish tool failure from missing evidence and stop with an understandable reason when limits or evidence requirements prevent further action.
+- Compact trace :: Keep identifiers, decisions and outcomes sufficient for diagnosis while excluding credentials and unnecessary customer content.
+- Rule-based comparator :: Compare accuracy, latency and cost with a fixed workflow and retain the simpler design unless the agent demonstrates a worthwhile improvement.
 
 ## Examples
 
@@ -47,8 +51,8 @@ Step, time, spend and side-effect limits.
 
 ## Sources and Further Reading
 
-- [Official documentation](https://platform.openai.com/docs/guides/function-calling)
-- https://platform.openai.com/docs/guides/function-calling
+- **Start here (free): [Anthropic — Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)** — Read **Agents**; **When (and when not) to use agents**. Discusses stopping conditions such as iteration limits and the latency/cost trade-off of agency; use this to justify explicit local budgets. **Apply:** Choose one hard stop and a fixed-rule baseline for the enquiry assistant.
+- **Optional reference (free): [Stripe API — Idempotent requests](https://docs.stripe.com/api/idempotent_requests)** — Read **Idempotent requests**. Explains retrying a write with the same key and the provider-specific lifetime and parameter rules; implement the equivalent guarantee in your executor rather than assuming it exists. **Apply:** Describe how a timed-out createTask call returns the original task on retry.
 
 ## Flashcards
 
