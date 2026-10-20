@@ -312,7 +312,9 @@ describe('lesson reader guards (phase 4)', () => {
   it('never calls /end without a userRating, and fetches /next-lesson only after a successful end', () => {
     const endCalls = lessonTsx.match(/\/end`/g) ?? [];
     expect(endCalls).toHaveLength(1);
-    expect(lessonTsx).toContain('if (userRating === null) return;\n    await api.post(`/lessons/${lesson.id}/end`, { userRating });');
+    // Journey layer: the end call now keeps its typed response (journey/XP) but is still the
+    // only /end call, still guarded by the rating check, and still sends exactly { userRating }.
+    expect(lessonTsx).toContain('if (userRating === null) return;\n    const res = await api.post<EndLessonResponse>(`/lessons/${lesson.id}/end`, { userRating });');
     expect(lessonTsx).toContain('disabled={busy || userRating === null}');
     const endIdx = lessonTsx.indexOf('/end`');
     const nextIdx = lessonTsx.indexOf('/next-lesson?course=');
@@ -409,14 +411,19 @@ describe('library and course guards (phase 6)', () => {
     expect(desc).toContain('overflow: hidden');
   });
 
-  it('course page: "Next up" marker on the first not-complete lesson, modules keep aria-expanded, rows are 44px links', () => {
+  it('course page trail: "Next step" marker on the first not-complete lesson, regions keep aria-expanded, waypoints are 44px+ links', () => {
+    // Journey redesign: modules are trail regions and lessons are waypoint links; the same
+    // facts are guarded under the new class names. Planned modules (no lesson files) are
+    // "unmapped" and not expandable, so aria-expanded is omitted only for them.
     expect(courseTsx).toContain('nextUpLesson(c.modules)');
     expect(courseTsx).toContain('className="next-up-mark"');
-    expect(courseTsx).toContain('All available lessons studied');
-    expect(courseTsx).toContain('aria-expanded={expanded} aria-controls={panelId}');
-    expect(courseTsx).toContain('Planned — no lessons yet');
-    expect(ruleBody(css, '.lesson-row')).toContain('min-height: 44px');
+    expect(courseTsx).toContain('Every available lesson studied.');
+    expect(courseTsx).toContain('aria-expanded={isPlanned ? undefined : expanded} aria-controls={isPlanned ? undefined : panelId}');
+    expect(courseTsx).toContain('Unmapped — planned, no lessons yet');
+    // Nothing is locked: every waypoint is a plain Link to its lesson.
+    expect(courseTsx).toContain('<Link to={`/lesson/${l.id}`} className="trail-step-link">');
+    expect(ruleBody(css, '.trail-step-link')).toMatch(/min-height:\s*4[4-9]px/);
     // Phones: title takes its own line, meta wraps beneath.
-    expect(ruleBody(mobile, '.lesson-row-title')).toContain('flex: 1 1 100%');
+    expect(ruleBody(mobile, '.trail-step-title')).toContain('flex-basis: 100%');
   });
 });

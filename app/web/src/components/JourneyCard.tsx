@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom';
-import type { JourneyView } from '../types';
+import { LEVELS, type JourneyView } from '../types';
 
 /**
  * Level and XP at a glance. Everything shown is derived from records the
@@ -39,5 +38,4 @@ function nextTitle(current: number): string {
   // Titles live in shared/journey.ts; indexing via the exported list keeps them in one place.
   return NEXT_TITLES[current] ?? 'the next level';
 }
-import { LEVELS } from '../types';
 const NEXT_TITLES: Record<number, string> = Object.fromEntries(LEVELS.map((l, i) => [i, l.title]));

@@ -1294,3 +1294,143 @@ textarea.input-tall { min-height: 200px; font-family: ui-monospace, 'SF Mono', M
 .course-card-titles { flex: 1 1 auto; min-width: 0; }
 .course-card-territory { margin: 0.05rem 0 0; font-size: 0.78rem; color: var(--ink-faint); }
 .course-card-muted .course-card-art { filter: grayscale(0.6); opacity: 0.75; border-bottom-color: var(--line); }
+
+/* ---------- Course page as a journey ---------- */
+.course-banner { position: relative; height: 180px; margin: -0.5rem 0 1.25rem; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: var(--course-accent-soft, var(--surface-soft)); box-shadow: var(--shadow); }
+.course-banner .course-scene { position: absolute; inset: 0; }
+.course-page-muted .course-banner { filter: grayscale(0.6); opacity: 0.8; }
+.course-territory { margin: 0.2rem 0 0; font-size: 0.85rem; font-weight: 600; color: var(--course-accent, var(--accent)); letter-spacing: 0.01em; }
+
+.course-journey { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.25rem; margin-top: 1.25rem; padding: 1.25rem 1.4rem; border-top: 3px solid var(--course-accent, var(--accent)); }
+@media (min-width: 760px) { .course-journey { grid-template-columns: minmax(0, 3fr) minmax(220px, 2fr); } .course-journey-next { border-left: 1px solid var(--line); padding-left: 1.25rem; } }
+.course-journey .continue-eyebrow { color: var(--course-accent, var(--accent)); margin: 0 0 0.3rem; }
+.course-journey-big { margin: 0; font-size: 1.15rem; }
+.course-journey-big strong { font-size: 1.6rem; font-weight: 750; letter-spacing: -0.02em; }
+.trail-bar { height: 10px; border-radius: 999px; background: var(--surface-soft); overflow: hidden; margin: 0.6rem 0 0.5rem; }
+.trail-bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--course-accent, var(--accent)) 0%, var(--course-second, var(--star)) 100%); transition: width 0.6s ease-out; }
+.course-journey-meta { display: flex; flex-wrap: wrap; gap: 0.3rem 1.1rem; margin: 0; font-size: 0.88rem; color: var(--ink-soft); }
+.course-journey-next { display: flex; flex-direction: column; gap: 0.25rem; }
+.course-journey-next-title { margin: 0; font-weight: 650; font-size: 1.1rem; line-height: 1.35; text-wrap: balance; }
+.course-journey-next .meta { margin: 0; }
+.course-journey-btn { align-self: flex-start; margin-top: 0.6rem; }
+.course-journey-btn:hover { text-decoration: none; }
+
+.trail-heading { margin-top: 1.75rem; }
+.trail { position: relative; padding-left: 0; }
+.trail > .trail-region { padding: 0 0 0.5rem 3rem; border: none; }
+.trail-region { position: relative; }
+.trail-region::before { content: ''; position: absolute; left: 1.35rem; top: 0; bottom: 0; width: 2px; background: var(--line); }
+.trail-region:last-child::before { bottom: auto; height: 2rem; }
+.trail-region.is-planned::before { background: repeating-linear-gradient(to bottom, var(--line) 0 4px, transparent 4px 9px); }
+.trail-region.is-claimed::before { background: var(--course-accent, var(--accent)); opacity: 0.55; }
+.trail-region-head {
+  position: relative; width: 100%; display: flex; align-items: flex-start; gap: 0.75rem;
+  padding: 0.75rem 0.5rem 0.75rem 0; margin: 0;
+  border: none; background: none; text-align: left; cursor: pointer;
+  font-family: var(--font); color: var(--ink); border-radius: 10px;
+}
+.trail-region-head:disabled { cursor: default; }
+.trail-region-head:not(:disabled):hover .trail-region-title { color: var(--course-accent, var(--accent)); }
+.trail-region-head:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.trail-region-marker {
+  position: absolute; left: -3rem; top: 0.7rem;
+  width: 2.75rem; height: 2.75rem; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--surface); border: 2px solid var(--line); color: var(--ink-soft);
+  font-weight: 700; font-size: 0.85rem; font-variant-numeric: tabular-nums;
+  box-shadow: 0 0 0 4px var(--bg);
+}
+.trail-region.is-next .trail-region-marker { border-color: var(--course-accent, var(--accent)); color: var(--course-accent, var(--accent)); }
+.trail-region.is-claimed .trail-region-marker { background: var(--course-accent, var(--accent)); border-color: var(--course-accent, var(--accent)); color: var(--on-accent); }
+.trail-region.is-planned .trail-region-marker { border-style: dashed; color: var(--ink-faint); }
+.trail-region-text { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 0.25rem; }
+.trail-region-title { font-weight: 650; font-size: 1.05rem; line-height: 1.3; }
+.trail-region.is-planned .trail-region-title { color: var(--ink-soft); }
+.trail-region-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.6rem; }
+.trail-region-head .accordion-chevron { margin-top: 0.35rem; flex: none; }
+.trail-region-head[aria-expanded="true"] .accordion-chevron { transform: rotate(90deg); }
+.trail-dots { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.15rem; }
+.trail-dot { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--line); background: var(--surface); }
+.trail-dot.is-claimed { background: var(--course-accent, var(--accent)); border-color: var(--course-accent, var(--accent)); }
+.trail-dot.is-next { border-color: var(--course-accent, var(--accent)); box-shadow: 0 0 0 2px var(--course-accent-soft, var(--accent-soft)); }
+.trail-dot.is-unfinished { background: var(--warn-soft); border-color: var(--warn); }
+
+.trail-region-panel { padding: 0 0 0.75rem; }
+.trail-region-panel .module-summary { margin: 0 0 0.5rem; }
+.trail-steps { position: relative; margin-left: 0.4rem; }
+.trail-steps > .trail-step { padding: 0; border: none; }
+.trail-step-link {
+  display: flex; align-items: flex-start; gap: 0.8rem;
+  min-height: 48px; padding: 0.55rem 0.7rem 0.55rem 0.2rem; border-radius: 10px;
+  color: var(--ink);
+}
+.trail-step-link:hover { background: var(--surface-soft); text-decoration: none; }
+.trail-step-link:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.trail-node {
+  flex: none; width: 28px; height: 28px; border-radius: 50%; margin-top: 0.05rem;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--surface); border: 2px solid var(--line); color: var(--ink-faint);
+  font-size: 0.72rem; font-weight: 700; font-variant-numeric: tabular-nums;
+}
+.trail-step.is-claimed .trail-node { background: var(--course-accent, var(--accent)); border-color: var(--course-accent, var(--accent)); color: var(--on-accent); }
+.trail-step.is-unfinished .trail-node { border-color: var(--warn); color: var(--warn); background: var(--warn-soft); }
+.trail-step.is-next .trail-node { border-color: var(--course-accent, var(--accent)); background: var(--course-accent-soft, var(--accent-soft)); animation: trail-pulse 2.2s ease-out infinite; }
+.trail-node-flag { width: 10px; height: 10px; border-radius: 50%; background: var(--course-accent, var(--accent)); }
+@keyframes trail-pulse { 0% { box-shadow: 0 0 0 0 var(--course-accent-soft, var(--accent-soft)); } 70% { box-shadow: 0 0 0 8px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+.trail-step-text { flex: 1 1 auto; min-width: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.75rem; }
+.trail-step-title { flex: 1 1 auto; min-width: 12ch; font-weight: 500; }
+.trail-step.is-next .trail-step-title { font-weight: 650; }
+.trail-step.is-claimed .trail-step-title { color: var(--ink-soft); }
+.trail-step-meta { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.6rem; }
+.trail-claimed { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--course-accent, var(--accent)); }
+.trail-step.is-next .trail-step-link { background: var(--course-accent-soft, var(--accent-soft)); }
+.course-page-muted .trail-node, .course-page-muted .trail-region-marker { filter: grayscale(1); }
+@media (max-width: 640px) {
+  .course-banner { height: 132px; }
+  .course-journey { padding: 1rem; }
+  .course-journey-btn { width: 100%; }
+  .trail > .trail-region { padding-left: 2.6rem; }
+  .trail-region::before { left: 1.05rem; }
+  .trail-region-marker { left: -2.6rem; width: 2.25rem; height: 2.25rem; font-size: 0.78rem; }
+  .trail-step-title { flex-basis: 100%; }
+}
+
+/* ---------- Lesson reader: art banner, waypoint strip, section markers, figures, claim ---------- */
+.lesson-banner { position: relative; height: 120px; margin: 0 0 1rem; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: var(--course-accent-soft, var(--surface-soft)); }
+.lesson-banner .course-scene { position: absolute; inset: 0; }
+.lesson-waypoint { display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem 0.7rem; margin: 0.6rem 0 0; }
+.lesson-waypoint-label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--course-accent, var(--accent)); }
+.lesson-waypoint-dots { display: inline-flex; gap: 0.3rem; }
+.lesson-waypoint .trail-dot.is-next { background: var(--course-accent, var(--accent)); }
+
+/* Waypoint markers on section headings (the content's own h2s keep the plain rule) */
+.lesson-body > .lesson-section > h2 { display: flex; align-items: center; gap: 0.6rem; }
+.lesson-body > .lesson-section > h2::before {
+  content: ''; flex: none; width: 0.5em; height: 0.5em; border-radius: 50%;
+  background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.lesson-body .prose img { display: block; margin: 1.4em auto; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); padding: 0.4em; }
+.lesson-body .prose table { border-radius: 10px; overflow: hidden; border: 1px solid var(--line); }
+.lesson-body .prose th { background: var(--surface-soft); font-weight: 600; }
+.lesson-body .prose tr:nth-child(even) td { background: color-mix(in srgb, var(--surface-soft) 55%, transparent); }
+.lesson-body .prose hr { border: none; border-top: 1px dashed var(--line); margin: 1.6em 0; }
+
+.constellation { margin: 0.4rem 0 1rem; padding: 0.4rem 0.6rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.constellation svg { display: block; width: 100%; height: auto; font-family: var(--font); }
+
+.lesson-finish-done .continue-eyebrow { color: var(--accent-strong); margin: 0 0 0.2rem; }
+.lesson-claim { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem 0.9rem; margin: 0 0 0.75rem; }
+.lesson-claim-xp {
+  display: inline-flex; align-items: center; padding: 0.25rem 0.8rem; border-radius: 999px;
+  background: var(--accent); color: var(--on-accent); font-weight: 800; font-size: 1.05rem; letter-spacing: 0.01em;
+  animation: claim-pop 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.3);
+}
+@keyframes claim-pop { from { transform: scale(0.6); opacity: 0; } to { transform: none; opacity: 1; } }
+.lesson-claim-level { font-weight: 600; font-size: 0.95rem; }
+.lesson-claim-course { display: flex; flex-direction: column; gap: 0.3rem; margin: 0 0 0.9rem !important; }
+.lesson-claim-course .trail-bar { display: block; margin: 0; }
+.lesson-claim-course .trail-bar-fill { display: block; }
+
+/* Review summary XP */
+.review-summary-xp { display: inline-block; margin-left: 0.4rem; padding: 0.1rem 0.6rem; border-radius: 999px; background: var(--accent-soft); color: var(--accent-strong); font-size: 0.85rem; font-weight: 700; vertical-align: middle; }
+@media (max-width: 640px) { .lesson-banner { height: 96px; } }

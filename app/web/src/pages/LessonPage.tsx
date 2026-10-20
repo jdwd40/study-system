@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { api } from '../api';
+import { ConceptConstellation } from '../components/ConceptConstellation';
 import { ConceptModal } from '../components/ConceptModal';
+import { CourseScene } from '../components/CourseScene';
 import { CourseMark } from '../components/CourseMark';
 import { Err } from '../components/Err';
 import { ContentsPopover, InThisCourse, OnThisPage, scrollToSection, type LessonSection } from '../components/LessonNav';
@@ -13,7 +15,8 @@ import { useData } from '../hooks/useData';
 import { TEXT_SIZES, useTextSize, type TextSize } from '../hooks/useTextSize';
 import { courseIdentity } from '../lib/courseIdentity';
 import { md } from '../lib/markdown';
-import type { CourseDetail, KeyConcept, LessonDetail, LessonDoc } from '../types';
+import type { CourseDetail, EndLessonResponse, JourneyView, KeyConcept, LessonDetail, LessonDoc } from '../types';
+import { XP_PER_LESSON } from '../types';
 
 const TEXT_SIZE_LABEL: Record<TextSize, string> = { small: 'Small', medium: 'Medium', large: 'Large' };
 const lastSectionKey = (lessonId: string) => `study.lastSection.${lessonId}`;
@@ -35,7 +38,7 @@ function LessonReader({ lessonId }: { lessonId: string }) {
   const [actionError, setActionError] = useState<unknown>(null);
   const [openConcept, setOpenConcept] = useState<KeyConcept | null>(null);
   /** Set after a successful End: the rating given and the course's next lesson (fetched only then). */
-  const [ended, setEnded] = useState<{ rating: number; next: LessonDoc | null | 'loading' } | null>(null);
+  const [ended, setEnded] = useState<{ rating: number; next: LessonDoc | null | 'loading'; journey: JourneyView | null } | null>(null);
   const [current, setCurrent] = useState<string | null>(null);
   const [resumeSection, setResumeSection] = useState<string | null>(null);
   const [qaOpen, setQaOpen] = useState(false);
@@ -149,15 +152,18 @@ function LessonReader({ lessonId }: { lessonId: string }) {
 
   const endLesson = () => act(async () => {
     if (userRating === null) return;
-    await api.post(`/lessons/${lesson.id}/end`, { userRating });
+    const res = await api.post<EndLessonResponse>(`/lessons/${lesson.id}/end`, { userRating });
     setEnding(false);
     setFinishedReading(false);
     setResumeSection(null);
     try { localStorage.removeItem(lastSectionKey(lesson.id)); } catch { /* ignore */ }
-    setEnded({ rating: userRating, next: 'loading' });
+    const journey = res?.journey ?? null;
+    setEnded({ rating: userRating, next: 'loading', journey });
+    // Refresh the course outline so the waypoint strip and rail show the claim.
+    api.get<CourseDetail>(`/courses/${lesson.courseId}`).then(setCourse).catch(() => { /* keep the old outline */ });
     api.get<{ lesson: LessonDoc | null }>(`/next-lesson?course=${encodeURIComponent(lesson.courseId)}`)
-      .then((r) => setEnded({ rating: userRating, next: r.lesson }))
-      .catch(() => setEnded({ rating: userRating, next: null }));
+      .then((r) => setEnded({ rating: userRating, next: r.lesson, journey }))
+      .catch(() => setEnded({ rating: userRating, next: null, journey }));
   });
 
   const logQuestion = () => act(async () => {
@@ -170,6 +176,8 @@ function LessonReader({ lessonId }: { lessonId: string }) {
   });
 
   const ident = courseIdentity(lesson.courseId, course?.title ?? lesson.courseId);
+  const moduleView = course?.modules.find((m) => m.id === lesson.moduleId) ?? null;
+  const waypoint = moduleView ? { index: moduleView.lessons.findIndex((l) => l.id === lesson.id) + 1, total: moduleView.lessons.length } : null;
   const sections: LessonSection[] = [
     { id: 'objective', label: 'Objective' },
     { id: 'content', label: 'Content' },
@@ -197,14 +205,26 @@ function LessonReader({ lessonId }: { lessonId: string }) {
       <div className="lesson-layout">
         <div className="lesson-main">
           <header className="lesson-head course-ident" style={ident.style}>
+            <div className="lesson-banner" aria-hidden="true"><CourseScene scene={ident.scene} /></div>
             <p className="lesson-crumb">
               <CourseMark glyph={ident.glyph} monogram={ident.monogram} size="sm" />
               <Link to={`/course/${lesson.courseId}`} className="lesson-crumb-course">{course?.title ?? lesson.courseId}</Link>
               <span className="lesson-crumb-sep" aria-hidden="true">›</span>
-              <span className="lesson-crumb-module">{lesson.moduleId}</span>
+              <span className="lesson-crumb-module">{moduleView?.title ?? lesson.moduleId}</span>
             </p>
             <h1>{lesson.title}</h1>
             <p className="lesson-status"><Pill status={state.status} /> <Stars value={state.userRating} /> {state.hermesRating !== null && <span className="meta">Hermes estimate: {state.hermesRating}/5</span>}</p>
+            {moduleView && waypoint && waypoint.index > 0 && (
+              <p className="lesson-waypoint">
+                <span className="lesson-waypoint-label">Waypoint {waypoint.index} of {waypoint.total}</span>
+                <span className="lesson-waypoint-dots" aria-hidden="true">
+                  {moduleView.lessons.map((l) => (
+                    <span key={l.id} className={`trail-dot${l.state.status === 'complete' ? ' is-claimed' : l.id === lesson.id ? ' is-next' : l.state.status === 'unfinished' ? ' is-unfinished' : ''}`} />
+                  ))}
+                </span>
+                <span className="meta">in {moduleView.title}</span>
+              </p>
+            )}
             <div className="lesson-glance">
               {lesson.estimatedMinutes != null && <span>~{lesson.estimatedMinutes} min read</span>}
               <span>{lesson.keyConcepts.length} key concept{lesson.keyConcepts.length === 1 ? '' : 's'}</span>
@@ -244,6 +264,7 @@ function LessonReader({ lessonId }: { lessonId: string }) {
             {lesson.keyConcepts.length > 0 && (
               <section id="sec-concepts" data-lesson-section className="lesson-section">
                 <h2>Key concepts</h2>
+                <ConceptConstellation title={lesson.title} concepts={lesson.keyConcepts} />
                 <p className="meta">Tap any concept for a quick, plain-language explainer.</p>
                 <ul className="concept-grid">
                   {lesson.keyConcepts.map((k) => (
@@ -303,7 +324,23 @@ function LessonReader({ lessonId }: { lessonId: string }) {
 
             {ended ? (
               <section className="lesson-finish lesson-finish-done" aria-live="polite">
+                <p className="continue-eyebrow">Waypoint claimed</p>
                 <h2>Lesson ended</h2>
+                <div className="lesson-claim">
+                  <span className="lesson-claim-xp">+{XP_PER_LESSON} XP</span>
+                  {ended.journey && (
+                    <span className="lesson-claim-level">
+                      Level {ended.journey.level.number} · {ended.journey.level.title} · {ended.journey.xp.toLocaleString()} XP
+                      {ended.journey.level.next !== null && <span className="meta"> · {(ended.journey.level.next - ended.journey.xp).toLocaleString()} to next</span>}
+                    </span>
+                  )}
+                </div>
+                {course && course.progress.plannedLessons > 0 && (
+                  <p className="lesson-claim-course">
+                    <span className="meta">{course.title}: {course.progress.completedLessons} of {course.progress.plannedLessons} available lessons studied</span>
+                    <span className="trail-bar"><span className="trail-bar-fill" style={{ width: `${course.progress.percent}%` }} /></span>
+                  </p>
+                )}
                 <p>You rated your understanding <strong>{ended.rating}/5</strong> <Stars value={ended.rating} />. It's recorded on this lesson; you can retake it any time.</p>
                 {ended.next === 'loading' && <p className="meta">Looking up the next lesson…</p>}
                 {ended.next && ended.next !== 'loading' && (
