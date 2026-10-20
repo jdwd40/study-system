@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 import { api } from './api';
+import { RecoverySettings } from './Recovery';
 import { AppShell } from './components/shell/AppShell';
 import { Spinner } from './components/Spinner';
 import { CoursePage } from './pages/CoursePage';
@@ -36,6 +37,7 @@ export default function App() {
         <Route path="/review" element={<ReviewPage />} />
         <Route path="/manage" element={<ManagePage />} />
         <Route path="/search" element={<SearchPage />} />
+        <Route path="/account" element={<RecoverySettings />} />
         <Route path="*" element={<main className="page"><div className="empty">Page not found. <Link to="/">Back to Today</Link>.</div></main>} />
       </Routes>
     </AppShell>

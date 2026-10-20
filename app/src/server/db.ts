@@ -70,6 +70,18 @@ export function migrate(db: Db): void {
       created_at TEXT NOT NULL,
       expires_at TEXT NOT NULL
     );
+    CREATE TABLE IF NOT EXISTS auth_limits (
+      route TEXT PRIMARY KEY,
+      started_at INTEGER NOT NULL,
+      attempts INTEGER NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS auth_credentials (
+      id INTEGER PRIMARY KEY CHECK (id = 1),
+      password_hash TEXT NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS recovery_codes (
+      digest TEXT PRIMARY KEY
+    );
     CREATE TABLE IF NOT EXISTS kv (
       key TEXT PRIMARY KEY,
       value TEXT NOT NULL

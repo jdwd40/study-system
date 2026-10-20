@@ -4,7 +4,7 @@ import { useSidebarCollapsed } from '../../hooks/useSidebarCollapsed';
 import { useTheme } from '../../hooks/useTheme';
 import { BottomTabs } from './BottomTabs';
 import { CommandPalette, type PaletteCommand } from './CommandPalette';
-import { IconMoon, IconSearch, IconSun } from './icons';
+import { IconManage, IconMoon, IconSearch, IconSun } from './icons';
 import { NAV_ITEMS } from './navItems';
 import { Sidebar } from './Sidebar';
 import { TopBar } from './TopBar';
@@ -49,6 +49,7 @@ export function AppShell({ children, onSignOut }: { children: ReactNode; onSignO
     const dark = theme === 'dark' || (theme === 'system' && typeof matchMedia === 'function' && matchMedia('(prefers-color-scheme: dark)').matches);
     return [
       ...NAV_ITEMS.map(({ to, label, Icon }) => ({ key: to, title: label, to, icon: <Icon /> })),
+      { key: 'account', title: 'Account', to: '/account', icon: <IconManage /> },
       { key: 'search', title: 'Open full search', to: '/search', icon: <IconSearch /> },
       { key: 'theme', title: dark ? 'Toggle theme: switch to light' : 'Toggle theme: switch to dark', run: () => setTheme(dark ? 'light' : 'dark'), icon: dark ? <IconSun /> : <IconMoon /> },
     ];
