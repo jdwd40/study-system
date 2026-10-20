@@ -1219,3 +1219,78 @@ textarea.input-tall { min-height: 200px; font-family: ui-monospace, 'SF Mono', M
   .lesson-row-meta { order: 2; margin-left: 1.6rem; }
   .lesson-row-order + .lesson-row-title { flex-basis: calc(100% - 2.35rem); }
 }
+
+/* =========================================================================
+   Journey layer
+   Course art (CourseScene), the "Continue your journey" hero, level card,
+   art-topped course cards, concept chips. The course accent and the warm
+   secondary colour come from the .course-ident tokens; the scenes draw
+   only with those tokens so they work in both themes.
+   ========================================================================= */
+.course-ident { --course-second: var(--course-second-light, var(--star)); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .course-ident { --course-second: var(--course-second-dark, var(--star)); }
+}
+:root[data-theme="dark"] .course-ident { --course-second: var(--course-second-dark, var(--star)); }
+
+.course-scene { display: block; width: 100%; height: 100%; }
+
+/* Hero: art panel on the left (>=720px), text on the right */
+.today-hero { align-items: start; }
+.continue-hero { padding: 0; overflow: hidden; border-left-width: 1px; border-left-color: var(--line); }
+.continue-hero-art { position: relative; min-height: 150px; background: var(--course-accent-soft, var(--surface-soft)); }
+.continue-hero-art .course-scene { position: absolute; inset: 0; }
+.continue-hero-body { display: flex; flex-direction: column; gap: 0.45rem; padding: 1.25rem 1.5rem 1.5rem; border-top: 3px solid var(--course-accent, var(--accent)); }
+.continue-hero-empty { padding: 1.4rem 1.5rem 1.5rem; }
+.continue-hero-coursetext { display: flex; flex-direction: column; min-width: 0; line-height: 1.3; }
+.continue-hero-territory { font-size: 0.78rem; color: var(--ink-faint); }
+.continue-hero-meet { display: flex; align-items: center; flex-wrap: wrap; gap: 0.35rem; margin: 0.2rem 0 0; }
+.continue-hero-meet-label { font-size: 0.78rem; font-weight: 600; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.06em; margin-right: 0.2rem; }
+.concept-chip {
+  display: inline-flex; align-items: center;
+  padding: 0.15rem 0.6rem; border-radius: 999px;
+  background: var(--course-accent-soft, var(--accent-soft)); color: var(--course-accent, var(--accent-strong));
+  font-size: 0.8rem; font-weight: 600;
+}
+@media (min-width: 720px) {
+  .continue-hero { display: grid; grid-template-columns: minmax(200px, 38%) minmax(0, 1fr); }
+  .continue-hero-art { min-height: 100%; }
+  .continue-hero-body { border-top: none; border-left: 3px solid var(--course-accent, var(--accent)); }
+  .continue-hero-empty { display: flex; }
+}
+.today-side { display: grid; gap: 1rem; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 640px) and (max-width: 899px) { .today-side { grid-template-columns: 1fr 1fr; } }
+
+/* Level card */
+.journey-card { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.1rem 1.25rem 1rem; }
+.journey-card-head { display: flex; align-items: center; gap: 0.7rem; }
+.journey-level-badge {
+  flex: none; width: 44px; height: 44px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: linear-gradient(145deg, var(--accent) 0%, var(--accent-strong) 100%);
+  color: var(--on-accent); font-weight: 800; font-size: 1.15rem;
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+.journey-card-text { flex: 1; min-width: 0; }
+.journey-card-text .continue-eyebrow { color: var(--ink-faint); margin: 0; }
+.journey-level-title { margin: 0; font-weight: 700; font-size: 1.1rem; letter-spacing: -0.01em; }
+.journey-xp { margin: 0; font-size: 0.85rem; color: var(--ink-soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.journey-xp strong { color: var(--ink); font-size: 1.05rem; }
+.journey-bar { height: 8px; border-radius: 999px; background: var(--surface-soft); overflow: hidden; }
+.journey-bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--accent) 0%, var(--star) 100%); transition: width 0.6s ease-out; }
+.journey-next { margin: 0; }
+.journey-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; margin: 0.3rem 0 0; }
+.journey-stats div { padding: 0.5rem 0.6rem; border-radius: 10px; background: var(--surface-soft); }
+.journey-stats dt { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-faint); }
+.journey-stats dd { margin: 0.1rem 0 0; font-weight: 700; font-size: 1.05rem; font-variant-numeric: tabular-nums; }
+.journey-foot { margin: 0.2rem 0 0; font-size: 0.76rem; }
+
+/* Art-topped course cards (Today + Library) */
+.course-card { padding: 0; overflow: hidden; border-left-width: 1px; border-left-color: var(--line); }
+.course-card-art { position: relative; height: 112px; background: var(--course-accent-soft, var(--surface-soft)); border-bottom: 3px solid var(--course-accent, var(--accent)); }
+.course-card-art .course-scene { position: absolute; inset: 0; transition: transform 0.4s ease-out; }
+.course-card:hover .course-card-art .course-scene { transform: scale(1.03); }
+.course-card-body { padding: 0.9rem 1.1rem 1rem; }
+.course-card-titles { flex: 1 1 auto; min-width: 0; }
+.course-card-territory { margin: 0.05rem 0 0; font-size: 0.78rem; color: var(--ink-faint); }
+.course-card-muted .course-card-art { filter: grayscale(0.6); opacity: 0.75; border-bottom-color: var(--line); }

@@ -31,7 +31,7 @@ export function Library() {
   return (
     <main className="page library">
       <h1>Library</h1>
-      <p className="page-sub">Every course, with what you've studied so far.</p>
+      <p className="page-sub">Your atlas of courses — every territory, and how far you&apos;ve travelled in each.</p>
       <div className="filter-chips" role="group" aria-label="Filter by status">
         {chips.map((f) => (
           <button key={f} type="button" className="filter-chip" aria-pressed={active === f} onClick={() => setFilter(f)}>

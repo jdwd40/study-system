@@ -14,6 +14,10 @@ import type {
   QaEntry,
   StudyTimeEntry,
 } from '../../src/shared/types.js';
+import type { JourneyView } from '../../src/shared/journey.js';
+
+export type { JourneyView, JourneyTotals, LevelView } from '../../src/shared/journey.js';
+export { levelFor, xpFor, LEVELS, XP_PER_LESSON, XP_PER_REVIEW } from '../../src/shared/journey.js';
 
 export type {
   Attempt,
@@ -105,6 +109,15 @@ export interface DashboardData {
   recentActivity: RecentActivityEntry[];
   dueFlashcards: number;
   lastSyncError: SyncEvent | null;
+  /** Gentle XP/level layer derived from existing records (see src/shared/journey.ts). */
+  journey: JourneyView;
+}
+
+/** POST /lessons/:id/end */
+export interface EndLessonResponse {
+  attempt: Attempt;
+  state: LessonState;
+  journey: JourneyView;
 }
 
 /* ---------- lesson ---------- */

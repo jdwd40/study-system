@@ -349,6 +349,32 @@ export class StudyRepo {
 
   // ---- sessions ---------------------------------------------------------------
 
+  // ---- key/value counters ---------------------------------------------------
+
+  kvGet(key: string): string | null {
+    const row = this.db.prepare('SELECT value FROM kv WHERE key = ?').get(key) as { value: string } | undefined;
+    return row ? row.value : null;
+  }
+
+  kvSet(key: string, value: string): void {
+    this.db
+      .prepare('INSERT INTO kv (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value')
+      .run(key, value);
+  }
+
+  /** Monotonic integer counter; missing keys start at 0. Returns the new value. */
+  kvIncrement(key: string, by = 1): number {
+    const next = Number(this.kvGet(key) ?? 0) + by;
+    this.kvSet(key, String(next));
+    return next;
+  }
+
+  /** Number of attempts closed as completed (all time). */
+  completedAttemptCount(): number {
+    const row = this.db.prepare("SELECT COUNT(*) AS n FROM attempts WHERE status = 'completed'").get() as { n: number };
+    return row.n;
+  }
+
   createSession(token: string, expiresAt: string): void {
     this.db.prepare('INSERT INTO sessions (token, created_at, expires_at) VALUES (?, ?, ?)').run(token, now(), expiresAt);
   }

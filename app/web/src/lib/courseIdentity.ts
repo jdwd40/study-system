@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react';
+import { artStyle, courseArt, type ArtScene } from './courseArt';
 
 /**
  * Deterministic visual identity for a course: an accent hue, a 1–2 letter
@@ -59,11 +60,20 @@ export interface CourseIdentity {
   hue: CourseHue;
   glyph: CourseGlyph;
   monogram: string;
+  /** Illustrated scene for this course (see courseArt.ts / CourseScene.tsx). */
+  scene: ArtScene;
+  /** One factual line placing the course ("Eastern Mediterranean · c. 1500–1150 BCE"); empty when unknown. */
+  territory: string;
   /** Inline custom properties for an element carrying the `course-ident` class. */
   style: CSSProperties;
 }
 
 export function courseIdentity(id: string, title: string): CourseIdentity {
+  const art = courseArt(id, title);
+  if (art.scene !== 'atlas') {
+    // Registered (or keyword-matched) course: the art palette and glyph are the identity.
+    return { hue: 'green', glyph: art.glyph, monogram: monogram(title, id), scene: art.scene, territory: art.territory, style: artStyle(art.palette) };
+  }
   const h = hash(id);
   const hue = HUE_ORDER[h % HUE_ORDER.length]!;
   // Use a different slice of the hash for the glyph so hue and glyph don't pair up 1:1.
@@ -75,5 +85,5 @@ export function courseIdentity(id: string, title: string): CourseIdentity {
     '--course-accent-dark': pair.dark[0],
     '--course-accent-soft-dark': pair.dark[1],
   } as CSSProperties;
-  return { hue, glyph, monogram: monogram(title, id), style };
+  return { hue, glyph, monogram: monogram(title, id), scene: 'atlas', territory: '', style };
 }
