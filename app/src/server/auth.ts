@@ -40,6 +40,16 @@ export function verifyPassword(password: string, stored: string): boolean {
   return timingSafeEqual(actual, expected);
 }
 
+export function recoveryDigest(code: string): string {
+  return createHash('sha256').update(`study-recovery-v1:${code}`).digest('hex');
+}
+
+export function rotateRecoveryCodes(repo: StudyRepo): string[] {
+  const codes = Array.from({ length: 10 }, () => randomBytes(16).toString('hex'));
+  repo.rotateRecoveryCodes(codes.map(recoveryDigest));
+  return codes;
+}
+
 export function newSessionToken(): string {
   return randomBytes(32).toString('hex');
 }

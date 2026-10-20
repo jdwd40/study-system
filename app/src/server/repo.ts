@@ -131,6 +131,44 @@ function toHabitLink(r: HabitLinkRow): HabitLink {
 export class StudyRepo {
   constructor(private readonly db: Db) {}
 
+  allowAuthAttempt(route: string, now = Date.now()): boolean {
+    return this.db.transaction(() => {
+      this.db.prepare('INSERT INTO auth_limits (route, started_at, attempts) VALUES (?, ?, 1) ON CONFLICT(route) DO UPDATE SET attempts = CASE WHEN started_at <= ? THEN 1 ELSE attempts + 1 END, started_at = CASE WHEN started_at <= ? THEN excluded.started_at ELSE started_at END').run(route, now, now - 900_000, now - 900_000);
+      const row = this.db.prepare('SELECT attempts FROM auth_limits WHERE route = ?').get(route) as { attempts: number };
+      return row.attempts <= 20;
+    }).immediate();
+  }
+
+  passwordHash(fallback: string | null): string | null {
+    const row = this.db.prepare('SELECT password_hash FROM auth_credentials WHERE id = 1').get() as { password_hash: string } | undefined;
+    return row?.password_hash ?? fallback;
+  }
+
+  /** Serialize proof acceptance with resets from other connections/processes. */
+  withCurrentCredential<T>(observed: string, fallback: string | null, action: () => T): T | null {
+    return this.db.transaction(() => {
+      if (this.passwordHash(fallback) !== observed) return null;
+      return action();
+    }).immediate();
+  }
+
+  rotateRecoveryCodes(digests: string[]): void {
+    this.db.transaction(() => {
+      this.db.prepare('DELETE FROM recovery_codes').run();
+      const insert = this.db.prepare('INSERT INTO recovery_codes (digest) VALUES (?)');
+      for (const digest of digests) insert.run(digest);
+    }).immediate();
+  }
+
+  recoverPassword(digest: string, passwordHash: string): boolean {
+    return this.db.transaction(() => {
+      if (this.db.prepare('DELETE FROM recovery_codes WHERE digest = ?').run(digest).changes !== 1) return false;
+      this.db.prepare('INSERT INTO auth_credentials (id, password_hash) VALUES (1, ?) ON CONFLICT(id) DO UPDATE SET password_hash = excluded.password_hash').run(passwordHash);
+      this.db.prepare('DELETE FROM sessions').run();
+      return true;
+    }).immediate();
+  }
+
   // ---- lesson state -------------------------------------------------------
 
   getLessonState(lessonId: string): LessonState {

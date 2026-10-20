@@ -2,7 +2,7 @@ import { Link, NavLink } from 'react-router-dom';
 import type { ThemePref } from '../../hooks/useTheme';
 import type { DashboardData } from '../../types';
 import { ContinueCard } from './ContinueCard';
-import { IconCollapse, IconExpand, IconSearch, IconSignOut } from './icons';
+import { IconCollapse, IconExpand, IconManage, IconSearch, IconSignOut } from './icons';
 import { NAV_ITEMS } from './navItems';
 import { ThemeToggle } from './ThemeToggle';
 
@@ -55,6 +55,7 @@ export function Sidebar({ dashboard, onSearch, theme, setTheme, onSignOut, colla
           </Link>
         )}
         <ThemeToggle theme={theme} setTheme={setTheme} showLabel />
+        <NavLink to="/account" className="shell-btn" aria-label="Account" title="Account"><IconManage /><span>Account</span></NavLink>
         <button type="button" className="shell-btn" onClick={onSignOut} {...lab('Sign out')}><IconSignOut /><span>Sign out</span></button>
       </div>
     </aside>

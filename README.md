@@ -44,6 +44,77 @@ and if an Origin header is present it must match this host (CSRF guard);
 nothing is forwarded upstream except the JSON
 body. Unset `TASK_API_URL` → 503; upstream network failure → sanitized 502.
 
+## Forgotten admin password
+
+The live backend runs on `app-vps`. Connect as the owner of its PM2 process:
+
+```sh
+ssh app-vps
+cd ~/study-system/app
+npm run jdct -- admin reset-password
+```
+
+Enter and confirm the new password (hidden input). On an upgraded database,
+reset creates or replaces the DB credential override and clears sessions in one
+transaction, even before the first recovery, without a PM2 restart. Only older
+schemas without the credential table use the legacy PM2 update/restart/save flow:
+sessions are revoked **before** the active credential changes and stay revoked if
+restart or save fails. That fallback cannot atomically coordinate PM2 and SQLite;
+a failure can leave the running and saved PM2 credentials different, so inspect
+PM2 locally before retrying. Upgrade the backend/schema for the atomic reset path.
+Requires the backend CLI code and installed dependencies; legacy fallback and
+managed-process discovery also require the local `pm2` command.
+Shared frontends using this backend's auth boundary inherit the new credential;
+this repository does not contain Command Tower's proxy configuration.
+
+### One-use recovery codes (no passkeys)
+
+While signed in, open **Account** (`/study/account`), confirm your current password
+and acknowledge rotation. Save the ten new codes offline; they are displayed once
+and cannot be retrieved. Rotation immediately invalidates all older codes. Codes
+are case-sensitive 32-character hex strings (128 random bits each). There is no
+passkey login and no email dependency.
+
+From the signed-out Study login page choose **Forgot password?**, supply one unused
+code, and confirm a new password (12–256 characters). Success consumes that code,
+persists the new scrypt hash and revokes **all** sessions in one SQLite transaction.
+Sign in again; recovery does not create a session. Remaining unused codes still
+work. Passwords for login/rotation are bounded at 256 characters.
+
+**Locked out without codes:** after the upgraded backend has created the recovery
+schema, the local server owner can explicitly rotate codes into a new protected
+file. Confirm the actual runtime `STUDY_DB_PATH` locally first; do not guess it.
+Run from the app checkout on the server, not from chat or a logged automation:
+
+```sh
+npm run jdct -- admin recovery-codes --db /absolute/path/to/existing/study.db --output /absolute/private/directory/new-recovery-codes.txt
+```
+
+The command does not use/restart PM2, create a missing database, print codes, or
+overwrite an existing output file. The output is exclusively created with mode
+`0600`; use a private directory outside Git/cloud sync. Transfer the codes directly
+to an offline/password-manager secure note, then remove the plaintext export.
+Do not paste codes/passwords into chat, URLs, shell arguments or logs. An interrupted
+export/rotation should be retried with a new output filename; only the latest
+successful rotation is authoritative. The interactive `admin reset-password`
+command above remains an alternative server-owner backup.
+
+The database stores only SHA-256 domain-separated recovery digests, not codes.
+The single DB credential override takes precedence over `STUDY_PASSWORD_HASH` on
+every login, including after process restarts. Startup/migration never seeds or
+replaces that override from the environment. Retain the existing environment hash
+for production configuration compatibility; changing it alone will not change an
+existing DB override. Protect database/backups as credentials; restoring an old
+backup can revive old credentials, sessions and codes, so rotate after a restore.
+
+Auth writes reject cross-site origins/fetch metadata and non-JSON content types;
+responses use `Cache-Control: no-store`. Login, code rotation and recovery each
+have a persistent **global** budget of 20 attempts per 15 minutes (no trust in
+forwarded IP headers). This intentionally trades availability under attack for
+bounded guessing/KDF work; a server-owner reset/bootstrap is independent of that
+HTTP budget. Code rotation requires both a session and current-password proof,
+even with development bypass. No recovery secrets are stored in browser storage.
+
 ## Canonical content rules
 
 Every write (web UI or Hermes) goes through the same transactional structure

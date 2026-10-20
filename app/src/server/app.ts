@@ -16,6 +16,9 @@ import {
   sessionExpiry,
   setSessionCookie,
   verifyPassword,
+  hashPassword,
+  recoveryDigest,
+  rotateRecoveryCodes,
   isAuthenticated,
 } from './auth.js';
 import { SCHEMA_VERSION, type Grade, type LessonDoc } from '../shared/types.js';
@@ -51,6 +54,32 @@ export function buildApp(deps: AppDeps): Express {
     res.json({ ok: true, service: 'study-system', time: new Date().toISOString() });
   });
 
+  api.use('/auth', (req, res, next) => {
+    res.setHeader('Cache-Control', 'no-store');
+    if (req.method !== 'POST') { next(); return; }
+    const origin = req.headers.origin;
+    let sameOrigin = true;
+    if (origin) {
+      try {
+        const parsed = new URL(origin);
+        sameOrigin = ['http:', 'https:'].includes(parsed.protocol) && parsed.host === req.headers.host;
+      } catch { sameOrigin = false; }
+    }
+    if (!sameOrigin || req.headers['sec-fetch-site'] === 'cross-site') {
+      res.status(403).json({ error: 'request rejected' }); return;
+    }
+    if (req.headers['content-type'] && !req.is('application/json')) {
+      res.status(415).json({ error: 'JSON required' }); return;
+    }
+    // Match Express's case-insensitive, optional-trailing-slash route semantics.
+    const route = req.path.toLowerCase().replace(/\/+$/, '');
+    if (['/login', '/recover', '/recovery-codes'].includes(route) && !repo.allowAuthAttempt(route)) {
+      res.setHeader('Retry-After', '900');
+      res.status(429).json({ error: 'try again later' }); return;
+    }
+    next();
+  });
+
   api.post('/auth/login', (req, res) => {
     const { password } = req.body ?? {};
     if (config.devBypass) {
@@ -60,13 +89,50 @@ export function buildApp(deps: AppDeps): Express {
       res.json({ ok: true, devBypass: true });
       return;
     }
-    if (!config.passwordHash || typeof password !== 'string' || !verifyPassword(password, config.passwordHash)) {
+    const stored = repo.passwordHash(config.passwordHash);
+    if (!stored || typeof password !== 'string' || password.length > 256 || !verifyPassword(password, stored)) {
       res.status(401).json({ error: 'invalid password', code: 'LOGIN_FAILED' });
       return;
     }
     const token = newSessionToken();
-    repo.createSession(token, sessionExpiry());
+    const accepted = repo.withCurrentCredential(stored, config.passwordHash, () => {
+      repo.createSession(token, sessionExpiry());
+      return true;
+    });
+    if (!accepted) {
+      res.status(401).json({ error: 'invalid password', code: 'LOGIN_FAILED' });
+      return;
+    }
     setSessionCookie(res, token, config.nodeEnv);
+    res.json({ ok: true });
+  });
+
+  api.post('/auth/recovery-codes', auth, (req, res) => {
+    res.setHeader('Cache-Control', 'no-store');
+    const stored = repo.passwordHash(config.passwordHash);
+    const { password } = req.body ?? {};
+    if (!stored || typeof password !== 'string' || password.length > 256 || !verifyPassword(password, stored)) {
+      res.status(401).json({ error: 'invalid credentials', code: 'RECOVERY_FAILED' });
+      return;
+    }
+    const codes = repo.withCurrentCredential(stored, config.passwordHash, () => rotateRecoveryCodes(repo));
+    if (!codes) {
+      res.status(401).json({ error: 'invalid credentials', code: 'RECOVERY_FAILED' });
+      return;
+    }
+    res.json({ codes });
+  });
+
+  api.post('/auth/recover', (req, res) => {
+    res.setHeader('Cache-Control', 'no-store');
+    const { code, password } = req.body ?? {};
+    if (typeof code !== 'string' || !/^[a-f0-9]{32}$/.test(code) ||
+        typeof password !== 'string' || password.length < 12 || password.length > 256 || !password.trim() ||
+        !repo.recoverPassword(recoveryDigest(code), hashPassword(password))) {
+      res.status(401).json({ error: 'invalid credentials', code: 'RECOVERY_FAILED' });
+      return;
+    }
+    clearSessionCookie(res);
     res.json({ ok: true });
   });
 
