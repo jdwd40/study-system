@@ -8,7 +8,7 @@ export default defineConfig({
     port: 5174,
     proxy: {
       '/study/api': {
-        target: 'http://127.0.0.1:4173',
+        target: process.env.STUDY_API_ORIGIN ?? 'http://127.0.0.1:4173',
         changeOrigin: true,
       },
     },

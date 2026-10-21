@@ -1,5 +1,6 @@
 import type { StudyRepo } from './repo.js';
 import type { ContentStore, ContentTree } from './contentStore.js';
+import { journeyView, type JourneyView } from '../shared/journey.js';
 import { initialCardState, scheduleCard, selectDue } from '../shared/sm2.js';
 import type {
   Attempt,
@@ -13,6 +14,8 @@ import type {
   QaEntry,
   StudyTimeEntry,
 } from '../shared/types.js';
+
+const REVIEW_COUNTER_KEY = 'journey.cardReviews';
 
 export class ServiceError extends Error {
   constructor(
@@ -145,7 +148,7 @@ export class LessonService {
   endLesson(
     lessonId: string,
     ratings: { userRating: number; hermesRating?: number | null },
-  ): { attempt: Attempt; state: LessonState } {
+  ): { attempt: Attempt; state: LessonState; journey: JourneyView } {
     this.mustLesson(lessonId);
     const { userRating, hermesRating = null } = ratings;
     if (!Number.isInteger(userRating) || userRating < 1 || userRating > 5) {
@@ -165,7 +168,7 @@ export class LessonService {
     this.repo.setLessonRatings(lessonId, userRating, hermesRating);
     this.repo.setLessonStatus(lessonId, 'complete');
     const attempt = this.repo.closeAttempt(active.id, 'completed');
-    return { attempt, state: this.repo.getLessonState(lessonId) };
+    return { attempt, state: this.repo.getLessonState(lessonId), journey: this.journey() };
   }
 
   recordRatings(lessonId: string, userRating: number | null, hermesRating: number | null): LessonState {
@@ -248,7 +251,35 @@ export class LessonService {
     const current = this.repo.getCardState(cardId, lessonId) ?? initialCardState(today);
     const next = scheduleCard(current, grade, today);
     this.repo.saveCardState(cardId, lessonId, next);
+    this.repo.kvIncrement(REVIEW_COUNTER_KEY);
     return next;
+  }
+
+  // ---- journey (XP / level) ----------------------------------------------------
+
+  /**
+   * Totals for the gentle XP layer, derived from records that already exist.
+   * The review counter is a monotonic kv value; on first use it is seeded from
+   * the per-card SM-2 state (successful reps since the last lapse + lapses),
+   * a floor on the true number of grades given before the counter existed.
+   */
+  journey(): JourneyView {
+    const states = this.repo.allLessonStates();
+    const lessonsClaimed = states.filter((s) => s.status === 'complete').length;
+    const rated = states.filter((s) => s.userRating !== null);
+    const averageUnderstanding = rated.length === 0 ? null : rated.reduce((sum, s) => sum + (s.userRating ?? 0), 0) / rated.length;
+    let counter = this.repo.kvGet(REVIEW_COUNTER_KEY);
+    if (counter === null) {
+      const seed = this.repo.allCardStates().reduce((sum, c) => sum + c.reps + c.lapses, 0);
+      this.repo.kvSet(REVIEW_COUNTER_KEY, String(seed));
+      counter = String(seed);
+    }
+    return journeyView({
+      lessonsClaimed,
+      cardReviews: Number(counter),
+      attemptsCompleted: this.repo.completedAttemptCount(),
+      averageUnderstanding,
+    });
   }
 
   // ---- dashboard --------------------------------------------------------------
@@ -316,6 +347,7 @@ export class LessonService {
       recentActivity,
       dueFlashcards: this.dueFlashcards().length,
       lastSyncError: this.repo.lastSyncError(),
+      journey: this.journey(),
     };
   }
 

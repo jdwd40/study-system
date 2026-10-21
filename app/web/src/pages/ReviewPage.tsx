@@ -6,6 +6,7 @@ import { RichMarkdown } from '../components/RichMarkdown';
 import { Spinner } from '../components/Spinner';
 import { useData } from '../hooks/useData';
 import type { FlashcardCard, FlashcardsResponse, Grade } from '../types';
+import { XP_PER_REVIEW } from '../types';
 
 /**
  * Flashcard review.
@@ -182,7 +183,7 @@ export function ReviewPage() {
   if (loading && !data) return <Spinner />;
   if (error) return <Err error={error} />;
 
-  const modeLabel = sessionSize !== null ? `Short session · ${total} card${total === 1 ? '' : 's'}` : 'Full queue';
+  const modeLabel = sessionSize !== null ? `Revision run · ${total} card${total === 1 ? '' : 's'}` : 'Full queue';
   const reviewedTotal = counts.again + counts.hard + counts.good + counts.easy;
   const showSummary = done && reviewedTotal > 0;
   const currentGrade = card ? graded[card.cardId] : undefined;
@@ -190,7 +191,7 @@ export function ReviewPage() {
   return (
     <main className="page page-narrow review">
       <h1>Revision &amp; Flashcards</h1>
-      <p className="page-sub">Due suggestions first — browse anything, in any order.</p>
+      <p className="page-sub">Short runs of due cards, {XP_PER_REVIEW} XP each — browse anything, in any order.</p>
 
       <header className="review-head card" aria-label="Session">
         <div className="review-head-row">
@@ -204,7 +205,7 @@ export function ReviewPage() {
           {sessionSize !== null ? (
             <button type="button" className="btn btn-ghost review-toggle" onClick={() => setSession(null)}>Switch to full queue</button>
           ) : (
-            <button type="button" className="btn btn-ghost review-toggle" onClick={() => setSession(DEFAULT_SESSION)}>Make it a short session of {DEFAULT_SESSION}</button>
+            <button type="button" className="btn btn-ghost review-toggle" onClick={() => setSession(DEFAULT_SESSION)}>Make it a run of {DEFAULT_SESSION}</button>
           )}
         </div>
         <div className="review-progress" role="progressbar" aria-label="Session progress" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress * 100)}>
@@ -222,8 +223,8 @@ export function ReviewPage() {
 
       {showSummary ? (
         <section className="card review-summary" aria-labelledby="review-summary-title">
-          <p className="continue-eyebrow">{sessionSize !== null ? 'Session complete' : 'Queue finished'}</p>
-          <h2 id="review-summary-title">You reviewed {reviewedTotal} card{reviewedTotal === 1 ? '' : 's'}</h2>
+          <p className="continue-eyebrow">{sessionSize !== null ? 'Run complete' : 'Queue finished'}</p>
+          <h2 id="review-summary-title">You reviewed {reviewedTotal} card{reviewedTotal === 1 ? '' : 's'} <span className="review-summary-xp">+{reviewedTotal * XP_PER_REVIEW} XP</span></h2>
           <ul className="review-summary-grades list-plain">
             {GRADES.map((x) => (
               <li key={x.g} className={`review-summary-grade grade-${x.g}`}>

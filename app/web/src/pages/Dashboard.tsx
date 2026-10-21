@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import { api } from '../api';
 import { Bar } from '../components/Bar';
 import { CourseMark } from '../components/CourseMark';
+import { CourseScene } from '../components/CourseScene';
 import { Err } from '../components/Err';
+import { JourneyCard } from '../components/JourneyCard';
 import { Pill } from '../components/Pill';
 import { Spinner } from '../components/Spinner';
 import { Stars } from '../components/Stars';
@@ -19,6 +21,14 @@ const COURSE_ORDER: Record<CourseStatus, number> = { active: 0, paused: 1, archi
 function todayLine(): string {
   // "Sunday 19 October" — day-first, no year; it's today, the year is implied.
   return new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' });
+}
+
+function greeting(): string {
+  const h = new Date().getHours();
+  if (h < 5) return 'Late night';
+  if (h < 12) return 'Good morning';
+  if (h < 18) return 'Good afternoon';
+  return 'Good evening';
 }
 
 export function Dashboard() {
@@ -47,25 +57,28 @@ export function Dashboard() {
 
   return (
     <main className="page today">
-      <h1>Today</h1>
-      <p className="page-sub">{todayLine()}</p>
+      <h1>{greeting()}</h1>
+      <p className="page-sub">{todayLine()} · Level {d.journey.level.number} {d.journey.level.title}</p>
       {d.lastSyncError && (
         <div className="banner banner-warn" role="alert">
           Last content sync failed ({d.lastSyncError.type}): {d.lastSyncError.message}
         </div>
       )}
 
-      <section className="today-hero" aria-label="Continue studying">
+      <section className="today-hero" aria-label="Continue your journey">
         {target ? <ContinueHero target={target} course={courseOf(target.lesson)} />
           : needsNext && nextLesson === undefined ? <div className="card continue-hero continue-hero-empty"><Spinner /></div>
           : (
             <div className="card continue-hero continue-hero-empty">
-              <p className="continue-eyebrow">Continue studying</p>
+              <p className="continue-eyebrow">Continue your journey</p>
               <p className="card-title">Nothing in progress.</p>
               <p className="card-sub">Pick a lesson from the <Link to="/library">Library</Link> whenever you're ready.</p>
             </div>
           )}
-        <ReviseCard due={d.dueFlashcards} />
+        <div className="today-side">
+          <JourneyCard journey={d.journey} />
+          <ReviseCard due={d.dueFlashcards} />
+        </div>
       </section>
 
       <h2>Your courses</h2>
@@ -77,7 +90,7 @@ export function Dashboard() {
 
       <div className="today-two">
         <section>
-          <h2>Weak areas <span className="meta">(based only on your own ratings)</span></h2>
+          <h2>Worth revisiting <span className="meta">(based only on your own ratings)</span></h2>
           <p className="section-note">Ratings are your own 1–5 self-assessment after each lesson — never inferred from time spent or reading.</p>
           {d.weakAreas.length === 0 ? <div className="empty empty-sm">No weak areas — nothing rated 2 or below.</div> : (
             <ul className="list-plain card">
@@ -86,7 +99,7 @@ export function Dashboard() {
           )}
         </section>
         <section>
-          <h2>Recent activity</h2>
+          <h2>Recent steps</h2>
           {d.recentActivity.length === 0 ? <div className="empty empty-sm">Nothing yet. Start a lesson from the <Link to="/library">Course Library</Link>.</div> : (
             <ul className="list-plain card">
               {d.recentActivity.map((a) => (
@@ -108,27 +121,42 @@ export function Dashboard() {
 function ContinueHero({ target, course }: { target: ContinueTarget; course: CourseSummary | undefined }) {
   const ident = courseIdentity(target.lesson.courseId, course?.title ?? target.lesson.courseId);
   const cta = target.reason === 'resume' ? 'Back to lesson' : target.reason === 'next' ? 'Start lesson' : 'Open lesson';
+  const meet = target.lesson.keyConcepts.slice(0, 4).map((k) => k.term);
   return (
     <article className="card continue-hero course-ident" style={ident.style}>
-      <p className="continue-eyebrow">{target.label}</p>
-      <div className="continue-hero-course">
-        <CourseMark glyph={ident.glyph} monogram={ident.monogram} size="sm" />
-        {course ? <Link to={`/course/${course.id}`} className="continue-hero-courselink">{course.title}</Link> : <span>{target.lesson.courseId}</span>}
+      <div className="continue-hero-art"><CourseScene scene={ident.scene} /></div>
+      <div className="continue-hero-body">
+        <p className="continue-eyebrow">Continue your journey · {target.label}</p>
+        <div className="continue-hero-course">
+          <CourseMark glyph={ident.glyph} monogram={ident.monogram} size="sm" />
+          <span className="continue-hero-coursetext">
+            {course ? <Link to={`/course/${course.id}`} className="continue-hero-courselink">{course.title}</Link> : <span>{target.lesson.courseId}</span>}
+            {ident.territory && <span className="continue-hero-territory">{ident.territory}</span>}
+          </span>
+        </div>
+        <p className="continue-hero-title">{target.lesson.title}</p>
+        <p className="continue-hero-meta">
+          <Pill status={target.status} />
+          {target.lesson.estimatedMinutes !== undefined && <span className="meta">about {fmtMinutes(target.lesson.estimatedMinutes)}</span>}
+          {course && course.progress.plannedLessons > 0 && <span className="meta">{course.progress.completedLessons} of {course.progress.plannedLessons} available lessons studied</span>}
+        </p>
+        {meet.length > 0 && (
+          <p className="continue-hero-meet">
+            <span className="continue-hero-meet-label">You'll meet</span>
+            {meet.map((t) => <span key={t} className="concept-chip">{t}</span>)}
+          </p>
+        )}
+        <Link to={`/lesson/${target.lesson.id}`} className="btn btn-primary continue-hero-btn">{cta} →</Link>
       </div>
-      <p className="continue-hero-title">{target.lesson.title}</p>
-      <p className="continue-hero-meta">
-        <Pill status={target.status} />
-        {target.lesson.estimatedMinutes !== undefined && <span className="meta">about {fmtMinutes(target.lesson.estimatedMinutes)}</span>}
-      </p>
-      <Link to={`/lesson/${target.lesson.id}`} className="btn btn-primary continue-hero-btn">{cta}</Link>
     </article>
   );
 }
 
 function ReviseCard({ due }: { due: number }) {
+  const n = Math.min(due, 10);
   return (
     <aside className="card revise-card" aria-label="Revise">
-      <p className="continue-eyebrow">Revise</p>
+      <p className="continue-eyebrow">Revision run</p>
       {due === 0 ? (
         <>
           <p className="card-title">Nothing due — nice.</p>
@@ -137,7 +165,7 @@ function ReviseCard({ due }: { due: number }) {
       ) : (
         <>
           <p className="card-title revise-count">{due} card{due === 1 ? '' : 's'} due</p>
-          <Link to="/review?session=10" className="btn btn-ghost revise-btn">Revise {Math.min(due, 10)} card{Math.min(due, 10) === 1 ? '' : 's'}</Link>
+          <Link to="/review?session=10" className="btn btn-ghost revise-btn">Run {n} card{n === 1 ? '' : 's'} · +{n * 5} XP</Link>
           <p className="card-sub"><Link to="/review">Open full queue</Link></p>
         </>
       )}
@@ -150,19 +178,25 @@ function CourseCard({ c }: { c: CourseSummary }) {
   const hasLessons = c.progress.plannedLessons > 0;
   return (
     <Link to={`/course/${c.id}`} className={`card course-card course-ident${c.status === 'archived' ? ' course-card-muted' : ''}`} style={{ color: 'inherit', ...ident.style }}>
-      <div className="course-card-head">
-        <CourseMark glyph={ident.glyph} monogram={ident.monogram} />
-        <p className="card-title">{c.title}</p>
+      <div className="course-card-art"><CourseScene scene={ident.scene} /></div>
+      <div className="course-card-body">
+        <div className="course-card-head">
+          <CourseMark glyph={ident.glyph} monogram={ident.monogram} />
+          <div className="course-card-titles">
+            <p className="card-title">{c.title}</p>
+            {ident.territory && <p className="course-card-territory">{ident.territory}</p>}
+          </div>
+        </div>
+        {hasLessons && <Bar percent={c.progress.percent} label={false} />}
+        <p className="card-sub course-card-meta">
+          <Pill status={c.status} />
+          <span>
+            {hasLessons ? <>{c.progress.completedLessons} of {c.progress.plannedLessons} available lessons studied</> : 'No lessons yet'}
+            {c.averageUserRating !== null && <> · avg understanding {c.averageUserRating.toFixed(1)}/5</>}
+          </span>
+        </p>
+        {c.studyMinutes > 0 && <p className="card-sub studytime-line">{fmtMinutes(c.studyMinutes)} tracked via Habit Tracker</p>}
       </div>
-      {hasLessons && <Bar percent={c.progress.percent} label={false} />}
-      <p className="card-sub course-card-meta">
-        <Pill status={c.status} />
-        <span>
-          {hasLessons ? <>{c.progress.completedLessons} of {c.progress.plannedLessons} available lessons studied</> : 'No lessons yet'}
-          {c.averageUserRating !== null && <> · avg understanding {c.averageUserRating.toFixed(1)}/5</>}
-        </span>
-      </p>
-      {c.studyMinutes > 0 && <p className="card-sub studytime-line">{fmtMinutes(c.studyMinutes)} tracked via Habit Tracker</p>}
     </Link>
   );
 }
